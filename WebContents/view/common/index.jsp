@@ -4,7 +4,7 @@
 <html>
 <head>
 <style>
-body { margin: -3px;  }
+body { margin: -3px; overflow-x: hidden; }
 	#header { 
 		background-image: url("img/sw10.png"); 
 		width: 1950px; height: 1000px ;
