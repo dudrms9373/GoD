@@ -1,5 +1,7 @@
 package memebr.vo;
 
+package memebr.vo;
+
 public class MemberVo {
 	private String uid ;
 	private String upw ;
