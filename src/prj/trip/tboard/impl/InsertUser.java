@@ -12,13 +12,15 @@ import memebr.dao.MemberDao;
 import memebr.vo.MemberVo;
 
 public class InsertUser implements Action{
-
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uid = request.getParameter("id");
 		String upw = request.getParameter("pw");
 		String uname = request.getParameter("name");
 		String uemail = request.getParameter("email");
+		String addr = request.getParameter("addrBasic") + request.getParameter("addrDetail");
+		
+		String nick = request.getParameter("nick");
 		
 		String year = request.getParameter("birth");
 		String month = request.getParameter("month");
@@ -34,7 +36,7 @@ public class InsertUser implements Action{
 		
 		String gender = request.getParameter("gender");
 		
-		MemberVo vo = new MemberVo(uid, upw, uname, uemail, birth, tel, gender);
+		MemberVo vo = new MemberVo(uid, upw, uname, uemail, nick, addr, birth, tel, gender);
 		MemberDao dao = new MemberDao();
 		dao.InsertUser(vo);
 		response.setContentType("text/html; charset=UTF-8");
