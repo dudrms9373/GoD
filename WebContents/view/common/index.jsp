@@ -27,7 +27,7 @@
 	
 </div>
 <div id="search" >
-	원하는 여행지를 검색하세요 !!  ▶ &nbsp;&nbsp; <input type="text" >
+	원하는 여행지를 검색하세요 !!  ▶ &nbsp;&nbsp; <input type="text" class="findtext">
 	<button id="b_search">검색</button>
 </div>
 </div>
