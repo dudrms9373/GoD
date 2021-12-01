@@ -1,1 +1,65 @@
 @charset "UTF-8";
+
+/* --------- create.jsp ---------  */
+.jointitle {text-align: center;}
+
+.jointable {
+	margin-left: auto; margin-right: auto; 
+	border: 1px solid black;  
+	padding : 50px; 
+	}
+
+.CreateForm { text-align: center;}
+.jointable td { padding: 6px; }
+ #btn_create { width: 180px; height: 50px; margin-top: 20px; }
+ 
+/* --------- index.jsp --------- */
+
+#background { margin: -3px; overflow-x: hidden; }
+
+#header { 
+		background-image: url("/img/sw10.png"); 
+		width: 1950px; height: 1000px ;
+		background-size: cover; 
+}
+
+	#search { 
+  position : absolute; left: 33%; top: 65%; 
+	display: flex;
+  justify-content: center;
+  align-items: center;
+	background-color: white; opacity:0.8; width : 580px ;
+	height : 50px ;
+	border-radius: 10px;
+	padding: 10px;
+	padding-right: 50px;
+	}
+
+	.findtext {font-size : 20px;}
+	#b_search {margin: -45px;}
+
+	#b_div { 
+    margin: 50px; padding : 5px;  
+    position : absolute; left: 65%; top: 3%;
+}
+
+	#b_div button{ width: 150px; height: 50px;  }
+	#header:first-child button { border : 1px solid skyblue; border-radius: 20px; opacity: 0.9;}
+	#b_div:first-child button { border : 1px solid skyblue; border-radius: 20px; opacity: 0.9;}
+
+
+/* ---------  login.jsp --------- */
+
+.logintitle {text-align: center;}
+.loginForm { text-align: center;}
+
+.logintable { 
+	margin-left: auto; margin-right: auto; 
+	border: 1px solid black; padding-left: 50px; 
+	padding-top:30px; padding-right: 50px; padding-bottom: 80px;
+	}
+	
+.logintable td { padding: 6px; }
+.bottomText {padding-top: 15px;}
+.home { text-align: center;}
+	
