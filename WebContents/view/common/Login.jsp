@@ -3,24 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/css/common.css"/>
 <style>
-h2 {text-align: center;}
-	.loginForm { text-align: center;}
-	table { margin-left: auto; margin-right: auto; border: 1px solid black; padding-left: 50px; 
-	padding-top:30px; padding-right: 50px; padding-bottom: 80px;}
-	table td { padding: 6px; }
-	.bottomText {padding-top: 15px;}
-	div { text-align: center;}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-<div>
+<div class="home">
 	<a href="index.jsp" id="main"><img src="img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
-<h2>로그인</h2>
+<h2 class="logintitle">로그인</h2>
 	<form action="index.html" method="post" class="loginForm">
  <table>
  
