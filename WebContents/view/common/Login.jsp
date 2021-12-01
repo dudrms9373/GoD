@@ -16,7 +16,7 @@
 </div>
 <h2 class="logintitle">로그인</h2>
 	<form action="index.html" method="post" class="loginForm">
- <table>
+ <table class="logintable">
  
  
  <tr>
