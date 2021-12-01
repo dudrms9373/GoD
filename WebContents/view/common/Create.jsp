@@ -16,6 +16,44 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+      function check() {
+		 
+        var r = document.reg_input; 
+        if ( r.id.value == "" ) {
+            alert("아이디를 입력해주십시오");
+            r.id.focus();
+            return false;
+        }
+        if (r.pw.value == "") {
+            alert("비밀번호를 입력해주십시오");
+            r.pw.focus();           
+            return false;
+        }
+        if (r.name.value == "") {
+            alert("이름을 입력해주십시오");
+            r.name.focus();
+            return false;
+        }
+        if (r.email.value == "") {
+            alert("이메일을 입력해주십시오");
+            r.email.focus();
+            return false;
+        }
+
+        if (r.tel2.value == "" || r.tel3.value == "") {
+            alert("전화번호를 입력해주십시오");
+            r.tel1.focus();
+            return false;
+        }
+        if (r.day.value == "") {
+            alert("생일을 선택해주십시오");
+            return false;
+        }
+        if (r.gender.value == "") {
+            alert("성별을 선택해주십시오");
+            return false;
+        }
+    }   
 window.onload = function() {
 	$('#mon,#year').change(function() {
 	var mon = document.getElementById('mon').value;
@@ -30,12 +68,14 @@ window.onload = function() {
 	console.log("마지막 일자" + c);
     
 	var html ="";
-	for (var i = 0; i < c+1; i++) {
+	for (var i = 1; i < c+1; i++) {
 		html += "<option>"+ i +"</option>";
 	}
 	  $('#day').html(html);
 }
       )
+      
+      
 	}
 </script>
 </head>
@@ -46,7 +86,7 @@ window.onload = function() {
 
 <h2>회원가입</h2>
 	
-<form action="" method="post" class="CreateForm">
+<form name="reg_input" action="tboard?cmd=insert" method="post" class="CreateForm" onsubmit="return check()">
 	<table>
 	<tr>
 	<td>아이디  </td>
@@ -72,14 +112,14 @@ window.onload = function() {
 				<%} %>
 	       </select> 년 
 	       
-	<select name="b_month" id="mon">
+	<select name="month" id="mon">
 	<%for(int a=1; a < 13; a++){ %>
 				<option><%=a %></option>
 				<%} %>
 	       </select> 월
 	     
 	       
-	<select name="b_day" id="day">
+	<select name="day" id="day">
 	
 	
 	       </select> 일</td>
@@ -98,12 +138,11 @@ window.onload = function() {
 	</tr>
 	<tr>
 	<td>성별  </td>
-		<td colspan="2"><input type="radio" name="gender" value="m" checked>남자
+		<td colspan="2"><input type="radio" name="gender" value="m">남자
 	<input type="radio" name="gender" value="f">여자 </td>
 	</tr>
 	<tr>
-	
-		<td colspan="3" ><input type="submit" value="회원가입" id="btn_create"> </td>
+		<td colspan="3" ><input type="submit" value="회원가입" id="btn_create" > </td>
 	</tr>
 </table>
 	</form>
