@@ -6,8 +6,8 @@ public class ActionFactory {
 		Action action = null;
 		
 		switch(command){
-		case "":
-			//action =
+		case "insert":
+			action = new InsertUser();
 			break;
 		default: break;
 		}
