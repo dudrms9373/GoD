@@ -3,16 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/css/common.css"/>
 <style>
-	h2 {text-align: center;}
-	table {margin-left: auto; margin-right: auto; border: 1px solid black;  
-	padding : 50px; border: 1px solid black;}
-	.CreateForm { text-align: center;}
-	table td { padding: 6px; border: 1px solid black;}
- 	div { text-align: center;}
- 	#btn_create { width: 180px; height: 50px; margin-top: 20px; }
- 	#addrZipNum {background-color: #eeeeee};
- 	#ad {margin-left: -100px;}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -181,15 +173,15 @@ window.onload = function() {
 </script>
 </head>
 <body>
-<div>
+<div class="home">
 	<a href=index.jsp><img src="img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
 
-<h2>회원가입</h2>
+<h2 class ="jointitle">회원가입</h2>
 <div id="id_check_text"></div>
 	
 <form name="reg_input" action="tboard?cmd=insert" method="post" class="CreateForm" onsubmit="return check()" >
-	<table>
+	<table class="jointable">
 	<tr>
 	<td>아이디  </td>
 		<td colspan="2"> <input type="text" name="id" id="id" placeholder="ID" required oninput="Idcheck()"></td>
