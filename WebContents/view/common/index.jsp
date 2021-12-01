@@ -3,29 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="/css/common.css"/>
 <style>
-body { margin: -3px; overflow-x: hidden; }
-	#header { 
-		background-image: url("img/sw10.png"); 
-		width: 1950px; height: 1000px ;
-		background-size: cover; }
-	#search { position : absolute; left: 33%; top: 65%; 
-	display: flex;
-    justify-content: center;
-    align-items: center;
-	background-color: white; opacity:0.8; width : 580px ;
-	height : 50px ;
-	border-radius: 10px;
-	padding: 10px;
-	padding-right: 50px;
-	}
-	input {
-	font-size : 20px; 
-	}
-	#b_search {margin: -45px;}
-	#b_div { margin: 50px; padding : 5px;  position : absolute; left: 65%; top: 3%;}
-	#b_div button{ width: 150px; height: 50px;  }
-	div:first-child button { border : 1px solid skyblue; border-radius: 20px; opacity: 0.9;}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -37,7 +16,7 @@ body { margin: -3px; overflow-x: hidden; }
 		}
 	}
 </script>
-<body >
+<body id="background">
 <div id="header">
 
 <div id="b_div">
