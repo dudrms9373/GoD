@@ -1,5 +1,30 @@
 @charset "UTF-8";
 
+/* --------- header.jsp --------- */
+.headerUl {text-align:center;}
+.headerUl ul {list-style:none;}
+.headerUl li{
+	text-align:center;
+	float:left; margin-right:23%;
+}
+.headerUl li > a{text-decoration:none; color:white;}
+
+.headerUl{
+	margin:0;width:100%;height:50px;
+	background-color: #00aee9;border:solid 1px;
+	margin:0 auto;
+}
+
+.mainTitle{
+	margin:0;width:100px;height:70px;
+	background-color: black;border:solid 1px;
+}
+.mainTitle a{text-decoration:none;color:white;}
+.headerBody{margin:0;} /* 여백없이 만들려고 body 넣음 */
+.headerButtons{width:380px;height:30px;position:absolute; top:3%; right:5%;}
+.headerTop{width:100%;height:60px;margin:0 auto;}
+
+
 /* --------- create.jsp ---------  */
 .jointitle {text-align: center;}
 
