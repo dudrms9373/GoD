@@ -37,6 +37,16 @@
      
   </table>
     </form>
+
+<% 
+    String msg = request.getParameter("msg");
+	if( msg!=null && msg.equals("0") ){
+		out.print("<h2>비밀번호가 틀렸습니다<h2>");
+	}else if( msg!=null && msg.equals("-1") ){
+		out.print("<h2>아이디가 틀렸습니다<h2>");
+	}
+
+%>
     
 </body>
 </html>
