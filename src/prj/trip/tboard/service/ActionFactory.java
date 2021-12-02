@@ -1,7 +1,7 @@
 package prj.trip.tboard.service;
 
-import TBoard.impl.IdCheck;
-import TBoard.impl.InsertUser;
+import prj.trip.tboard.impl.IdCheck;
+import prj.trip.tboard.impl.InsertUser;
 
 public class ActionFactory {
 
@@ -15,8 +15,6 @@ public class ActionFactory {
 		case "IdCheck":
 			action = new IdCheck();
 			break;
-			
-			
 		default: break;
 		}
 		
