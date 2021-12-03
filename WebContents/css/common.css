@@ -1,31 +1,45 @@
 @charset "UTF-8";
 
 /* --------- header.jsp --------- */
-.headerUl {text-align:center;}
-.headerUl ul {list-style:none;}
+.headerUl ul {display : flex; width:100%;  margin:0; list-style:none; float:left; text-align:center; }
 .headerUl li{
+	width:100%;
+	display : inline-block;
 	text-align:center;
-	float:left; margin-right:23%;
 }
 .headerUl li > a{text-decoration:none; color:white;}
 
-.headerUl{
-	margin:0;width:100%;height:50px;
-	background-color: #00aee9;border:solid 1px;
-	margin:0 auto;
-}
+.mainTitle  {   text-align: center;   width: 100px;  height: 100%;  font-size: 40px; }
 
-.mainTitle{
-	margin:0;width:100px;height:70px;
-	background-color: black;border:solid 1px;
-}
+.headerUl{  display : flex;
+	 margin:0 auto; width:600px ; height:100%; line-height: 50px;  }
+	 
+.headerButtons{  width: 274px;  height:100%;  text-align: center; line-height: 50px; 
+display: flex; justify-content: center; align-items: center; margin-right: 140px;}
+
+.headerTop{  width:100%; height:52px; margin:0 auto; padding: 0px; background-color: rgba(72,81,84,0.8);}
+
+.headerBody{margin:0; position:fixed; width:100%;  z-index: 2;} /* 여백없이 만들려고 body 넣음 */
+
+
+a { text-decoration: none; color: inherit; display: flex; justify-content: center; align-items: center; }
+.login { border-radius :5px; width: 274px;   height: 50px;  margin-right: 140px; 
+  display: flex; justify-content: center; align-items: center; }
+.login img{ vertical-align:middle;  } 
+b {color: white; }
+
+
+
+#btn_search {margin: 0 40px 0 20px;}
+.login_btn {margin-right: 10px;}
+/*
+
 .mainTitle a{text-decoration:none;color:white;}
-.headerBody{margin:0;} /* 여백없이 만들려고 body 넣음 */
 .headerButtons{width:380px;height:30px;position:absolute; top:3%; right:5%;}
-.headerTop{width:100%;height:60px;margin:0 auto;}
 
-
+ */
 /* --------- create.jsp ---------  */
+
 .jointitle {text-align: center;}
 
 .jointable {
@@ -43,16 +57,17 @@
 #background { margin: -3px; overflow-x: hidden; }
 
 #header { 
-		background-image: url("/img/sw10.png"); 
-		width: 1950px; height: 1000px ;
+		background-image: url("../img/Alps2.jpg"); 
+		width: 1915px; height: 1000px ;
 		background-size: cover; 
-}
+		}
 
-	#search { 
-  position : absolute; left: 33%; top: 65%; 
+#search { 
+ 	position : absolute; left: 33%; top: 80%; 
+ 	z-index: 1;
 	display: flex;
-  justify-content: center;
-  align-items: center;
+  	justify-content: center;
+  	align-items: center;
 	background-color: white; opacity:0.8; width : 580px ;
 	height : 50px ;
 	border-radius: 10px;
@@ -60,17 +75,29 @@
 	padding-right: 50px;
 	}
 
-	.findtext {font-size : 20px;}
-	#b_search {margin: -45px;}
+.findtext {font-size : 20px;}
+#b_search {margin: -45px;}
 
-	#b_div { 
-    margin: 50px; padding : 5px;  
-    position : absolute; left: 65%; top: 3%;
+#div_search {
+	display : none;
+    position: fixed;
+    width: 250px;
+    padding: 20px;
+    top: 60px;
+    right: 148px;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    
+    }
+
+#input_search { height: 25px; background-color: rgba(255, 255, 255, 0);  color: white; outline: none;
+border:0 solid black; font-size: 18px; padding-bottom: 7;
+ }   
+ #input_search::placeholder {
+  color: white;
+  font-style: italic;
 }
-
-	#b_div button{ width: 150px; height: 50px;  }
-	#header:first-child button { border : 1px solid skyblue; border-radius: 20px; opacity: 0.9;}
-	#b_div:first-child button { border : 1px solid skyblue; border-radius: 20px; opacity: 0.9;}
 
 
 /* ---------  login.jsp --------- */
@@ -87,4 +114,3 @@
 .logintable td { padding: 6px; }
 .bottomText {padding-top: 15px;}
 .home { text-align: center;}
-	
