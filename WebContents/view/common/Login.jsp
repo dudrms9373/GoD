@@ -17,7 +17,7 @@
 	<a href="index.jsp" id="main"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
 <h2 class="logintitle">로그인</h2>
-	<form action="index.html" method="post" class="loginForm">
+	<form action="mboard?cmd=Login" method="post" class="loginForm">
  <table class="logintable">
  
  
