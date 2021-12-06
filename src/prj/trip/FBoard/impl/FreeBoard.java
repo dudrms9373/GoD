@@ -1,4 +1,4 @@
-package prj.trip.FBoard.impl;
+package FBoard.impl;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import FBoard.Vo.FreeBoardVo;
 import FBoard.Vo.PagingVo;
-import TBoard.service.Action;
+import FBoard.controller.Action;
 import memebr.dao.MemberDao;
 
 public class FreeBoard implements Action {
