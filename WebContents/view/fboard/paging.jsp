@@ -56,18 +56,18 @@
 <link rel="stylesheet" href="css/common.css" />
 <div class="page">
   <div class="page_nation">
-    <a href="tboard?cmd=FreeBoard&pagenum=${param.firstPageNo}" class="first" style="display: inline;"></a>
-    <a href="tboard?cmd=FreeBoard&pagenum=${param.prevPageNo}" class="prev" style="display: inline;"></a>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.firstPageNo}" class="first" style="display: inline;"></a>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.prevPageNo}" class="prev" style="display: inline;"></a>
     <span>
         <c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
             <c:choose>
-                <c:when test="${i eq param.pageNo}"><a href="tboard?cmd=FreeBoard&pagenum=${ i }" class="choice" style="display: inline;">${i}</a></c:when>
-                <c:otherwise><a href="tboard?cmd=FreeBoard&pagenum=${ i }" class="choice" style="display: inline;">${i}</a></c:otherwise>
+                <c:when test="${i eq param.pageNo}"><a href="fboard?cmd=FreeBoard&pagenum=${ i }" class="choice" style="display: inline;">${i}</a></c:when>
+                <c:otherwise><a href="fboard?cmd=FreeBoard&pagenum=${ i }" class="choice" style="display: inline;">${i}</a></c:otherwise>
             </c:choose>
         </c:forEach>
     </span>
-    <a href="tboard?cmd=FreeBoard&pagenum=${param.nextPageNo}" class="next" style="display: inline;"></a>
-    <a href="tboard?cmd=FreeBoard&pagenum=${param.finalPageNo}" class="last" style="display: inline;"></a>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.nextPageNo}" class="next" style="display: inline;"></a>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.finalPageNo}" class="last" style="display: inline;"></a>
   </div>  
 </div>
 
