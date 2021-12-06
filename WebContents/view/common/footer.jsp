@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <meta charset="UTF-8">
 <footer>
-	<div class="footer">
+	<div class="footer" style="height: 100px;">
 	
 	<div class="copyright">copyright</div>
 	</div>
