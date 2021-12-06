@@ -1,4 +1,4 @@
-package FBoard.impl;
+package prj.trip.FBoard.impl;
 
 import java.io.IOException;
 import java.util.List;
