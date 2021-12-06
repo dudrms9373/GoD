@@ -141,6 +141,37 @@ public class TBoardDao {
 		
 		return cmtList;
 	}
+	
+	
+	//여행지 추천 게시글 삽입
+	public int insertTBoard(int memNum, String title, String addr, String bcontbox, ArrayList<String> filenames) {
+		int aftcnt = 0;
+		
+		String sql = "INSERT INTO TRIP_BOARD(TB_NUM, TB_TITLE, TB_ADDR, TB_CONT, TB_IMG1, TB_IMG2, TB_IMG3, TB_IMG4, MEM_NUM)";
+		sql		  += " VALUES NVL(TB_NUM,0)+1, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, addr);
+			pstmt.setString(3, bcontbox);
+			pstmt.setString(4, filenames.get(1));
+			pstmt.setString(5, filenames.get(0));
+			pstmt.setString(6, filenames.get(3));
+			pstmt.setString(7, filenames.get(2));
+			pstmt.setInt(8, memNum);
+			aftcnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return aftcnt;
+		
+	}
+	
 
 	//DB CLOSE
 	public void close() {
