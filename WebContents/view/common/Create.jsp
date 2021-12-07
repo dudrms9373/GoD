@@ -172,6 +172,9 @@ window.onload = function() {
 </script>
 </head>
 <body>
+<%@ include file="header.jsp" %>
+<div style="height: 75px"></div>
+
 <div class="home">
 	<a href=index.jsp><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
