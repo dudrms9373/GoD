@@ -58,38 +58,38 @@ public class MemberDao {
 	}
 
 	public int IdCheck(String id) {
-
+		
+		ResultSet      rs         = null;
+		
 		try {
-			DBConn db = new DBConn();
-			conn = db.getConnection();
-			String sql = " SELECT  MEM_NUM";
-			sql += " FROM   MEMBER ";
-			sql += " WHERE  MEM_NUM =  ? ";
-			pstmt = conn.prepareStatement(sql);
-
+			DBConn    db   =  new DBConn();
+			conn           =  db.getConnection();
+			String    sql  =  " SELECT  MEM_id";
+					  sql += " FROM   MEMBER ";
+					  sql += " WHERE  MEM_id =  ? ";
+			pstmt          =  conn.prepareStatement(sql);
+			
 			pstmt.setString(1, id);
-
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return 0;
-			} else {
-				return 1;
-			}
-
+			
+			rs       =  pstmt.executeQuery();
+			if( rs.next() ) {
+				return  0 ;
+				}else {
+				return  1 ;
+				}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				// if(conn != null ) conn.close();
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				//if(conn  != null )  conn.close();
 			} catch (SQLException e) {
 			}
 		}
 
-		return -1;
+		return   -1;
 	}
 
 	public String getNick(String id) { // 닉네임 가져오기
