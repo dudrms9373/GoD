@@ -49,7 +49,7 @@
 		<c:forEach var="fb" items="${ requestScope.fbvo }">
 		<tr style=" border: 1px solid black;">
 			<td class="list_no">${ fb.num }</td>
-			<td class="list_title">${ fb.title }</td>
+			<td class="list_title"><a href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }</a> </td>
 			<td class="list_writer">${ fb.nick }</td>
 			<td class="list_time">${ fb.date }</td>
 			<td class="list_hit">${ fb.cnt }</td>
