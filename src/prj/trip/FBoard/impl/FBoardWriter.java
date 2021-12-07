@@ -16,13 +16,13 @@ public class FBoardWriter implements Action{
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("LoginId") == null ) {
-			String PageUrl ="/Login.jsp";
+			String PageUrl ="/view/common/Login.jsp";
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter writer = response.getWriter(); 
 			writer.println("<script>alert('로그인이 필요합니다.'); location.href='"+PageUrl+"';</script>"); 
 			writer.close();
 		}else {
-			String path="/FreeBoard/FBoardWrite.jsp";
+			String path="/view/fboard/FBoardWrite.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}
 	}
