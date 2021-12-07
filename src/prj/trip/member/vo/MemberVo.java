@@ -54,7 +54,20 @@ public class MemberVo{
 	}
 
 	
+	//내 정보 용
+	public MemberVo(String mem_name, String mem_id, String mem_gender, String mem_addr, String mem_tel,
+			String mem_birth, String mem_nick, String mem_email) {
 
+		this.mem_name = mem_name;
+		this.mem_id = mem_id;
+		this.mem_gender = mem_gender;
+		this.mem_addr = mem_addr;
+		this.mem_tel = mem_tel;
+		this.mem_birth = mem_birth;
+		this.mem_nick = mem_nick;
+		this.mem_email = mem_email;
+
+	}
 
 	// Getter/Setter
 	public int getMem_num() {

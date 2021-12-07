@@ -148,7 +148,7 @@ public class TBoardDao {
 		int aftcnt = 0;
 		
 		String sql = "INSERT INTO TRIP_BOARD(TB_NUM, TB_TITLE, TB_ADDR, TB_CONT, TB_IMG1, TB_IMG2, TB_IMG3, TB_IMG4, MEM_NUM)";
-		sql		  += " VALUES ((SELECT NVL(MAX(TB_NUM),0)+1 FROM TRIP_BOARD), ?, ?, ?, ?, ?, ?, ?, ?)";
+		sql		  += " VALUES NVL(TB_NUM,0)+1, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			db    = new DBConn();
 			conn  = db.getConnection();

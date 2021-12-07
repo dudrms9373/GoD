@@ -1,6 +1,7 @@
-package prj.trip.tboard.impl;
+package prj.trip.member.impl;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import prj.trip.member.dao.MemberDao;
 import prj.trip.member.vo.MemberVo;
-import prj.trip.tboard.service.Action;
+import prj.trip.member.service.Action;
 
 public class InsertUser implements Action{
 	@Override
@@ -39,9 +40,15 @@ public class InsertUser implements Action{
 		MemberVo vo = new MemberVo(uid, upw, uname, uemail, nick, addr, birth, tel, gender);
 		MemberDao dao = new MemberDao();
 		
+		request.setAttribute("mem_info", vo); // 내정보에서 쓸 정보 담기
+		
 		dao.InsertUser(vo);
 		
 		response.setContentType("text/html; charset=UTF-8");
+		String path = "/view/common/index.jsp";
+
+		request.getRequestDispatcher(path).forward(request, response);
+
 		PrintWriter writer = response.getWriter(); 
 		writer.println("<script>alert('회원가입 완료!!'); location.href='"+"Login.jsp"+"';</script>"); 
 		writer.close();

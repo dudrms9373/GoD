@@ -1,10 +1,12 @@
 package prj.trip.member.controller;
 
 import prj.trip.member.service.Action;
-import prj.trip.member.service.IdCheck;
-import prj.trip.member.service.InsertUser;
-import prj.trip.member.service.Login;
-import prj.trip.member.service.LoginOut;
+
+import prj.trip.member.impl.IdCheck;
+import prj.trip.member.impl.InsertUser;
+import prj.trip.member.impl.Login;
+import prj.trip.member.impl.LoginOut;
+import prj.trip.member.impl.getMemInfo;
 
 public class ActionFactory {
 
@@ -23,6 +25,9 @@ public class ActionFactory {
 			break;
 		case "LoginOut":
 			action = new LoginOut();
+			break;
+		case "getMemInfo":
+			action = new getMemInfo();
 			break;
 				
 		default: break;

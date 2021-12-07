@@ -1,4 +1,4 @@
-package prj.trip.tboard.controller;
+package prj.trip.fboard.controller;
 
 import java.io.IOException;
 
@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import prj.trip.tboard.service.Action;
+import prj.trip.fboard.service.Action;
 
 
 
 
-@WebServlet("/tboard")
-public class TBoard extends HttpServlet {
+@WebServlet("/fboard")
+public class FBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -31,14 +31,19 @@ public class TBoard extends HttpServlet {
 
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
+		
 		String command = request.getParameter("cmd");
 		
 		ActionFactory fac  = new ActionFactory();
-		Action action    = fac.getAction(command);
+		Action action = fac.getAction(command);
 		action.excute(request,response);
-		}
+
+		
+		
 		
 		
 	}
 
+}

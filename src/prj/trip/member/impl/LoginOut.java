@@ -1,13 +1,15 @@
-package TBoard.impl;
+package prj.trip.member.impl;
 
 import java.io.IOException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import TBoard.service.Action;
+import prj.trip.member.service.Action;
+
 
 public class LoginOut implements Action{
 
@@ -16,7 +18,7 @@ public class LoginOut implements Action{
 		 HttpSession userSession = request.getSession();
 
 		 userSession.invalidate();
-		 response.sendRedirect("/sibal/index.jsp");
+		 response.sendRedirect("/view/common/index.jsp");
 	}
 
 }

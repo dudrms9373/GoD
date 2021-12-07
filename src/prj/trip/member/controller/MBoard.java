@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import prj.trip.member.service.Action;
+
 
 @WebServlet("/mboard")
 public class MBoard extends HttpServlet {
@@ -15,13 +17,28 @@ public class MBoard extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doProcess(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		doProcess(request, response);
+	}
+	
+
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		
+		String command = request.getParameter("cmd");
+
+		ActionFactory fac  = new ActionFactory();
+		
+		Action action = fac.getAction(command);
+		
+		action.excute(request,response);
+
 	}
 
 }
