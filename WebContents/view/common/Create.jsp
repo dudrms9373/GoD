@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/css/common.css"/>
+<link rel="stylesheet" href="../../css/common.css"/>
 <style>
 </style>
 <meta charset="UTF-8">
