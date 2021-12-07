@@ -57,7 +57,7 @@ public class FreeBoard implements Action {
 		List<FreeBoardVo> fbvo =   dao.getFreeBoardList( end , start);
 		request.setAttribute("fbvo", fbvo);
 		
-		String   path         =   "/FreeBoard/FreeBoard.jsp";  
+		String   path         =   "/view/fboard/FreeBoard.jsp";  
 		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
