@@ -1,4 +1,4 @@
-package FBoard.Vo;
+package prj.trip.FBoard.Vo;
 
 public class PagingVo {
 	 private int pageSize; // 게시 글 수

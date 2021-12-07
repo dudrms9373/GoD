@@ -1,4 +1,4 @@
-package FBoard.dao;
+package prj.trip.FBoard.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import FBoard.Vo.FreeBoardVo;
-import db.DBConn;
+import prj.trip.db.DBConn;
+import prj.trip.FBoard.Vo.FreeBoardVo;
+
+
+
+
 
 public class FreeBoardDao {
 	

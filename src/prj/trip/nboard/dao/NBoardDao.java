@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import oracle.jdbc.OracleCallableStatement;
 import prj.trip.db.DBConn;
 import prj.trip.nboard.vo.NBoardVo;
 

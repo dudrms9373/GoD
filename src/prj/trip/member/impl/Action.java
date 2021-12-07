@@ -1,4 +1,4 @@
-package prj.trip.member.service;
+package prj.trip.member.impl;
 
 
 

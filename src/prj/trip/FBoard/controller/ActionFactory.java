@@ -1,6 +1,7 @@
-package FBoard.controller;
+package prj.trip.FBoard.controller;
 
-import FBoard.impl.FreeBoard;
+import prj.trip.FBoard.impl.FreeBoard;
+import prj.trip.FBoard.service.Action;
 
 public class ActionFactory {
 

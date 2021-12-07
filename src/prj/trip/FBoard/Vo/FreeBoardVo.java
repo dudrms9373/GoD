@@ -1,4 +1,4 @@
-package FBoard.Vo;
+package prj.trip.FBoard.Vo;
 
 public class FreeBoardVo {
 	private String num;

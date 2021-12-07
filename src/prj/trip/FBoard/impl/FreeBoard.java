@@ -1,4 +1,4 @@
-package FBoard.impl;
+package prj.trip.FBoard.impl;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,22 +7,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import FBoard.Vo.FreeBoardVo;
-import FBoard.Vo.PagingVo;
-import FBoard.controller.Action;
-import memebr.dao.MemberDao;
+import prj.trip.FBoard.Vo.FreeBoardVo;
+import prj.trip.FBoard.Vo.PagingVo;
+import prj.trip.FBoard.dao.FreeBoardDao;
+import prj.trip.FBoard.service.Action;
+
+
+
+
 
 public class FreeBoard implements Action {
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int end;
 		int start;
 		int number;
+		
 		String num = request.getParameter("pagenum");
 		System.out.println("숫자"+num);
 		
-		MemberDao dao = new MemberDao();
+		FreeBoardDao dao = new FreeBoardDao();
 		
 		//페이징
 		PagingVo pvo = new PagingVo();
@@ -53,7 +59,7 @@ public class FreeBoard implements Action {
 		List<FreeBoardVo> fbvo =   dao.getFreeBoardList(end , start);
 		request.setAttribute("fbvo", fbvo);
 		
-		String   path         =   "/fboard/FreeBoard.jsp";  
+		String   path         =   "/view/fboard/FreeBoard.jsp";  
 		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
