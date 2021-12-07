@@ -31,6 +31,11 @@
 <body>
 <%@ include file="../common/header.jsp" %>
 <div style="height: 270px">
+<div style="height: 75px"></div>
+
+<div class="home">
+	<a href="../common/index.jsp"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
+</div>
 
 </div>
 <section>
