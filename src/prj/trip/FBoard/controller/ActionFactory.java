@@ -1,10 +1,10 @@
-package FBoard.controller;
+package prj.trip.FBoard.controller;
 
-import FBoard.impl.FBLikeCnt;
-import FBoard.impl.FBoardClick;
-import FBoard.impl.FBoardWrite;
-import FBoard.impl.FBoardWriter;
-import FBoard.impl.FreeBoard;
+import prj.trip.FBoard.impl.FBLikeCnt;
+import prj.trip.FBoard.impl.FBoardClick;
+import prj.trip.FBoard.impl.FBoardWrite;
+import prj.trip.FBoard.impl.FBoardWriter;
+import prj.trip.FBoard.impl.FreeBoard;
 
 public class ActionFactory {
 
