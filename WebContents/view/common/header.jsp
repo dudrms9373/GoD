@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="css/common.css" />
+
 <script>
 function enter() {
     alert("엔터 입력 감지");
@@ -22,6 +23,7 @@ function enter() {
 		});
 	}
 </script>
+
 <body style="margin:0;"> <!-- body 기본 마진 때문에 넣었습니다. 여백이 생김 , 여백없이 만들려고 body 넣음  -->
 <header class="headerBody">
 <div class="headerTop">
@@ -30,31 +32,31 @@ function enter() {
 
 	
 	<!-- 제목 -->
-	<div class="mainTitle"><a href="index.jsp">제목 </a><small style=" display :block;    font-size:0.6rem;
+	<div class="mainTitle"><a href="/view/common/index.jsp">제목 </a><small style=" display :block;    font-size:0.6rem;
   line-height:1em;">화이팅</small></div>
 	
 	<!-- 메뉴 -->
 	<div class="headerUl">
 		<ul>
-			<li><a href="">여행지 추천</a></li>
-			<li><a href="fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1">자유게시판</a></li>
-			<li><a href="">공지사항</a></li>
+			<li><a href="/tboard?cmd=TBOARDWRITEACTION&id=${ LoginId }">여행지 추천</a></li>
+			<li><a href="/fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1">자유게시판</a></li>
+			<li><a href="/nboard?cmd=nboardList&id=${LoginId }">공지사항</a></li>
 		</ul>
 	</div>
 	
 	<!-- 로그인,검색 -->
 	<% if(session.getAttribute("LoginId") == null ) { %>
 <div class="headerButtons">
-		<input type="image" id="btn_search" alt="" src="img/whitem2.png">
-		<button onClick="location.href='Login.jsp'" class="login_btn">로그인</button>
-		<button onClick="location.href='Create.jsp'">회원가입</button>
+		<input type="image" id="btn_search" alt="" src="/img/whitem2.png">
+		<button onClick="location.href='/view/common/Login.jsp'" class="login_btn">로그인</button>
+		<button onClick="location.href='/view/common/Create.jsp'">회원가입</button>
 	</div>
 
 <% }else{ %>
     <div id="b_div" class="login">
-		<input type="image" id="btn_search" alt="" src="img/whitem2.png" >
-	<a href="" id="info"><img alt="내정보"  src="img/UserIcon.png"> &nbsp <b> ${ sessionScope.LoginNick }님 </b></a> &nbsp
-		&nbsp<button onClick="location.href='tboard?cmd=LoginOut'">로그아웃</button>
+		<input type="image" id="btn_search" alt="" src="/img/whitem2.png" >
+	<a href="/mboard?cmd=getMemInfo" id="info"><img alt="내정보"  src="/img/UserIcon.png"> &nbsp <b> ${ sessionScope.LoginNick }님 </b></a> &nbsp
+		&nbsp<button onClick="location.href='/mboard?cmd=LoginOut'">로그아웃</button>
 	</div> 
 <% } %>
 

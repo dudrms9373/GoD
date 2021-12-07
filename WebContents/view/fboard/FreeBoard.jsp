@@ -29,7 +29,7 @@
 	}
 </script>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 <div style="height: 270px">
 
 </div>
@@ -76,6 +76,6 @@
 	</div>
 	</div>
 </section>
-<%@include file = "../footer.jsp" %>
+<%@include file = "../common/footer.jsp" %>
 </body>
 </html>

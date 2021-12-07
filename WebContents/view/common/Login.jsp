@@ -17,18 +17,22 @@
 	<a href="index.jsp" id="main"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
 <h2 class="logintitle">로그인</h2>
-	<form action="mboard?cmd=Login" method="post" class="loginForm">
+
+
+
+<form action="/mboard?cmd=Login" method="post" class="loginForm">
+	
  <table class="logintable">
  
  
  <tr>
- 	<td colspan="3" class="idForm"> <input type="text" class="id" placeholder="ID"> </td>
+ 	<td colspan="3" class="idForm"> <input type="text" class="id" name="id" placeholder="ID"> </td>
  </tr>
  <tr>
- 	<td colspan="3" class="pwdForm"><input type="password" class="pw" placeholder="PW"></td>
+ 	<td colspan="3" class="pwdForm"><input type="password" class="pw" name="pwd" placeholder="PW"></td>
  </tr>
  <tr>
- 	<td colspan="3"><button type="button" class="btn"> 로그인 </button></td>
+ 	<td colspan="3"><input type="submit" class="btn" value="로그인"></td>
  </tr>
  <tr>
  	<td colspan="3" style="color: #a68f8e; padding: 20px 0px; ">----------- 계정 만들기 -----------</a></td>

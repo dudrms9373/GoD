@@ -15,8 +15,7 @@ function goPopup(){
 	var xPos = (document.body.offsetWidth/2) - (570/2); // 가운데 정렬
 	var yPos = (document.body.offsetHeight/2) - (420/2);
 	
-	var pop = window.open("/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes , left="+xPos+", top="+yPos);
-	
+	var pop = window.open("/view/common/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes , left="+xPos+", top="+yPos);
 	
 }
 
@@ -43,7 +42,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 		var id = $('#id').val();
 		
 		$.ajax({
-			url :'/board?cmd=IdCheck',
+			url :'/mboard?cmd=IdCheck',
 			type : 'post',
 			data : {id : id},
 			success : function(result) {
@@ -179,29 +178,34 @@ window.onload = function() {
 
 <h2 class ="jointitle">회원가입</h2>
 <div id="id_check_text"></div>
-	
-<form name="reg_input" action="tboard?cmd=insert" method="post" class="CreateForm" onsubmit="return check()" >
+
+<form name="reg_input" action="/mboard?cmd=insert" method="post" class="CreateForm" onsubmit="return check()" >
 	<table class="jointable">
 	<tr>
 	<td>아이디  </td>
 		<td colspan="2"> <input type="text" name="id" id="id" placeholder="ID" required oninput="Idcheck()"></td>
 	</tr>
+	
 	<tr>
 	<td>비밀번호  </td>
 		<td colspan="2"><input type="password" name="pw" placeholder="PW" id="pw" required ></td>
 	</tr>
+	
 	<tr>
 	<td>비밀번호 확인 </td>
 		<td colspan="2"><input type="password" name="pw2" placeholder="Repeat PW" id="rpw" required oninput="PwCheck()"></td>
 	</tr>
+	
 	<tr>
 	<td>닉네임  </td>
 		<td colspan="2"><input type="text" name="nick" id="nick" placeholder="닉네임" required ></td>
 	</tr>
+	
 	<tr>
 	<td>이름  </td>
 		<td colspan="2"><input type="text" name="name" id="name" placeholder="이름" required ></td>
 	</tr>
+	
 	<tr>
 	<td>우편번호  </td>
 		<td colspan="2">
@@ -209,18 +213,22 @@ window.onload = function() {
 			<button type="button" name="ad" id="ad" onclick="goPopup()" >검색</button>
 		</td>
 	</tr>
+	
 	<tr>
 	<td>기본주소  </td>
 		<td colspan="2"><input type="text" name="addrBasic" id="addrBasic" placeholder="기본주소" readonly ></td>
 	</tr>
+	
 	<tr>
 	<td>상세주소  </td>
 		<td colspan="2"><input type="text" name="addrDetail" id="addrDetail" placeholder="상세주소" required ></td>
 	</tr>
+	
 	<tr>
 	<td>이메일  </td>
 		<td colspan="2"><input type="text" name="email" placeholder="이메일" required></td>
 	</tr>
+	
 	<tr>
 	<td>생년월일  </td>
 		<td colspan="2"> <select name="birth" id="year">
@@ -241,6 +249,7 @@ window.onload = function() {
 	
 	       </select> 일</td>
 	</tr>
+	
 	<tr>
 	<td>전화번호  </td>
 		<td colspan="2"><select name="tel1">
@@ -250,17 +259,21 @@ window.onload = function() {
 		<option>017</option>
 		<option>019</option>
 </select>
+
 	- <input type="text" name="tel2" size="4" required>
 	- <input type="text" name="tel3" size="4" required> </td>
 	</tr>
+	
 	<tr>
 	<td>성별  </td>
 		<td colspan="2"><input type="radio" name="gender" value="m" required>남자
 	<input type="radio" name="gender" value="f" >여자 </td>
 	</tr>
+	
 	<tr>
 		<td colspan="3" ><input type="submit" value="회원가입" id="btn_create" disabled > </td>
 	</tr>
+	
 </table>
 	</form>
 </body>
