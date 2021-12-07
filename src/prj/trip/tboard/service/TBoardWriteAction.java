@@ -59,6 +59,13 @@ public class TBoardWriteAction implements Action {
 	    		//filename과 original_filename을 인자로 받아 array에 넣을 필요가 있음(이미지 위치까지도)
 	    	}
 	    	
+		if(filenames.size()==2) {
+	    		filenames.add(null);
+	    		filenames.add(null);
+	    	}
+	    	if(filenames.size()==3) {
+	    		filenames.add(null);
+	    	}    
 	    	TBoardDao dao  = new TBoardDao();
 	    	String img     = "";
 	    	int aftcnt = dao.insertTBoard( memNum, title, addr, bcontbox, filenames);
