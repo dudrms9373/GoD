@@ -34,7 +34,7 @@
 <div style="height: 75px"></div>
 
 <div class="home">
-	<a href="../common/index.jsp"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
+	<a href="/view/common/index.jsp"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
 
 </div>
