@@ -6,7 +6,28 @@ public class FreeBoardVo {
 	private String nick;
 	private String date;
 	private String cnt;
+	private String cont;
 	private String likecnt;
+	public FreeBoardVo() {
+		super();
+		
+	}
+	
+	
+	
+	public FreeBoardVo(String num, String title, String date, String cnt, String cont, String likecnt, String nick) {
+		super();
+		this.num = num;
+		this.title = title;
+		this.date = date;
+		this.cnt = cnt;
+		this.cont = cont;
+		this.likecnt = likecnt;
+		this.nick = nick;
+	}
+
+
+
 	public FreeBoardVo(String num, String title, String nick, String date, String cnt, String likecnt) {
 		super();
 		this.num = num;
@@ -16,6 +37,19 @@ public class FreeBoardVo {
 		this.cnt = cnt;
 		this.likecnt = likecnt;
 	}
+	
+	public String getCont() {
+		return cont;
+	}
+
+
+
+	public void setCont(String cont) {
+		this.cont = cont;
+	}
+
+
+
 	public String getNum() {
 		return num;
 	}
