@@ -176,7 +176,7 @@ window.onload = function() {
 <div style="height: 75px"></div>
 
 <div class="home">
-	<a href=index.jsp><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
+	<a href="../common/index.jsp"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
 
 <h2 class ="jointitle">회원가입</h2>
