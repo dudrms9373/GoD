@@ -26,7 +26,7 @@ public class FreeBoard implements Action {
 		System.out.println("숫자"+num);
 		
 		MemberDao dao = new MemberDao();
-		String mnum = dao.getMemNum(id);
+		String mnum = dao.getMemNumm(id);
 		
 		//페이징
 		PagingVo pvo = new PagingVo();
