@@ -17,7 +17,7 @@
 <%@ include file="../common/header.jsp" %>
 <div style="height: 75px"></div>
 <div class="home">
-	<a href="index.jsp" id="main"><img src="../img/home.png" style="width: 50px; height: 50px;"></a>
+	<a href="/view/common/index.jsp" id="main"><img src="../img/home.png" style="width: 50px; height: 50px;"></a>
 </div>
 
 <table>		
