@@ -147,6 +147,39 @@ public int Login(String id, String pw) {
 	
 }
 
+	//테이블에 저장할 회원번호를 가져오기
+	public int getMemNum(String loginId) {
+		int memNum = 0;
+		String sql = "SELECT MEM_NUM FROM MEMBER WHERE MEM_ID = ? ";
+		
+		try {
+			db   	   = new DBConn();
+			conn 	   = db.getConnection();
+			pstmt      = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				memNum = rs.getInt("MEM_NUM");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+				return memNum;
+	}
+	
+	//DB CLOSE
+	public void close() {
+		try {
+			if(rs!=null)rs.close();
+			if(pstmt!=null)pstmt.close();
+			if(conn!=null)conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }
