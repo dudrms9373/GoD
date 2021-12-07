@@ -1,4 +1,4 @@
-package FBoard.impl;
+package prj.trip.FBoard.impl;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import FBoard.Vo.FreeBoardVo;
-import FBoard.Vo.PagingVo;
-import FBoard.controller.Action;
+import prj.trip.FBoard.Vo.FreeBoardVo;
+import prj.trip.FBoard.Vo.PagingVo;
+import prj.trip.FBoard.controller.Action;
 import memebr.dao.MemberDao;
 
 public class FreeBoard implements Action {
