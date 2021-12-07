@@ -1,4 +1,4 @@
-package prj.trip.FBoard.impl;
+package FBoard.impl;
 
 import java.io.IOException;
 import java.util.List;
@@ -6,29 +6,27 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import prj.trip.FBoard.Vo.FreeBoardVo;
-import prj.trip.FBoard.Vo.PagingVo;
-import prj.trip.FBoard.dao.FreeBoardDao;
-import prj.trip.FBoard.service.Action;
-
-
-
-
+import FBoard.Vo.FreeBoardVo;
+import FBoard.Vo.PagingVo;
+import FBoard.controller.Action;
+import memebr.dao.MemberDao;
 
 public class FreeBoard implements Action {
 
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
+		String id = (String) session.getAttribute("LoginId");
 		int end;
 		int start;
 		int number;
-		
 		String num = request.getParameter("pagenum");
 		System.out.println("숫자"+num);
 		
-		FreeBoardDao dao = new FreeBoardDao();
+		MemberDao dao = new MemberDao();
+		String mnum = dao.getMemNum(id);
 		
 		//페이징
 		PagingVo pvo = new PagingVo();
@@ -56,10 +54,10 @@ public class FreeBoard implements Action {
 		System.out.println(start); //게시물 시작번호
 		System.out.println(end); //게시물 끝번호
 		System.out.println(pvo.getPageSize()); //한페이지에 보이는 게시물 갯수
-		List<FreeBoardVo> fbvo =   dao.getFreeBoardList(end , start);
+		List<FreeBoardVo> fbvo =   dao.getFreeBoardList( end , start);
 		request.setAttribute("fbvo", fbvo);
 		
-		String   path         =   "/view/fboard/FreeBoard.jsp";  
+		String   path         =   "/FreeBoard/FreeBoard.jsp";  
 		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
