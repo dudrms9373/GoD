@@ -1,4 +1,4 @@
-package FBoard.impl;
+package prj.trip.FBoard.impl;
 
 import java.io.IOException;
 
@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import FBoard.controller.Action;
-import FBoard.dao.FreeBoardDao;
+import prj.trip.FBoard.controller.Action;
+import prj.trip.FBoard.dao.FreeBoardDao;
 
 public class FBoardWrite implements Action{
 
