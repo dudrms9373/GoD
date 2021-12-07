@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import prj.trip.FBoard.Vo.FreeBoardVo;
 import prj.trip.FBoard.Vo.PagingVo;
 import prj.trip.FBoard.controller.Action;
-import memebr.dao.MemberDao;
+import prj.trip.member.dao.MemberDao;
 
 public class FreeBoard implements Action {
 
