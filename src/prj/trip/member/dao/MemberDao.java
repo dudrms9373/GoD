@@ -176,6 +176,36 @@ public class MemberDao {
 		return memNum;
 	}
 	
+	//테이블에 저장할 회원번호를 가져오기
+	public String getMemNumm(String loginId) {
+		ResultSet rs=null;
+	 String memNum = "";
+	 String sql = "SELECT MEM_NUM FROM MEMBER WHERE MEM_ID = ? ";
+	 
+	 try {
+	    DBConn db         = new DBConn();
+	    conn       = db.getConnection();
+	    pstmt      = conn.prepareStatement(sql);
+	    pstmt.setString(1, loginId);
+	    rs = pstmt.executeQuery();
+	    
+	    if(rs.next()){
+	       memNum = rs.getString("MEM_NUM");
+	    }
+	 } catch (SQLException e) {
+	    e.printStackTrace();
+	 } finally {
+	    try {
+	  	  if(rs!=null)rs.close();
+	  	  if(pstmt!=null)pstmt.close();
+	  	  if(conn!=null)conn.close();
+	 } catch (SQLException e) {
+	    e.printStackTrace();
+	 }
+	 }
+	       return memNum;
+	}
+	
 
 	//내 정보 가져오기
 	public MemberVo getmemInfo(String loginId) {
