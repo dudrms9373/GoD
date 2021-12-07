@@ -1,7 +1,10 @@
-package prj.trip.FBoard.controller;
+package FBoard.controller;
 
-import prj.trip.FBoard.impl.FreeBoard;
-import prj.trip.FBoard.service.Action;
+import FBoard.impl.FBLikeCnt;
+import FBoard.impl.FBoardClick;
+import FBoard.impl.FBoardWrite;
+import FBoard.impl.FBoardWriter;
+import FBoard.impl.FreeBoard;
 
 public class ActionFactory {
 
@@ -12,6 +15,18 @@ public class ActionFactory {
 		
 		case "FreeBoard":
 			action = new FreeBoard();
+			break;
+		case "FBoardWriter":
+			action = new FBoardWriter();
+			break;
+		case "FBoardWrite":
+			action = new FBoardWrite();
+			break;
+		case "FBoardClick":
+			action = new FBoardClick();
+			break;
+		case "FBLikeCnt":
+			action = new FBLikeCnt();
 			break;
 			
 			

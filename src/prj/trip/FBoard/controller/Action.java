@@ -1,4 +1,4 @@
-package prj.trip.FBoard.controller;
+package FBoard.controller;
 
 import java.io.IOException;
 
