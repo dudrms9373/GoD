@@ -31,10 +31,10 @@ public class FBoardWrite implements Action{
 		int insertcheck = dao.InsertFBboard( title, cont, memnum);
 		
 		if(insertcheck == 1 ) {
-			String path="/FreeBoard/FBoardContent.jsp";
+			String path="/view/fboard/FBoardContent.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}else {
-			String path="/FreeBoard/FBoardWrite.jsp";
+			String path="/view/fboard/FBoardWrite.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}
 	}
