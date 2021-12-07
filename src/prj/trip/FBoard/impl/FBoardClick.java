@@ -37,7 +37,7 @@ public class FBoardClick implements Action{
 		
 		
 		
-		String path="/FreeBoard/FBoardContent.jsp";
+		String path="/view/fboard/FBoardContent.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
