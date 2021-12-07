@@ -15,7 +15,7 @@ function goPopup(){
 	var xPos = (document.body.offsetWidth/2) - (570/2); // 가운데 정렬
 	var yPos = (document.body.offsetHeight/2) - (420/2);
 	
-	var pop = window.open("/sibal/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes , left="+xPos+", top="+yPos);
+	var pop = window.open("/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes , left="+xPos+", top="+yPos);
 	
 	
 }
@@ -43,7 +43,7 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 		var id = $('#id').val();
 		
 		$.ajax({
-			url :'/sibal/tboard?cmd=IdCheck',
+			url :'/board?cmd=IdCheck',
 			type : 'post',
 			data : {id : id},
 			success : function(result) {
