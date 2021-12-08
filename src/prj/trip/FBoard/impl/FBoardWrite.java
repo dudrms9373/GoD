@@ -11,7 +11,6 @@ import prj.trip.FBoard.controller.Action;
 import prj.trip.FBoard.dao.FreeBoardDao;
 
 public class FBoardWrite implements Action{
-
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//HttpSession session = request.getSession();
@@ -27,7 +26,9 @@ public class FBoardWrite implements Action{
 		
 		FreeBoardDao dao = new FreeBoardDao();
 		int memnum = dao.getMemNum(id);
-		System.out.println(id +title + cont + memnum );
+		String nick = dao.getNick(id);	
+		request.setAttribute("nick", nick);
+		System.out.println(id +title + cont + memnum+"닉네임 : " + nick );
 		int insertcheck = dao.InsertFBboard( title, cont, memnum);
 		
 		if(insertcheck == 1 ) {

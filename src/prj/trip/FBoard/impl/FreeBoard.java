@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import prj.trip.FBoard.Vo.FreeBoardVo;
 import prj.trip.FBoard.Vo.PagingVo;
 import prj.trip.FBoard.controller.Action;
+import prj.trip.FBoard.dao.FreeBoardDao;
 import prj.trip.member.dao.MemberDao;
 
 public class FreeBoard implements Action {
@@ -26,6 +27,7 @@ public class FreeBoard implements Action {
 		System.out.println("숫자"+num);
 		
 		MemberDao dao = new MemberDao();
+		FreeBoardDao fdao = new FreeBoardDao();
 		String mnum = dao.getMemNumm(id);
 		
 		//페이징
@@ -54,6 +56,8 @@ public class FreeBoard implements Action {
 		System.out.println(start); //게시물 시작번호
 		System.out.println(end); //게시물 끝번호
 		System.out.println(pvo.getPageSize()); //한페이지에 보이는 게시물 갯수
+		
+		
 		List<FreeBoardVo> fbvo =   dao.getFreeBoardList( end , start);
 		request.setAttribute("fbvo", fbvo);
 		

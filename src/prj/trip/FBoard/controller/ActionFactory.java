@@ -2,6 +2,7 @@ package prj.trip.FBoard.controller;
 
 import prj.trip.FBoard.impl.FBLikeCnt;
 import prj.trip.FBoard.impl.FBoardClick;
+import prj.trip.FBoard.impl.FBoardSearch;
 import prj.trip.FBoard.impl.FBoardWrite;
 import prj.trip.FBoard.impl.FBoardWriter;
 import prj.trip.FBoard.impl.FreeBoard;
@@ -27,6 +28,9 @@ public class ActionFactory {
 			break;
 		case "FBLikeCnt":
 			action = new FBLikeCnt();
+			break;
+		case "FBoardSearch":
+			action = new FBoardSearch();
 			break;
 			
 			

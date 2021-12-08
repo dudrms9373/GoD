@@ -91,6 +91,159 @@ public int getCount(){
 	}
 	return count; // 총 레코드 수 리턴
 }
+
+
+//제목으로 검색
+public List<FreeBoardVo> getFBoardtitleSearch(int startNum, int endNum, String keyword){
+	
+	ResultSet rs = null;
+	List<FreeBoardVo> FreeBoardList = new ArrayList<FreeBoardVo>();
+	
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT  "
+				+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M  "
+				+ " WHERE RNUM >= ? "
+				+ " AND ( M.MEM_NUM = AA.MEM_NUM AND AA.FB_TITLE LIKE ? ) "
+				+ " order by FB_NUM asc  "; 
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, startNum);
+		pstmt.setInt(2, endNum);
+		pstmt.setString(3,"%" + keyword + "%");
+		rs = pstmt.executeQuery();
+		
+		while( rs.next() ) {
+			String num = rs.getString(1);	
+			String title = rs.getString(2);	
+			String nick = rs.getString(3);	
+			String date = rs.getString(4);	
+			String cnt = rs.getString(5);	
+			String likecnt = rs.getString(6);	
+			
+			FreeBoardVo fbvo = new FreeBoardVo(num, title, nick, date, cnt, likecnt);
+			
+			FreeBoardList.add(fbvo);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	
+	return FreeBoardList;
+	
+}
+
+public int getFBtitleSearchCount(String keyword){
+	ResultSet rs = null;
+	int count = 0;
+	String sql = "select count(*) from FREE_BOARD F, MEMBER M WHERE F.MEM_NUM = M.MEM_NUM AND FB_TITLE LIKE ? ";
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1,"%" + keyword + "%");
+		rs = pstmt.executeQuery();
+		if(rs.next()){
+			count = rs.getInt(1);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	return count; // 총 레코드 수 리턴
+}
+//////////////////////////////////
+//닉네임으로 검색
+public List<FreeBoardVo> getFBoardNickSearch(int startNum, int endNum, String keyword){
+	
+	ResultSet rs = null;
+	List<FreeBoardVo> FreeBoardList = new ArrayList<FreeBoardVo>();
+	
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT  "
+				+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M  "
+				+ " WHERE RNUM >= ? "
+				+ " AND ( M.MEM_NUM = AA.MEM_NUM AND M.MEM_NICK LIKE ? ) "
+				+ " order by FB_NUM asc  "; 
+		
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setInt(1, startNum);
+		pstmt.setInt(2, endNum);
+		pstmt.setString(3,"%" + keyword + "%");
+		rs = pstmt.executeQuery();
+		
+		while( rs.next() ) {
+			String num = rs.getString(1);	
+			String title = rs.getString(2);	
+			String nick = rs.getString(3);	
+			String date = rs.getString(4);	
+			String cnt = rs.getString(5);	
+			String likecnt = rs.getString(6);	
+			
+			FreeBoardVo fbvo = new FreeBoardVo(num, title, nick, date, cnt, likecnt);
+			
+			FreeBoardList.add(fbvo);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	
+	return FreeBoardList;
+	
+}
+
+public int getFBNickSearchCount(String keyword){
+	ResultSet rs = null;
+	int count = 0;
+	String sql = "select count(*) from FREE_BOARD F, MEMBER M WHERE F.MEM_NUM = M.MEM_NUM AND MEM_NICK LIKE ? ";
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1,"%" + keyword + "%");
+		rs = pstmt.executeQuery();
+		if(rs.next()){
+			count = rs.getInt(1);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	return count; // 총 레코드 수 리턴
+}
+//////////////////////////////////
+
 //테이블에 저장할 회원번호를 가져오기
 public int getMemNum(String loginId) {
 	ResultSet rs=null;
@@ -119,6 +272,34 @@ public int getMemNum(String loginId) {
    }
    }
          return memNum;
+}
+public String getMemNumm(String loginId) {
+	ResultSet rs=null;
+	String memNum = "";
+	String sql = "SELECT MEM_NUM FROM MEMBER WHERE MEM_ID = ? ";
+	
+	try {
+		DBConn db         = new DBConn();
+		conn       = db.getConnection();
+		pstmt      = conn.prepareStatement(sql);
+		pstmt.setString(1, loginId);
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()){
+			memNum = rs.getString("MEM_NUM");
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if(rs!=null)rs.close();
+			if(pstmt!=null)pstmt.close();
+			if(conn!=null)conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	return memNum;
 }
 
 //게시물 클릭시 제목내용 불러오기
