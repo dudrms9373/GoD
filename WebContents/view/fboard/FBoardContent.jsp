@@ -37,7 +37,12 @@
 		<tr>
 			<td align="center"><input type="submit" value="작성" class="button"></td>
 			<td ><input type="button" value="게시판으로 이동" onclick="location.href='fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1'"></td>
-			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&id=${ fbnum }'">추천수 : ${ like }</td>
+			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&id=${ fbnum }'">추천수 : 
+			<% if( session.getAttribute("like") == null ){ %>
+				0
+			<% }else{ %>
+				${ like }
+			<% } %></td>
 		</tr>
 	</table>
 </body>
