@@ -7,6 +7,7 @@ import prj.trip.nboard.service.Action;
 import prj.trip.nboard.impl.nboardDelete;
 import prj.trip.nboard.impl.nboardList;
 import prj.trip.nboard.impl.nboardUpdate;
+import prj.trip.nboard.impl.nboardUpdateForm;
 
 public class ActionFactory {
 
