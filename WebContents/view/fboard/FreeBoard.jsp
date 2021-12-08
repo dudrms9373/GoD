@@ -39,6 +39,7 @@
 
 </div>
 <section>
+
 	<div style=" width: 65%; min-height: 1200px; background-color: #F0FFF0; margin-left: auto; margin-right: auto; ">
 	<div style="padding-top: 60px;">
 	<table style="width: 90%;  border-collapse: collapse; margin-left: auto; margin-right: auto;">
@@ -64,7 +65,7 @@
 		
 	</table>
 	
-	<div style="height: 150px; text-align: center;"> <!-- 페이징 기능 -->
+	<div style="height: 50px; text-align: center;"> <!-- 페이징 기능 -->
 <jsp:include page="paging.jsp" flush="true">
     <jsp:param name="firstPageNo" value="${pvo.firstPageNo}" />
     <jsp:param name="prevPageNo" value="${pvo.prevPageNo}" />
@@ -74,9 +75,25 @@
     <jsp:param name="nextPageNo" value="${pvo.nextPageNo}" />
     <jsp:param name="finalPageNo" value="${pvo.finalPageNo}" />
 </jsp:include>
-   
-
 	</div>
+
+<div>
+<form action="fboard?cmd=FBoardSearch" method="post" style="text-align: center;">
+			<table style="border: 1px solid black; width: 700px; margin-left: auto; margin-right: auto;">
+				<tr>
+					<td style="border: 1px solid black;">
+						<select id="searchCondition" name="searchCondition">
+							<option value="Title">제목</option>
+							<option value="Content">닉네임</option>
+						</select>
+						<input id="searchKeyword" name="searchKeyword" type="text">
+						<input type="submit" value="검색 ">
+					</td>
+				</tr>		
+			</table>
+		</form>
+</div>   
+
 	
 	</div>
 	</div>
