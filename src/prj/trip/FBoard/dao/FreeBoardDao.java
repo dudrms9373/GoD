@@ -479,6 +479,32 @@ public List<FBCommentVo> getFBCommentList(String fnum){
 	
 }
 
+public void InsertFBC(String fnum,String memnum, String cont) {
+	ResultSet rs = null;
+	String sql =" INSERT INTO FB_COMMENT (FBC_NUM, FBC_CONT, MEM_NUM, FB_NUM )  "
+			+ " VALUES ( (SELECT NVL( MAX(FBC_NUM),0 )+1 FROM FB_COMMENT), ?, ?, ? )  ";
+			
+	DBConn db = new DBConn();
+	conn =  db.getConnection();
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, cont);
+		pstmt.setString(2, memnum);
+		pstmt.setString(3, fnum);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			conn.commit();
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	
+	
+	
+}
+
 
 
 
