@@ -41,7 +41,7 @@ function enter() {
 	<!-- 메뉴 -->
 	<div class="headerUl">
 		<ul>
-			<li><a href="/tboard?cmd=TBOARDWRITEACTION&id=${ LoginId }">여행지 추천</a></li>
+			<li><a href="/tboard?cmd=TBOARDLISTFORM&id=${ LoginId }">여행지 추천</a></li>
 			<li><a href="/fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1">자유게시판</a></li>
 			<li><a href="/nboard?cmd=nboardList&id=${LoginId }">공지사항</a></li>
 		</ul>
