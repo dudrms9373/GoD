@@ -32,7 +32,7 @@ public class FreeBoard implements Action {
 		
 		//페이징
 		PagingVo pvo = new PagingVo();
-		pvo.setPageSize(4);
+		pvo.setPageSize(10);
 		int s = pvo.getPageSize();
 		if(num == null) {
 			pvo.setPageNo(1);

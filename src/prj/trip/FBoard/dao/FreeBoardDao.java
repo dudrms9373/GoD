@@ -103,16 +103,17 @@ public List<FreeBoardVo> getFBoardtitleSearch(int startNum, int endNum, String k
 		DBConn db = new DBConn();
 		conn = db.getConnection();
 		String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT  "
-				+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M  "
+				+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT AF.FB_NUM, AF.FB_TITLE, MF.MEM_NICK, AF.FB_DATE, AF.FB_CNT, MF.MEM_NUM "
+				+ " FROM FREE_BOARD AF, MEMBER MF WHERE  MF.MEM_NUM = AF.MEM_NUM  AND AF.FB_TITLE LIKE ?  ORDER BY AF.FB_NUM ASC ) Z  WHERE ROWNUM <= ? ) AA , MEMBER M "
 				+ " WHERE RNUM >= ? "
-				+ " AND ( M.MEM_NUM = AA.MEM_NUM AND AA.FB_TITLE LIKE ? ) "
-				+ " order by FB_NUM asc  "; 
+				+ " AND  M.MEM_NUM = AA.MEM_NUM "
+				+ " order by FB_NUM asc "; 
 		
 		pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setInt(1, startNum);
-		pstmt.setInt(2, endNum);
-		pstmt.setString(3,"%" + keyword + "%");
+		pstmt.setString(1,"%" + keyword + "%");
+		pstmt.setInt(2,startNum);
+		pstmt.setInt(3, endNum);
 		rs = pstmt.executeQuery();
 		
 		while( rs.next() ) {
@@ -177,17 +178,18 @@ public List<FreeBoardVo> getFBoardNickSearch(int startNum, int endNum, String ke
 	try {
 		DBConn db = new DBConn();
 		conn = db.getConnection();
-		String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT  "
-				+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M  "
+		String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT "
+				+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT AF.FB_NUM, AF.FB_TITLE, MF.MEM_NICK, AF.FB_DATE, AF.FB_CNT, MF.MEM_NUM "
+				+ " FROM FREE_BOARD AF, MEMBER MF WHERE  MF.MEM_NUM = AF.MEM_NUM  AND MF.MEM_NICK LIKE ?  ORDER BY AF.FB_NUM ASC ) Z  WHERE ROWNUM <= ? ) AA , MEMBER M "
 				+ " WHERE RNUM >= ? "
-				+ " AND ( M.MEM_NUM = AA.MEM_NUM AND M.MEM_NICK LIKE ? ) "
-				+ " order by FB_NUM asc  "; 
+				+ " AND  M.MEM_NUM = AA.MEM_NUM "
+				+ " order by FB_NUM asc "; 
 		
 		pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setInt(1, startNum);
-		pstmt.setInt(2, endNum);
-		pstmt.setString(3,"%" + keyword + "%");
+		pstmt.setString(1,"%" + keyword + "%");
+		pstmt.setInt(2,startNum);
+		pstmt.setInt(3, endNum);
 		rs = pstmt.executeQuery();
 		
 		while( rs.next() ) {
