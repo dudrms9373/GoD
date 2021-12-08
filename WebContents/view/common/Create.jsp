@@ -169,6 +169,24 @@ window.onload = function() {
       
       
 	}
+	function birthh() {
+	var year = document.getElementById('year').value;
+	var mon = document.getElementById('mon').value;
+	
+	console.log(year);
+	console.log(mon);
+	
+	let lastDate = new Date(year, mon, 0);
+    var c = lastDate.getDate();
+	
+	console.log("마지막 일자" + c);
+    
+	var html ="";
+	for (var i = 1; i < c+1; i++) {
+		html += "<option>"+ i +"</option>";
+	}
+	  $('#day').html(html);
+}
 </script>
 </head>
 <body>
@@ -234,13 +252,13 @@ window.onload = function() {
 	
 	<tr>
 	<td>생년월일  </td>
-		<td colspan="2"> <select name="birth" id="year">
+		<td colspan="2"> <select name="birth" id="year" onchange="birthh()">
 	<%for(int i=1900; i<2021; i++){ %>
 				<option><%=i %></option>
 				<%} %>
 	       </select> 년 
 	       
-	<select name="month" id="mon">
+	<select name="month" id="mon" onchange="birthh()">
 	<%for(int a=1; a < 13; a++){ %>
 				<option><%=a %></option>
 				<%} %>
