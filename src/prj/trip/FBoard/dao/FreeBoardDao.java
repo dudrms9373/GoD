@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import prj.trip.FBoard.Vo.FBCommentVo;
 import prj.trip.FBoard.Vo.FreeBoardVo;
 import prj.trip.db.DBConn;
 
@@ -429,6 +430,52 @@ public int InsertFBboard(String title, String cont, int memnum) {
 	
 	
 	return 0;
+	
+}
+
+public List<FBCommentVo> getFBCommentList(String fnum){
+	
+	ResultSet rs = null;
+	List<FBCommentVo> FBCommentList = new ArrayList<FBCommentVo>();
+	
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		 String sql =" SELECT FBC_NUM, FBC_CONT, FBC_DATE, FC.MEM_NUM, FB_NUM, MEM_NICK "
+		 		+ "FROM FB_COMMENT FC,MEMBER M "
+		 		+ "WHERE FB_NUM = ? "
+		 		+ "AND M.MEM_NUM = FC.MEM_NUM order by FBC_DATE desc "; 
+				
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, fnum);
+		
+		
+		rs = pstmt.executeQuery();
+		
+		while( rs.next() ) {
+			String num = rs.getString("FBC_NUM");	
+			String cont = rs.getString("FBC_CONT");	
+			String date = rs.getString("FBC_DATE");	
+			String mnum = rs.getString("MEM_NUM");	
+			String fbnum = rs.getString("FB_NUM");	
+			String nick = rs.getString("MEM_NICK");	
+			
+			FBCommentVo fbcvo = new FBCommentVo(num, cont, date, mnum, fbnum, nick);
+			
+			FBCommentList.add(fbcvo);
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	
+	return FBCommentList;
 	
 }
 
