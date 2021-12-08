@@ -1,5 +1,7 @@
 package prj.trip.FBoard.controller;
 
+
+import prj.trip.FBoard.impl.FBCInsert;
 import prj.trip.FBoard.impl.FBLikeCnt;
 import prj.trip.FBoard.impl.FBoardClick;
 import prj.trip.FBoard.impl.FBoardSearch;
@@ -31,6 +33,9 @@ public class ActionFactory {
 			break;
 		case "FBoardSearch":
 			action = new FBoardSearch();
+			break;
+		case "FBCInsert":
+			action = new FBCInsert();
 			break;
 			
 			
