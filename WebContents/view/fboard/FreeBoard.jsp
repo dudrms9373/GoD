@@ -24,6 +24,13 @@
 </head>
 <link rel="stylesheet" href="../css/common.css" />
 <script>
+function searchLogincheck() {
+	if( <%=session.getAttribute("LoginId")%> == null ){
+		alert("로그인이 필요합니다");
+		event.preventDefault();
+		return false;
+	}
+}
 	window.onload = function () {
 	
 	}
@@ -66,7 +73,7 @@
 	</table>
 	
 	<div style="height: 50px; text-align: center;"> <!-- 페이징 기능 -->
-<jsp:include page="paging.jsp" flush="true">
+<jsp:include page="paging.jsp" flush="false">
     <jsp:param name="firstPageNo" value="${pvo.firstPageNo}" />
     <jsp:param name="prevPageNo" value="${pvo.prevPageNo}" />
     <jsp:param name="startPageNo" value="${pvo.startPageNo}" />
@@ -74,20 +81,22 @@
     <jsp:param name="endPageNo" value="${pvo.endPageNo}" />
     <jsp:param name="nextPageNo" value="${pvo.nextPageNo}" />
     <jsp:param name="finalPageNo" value="${pvo.finalPageNo}" />
+    <jsp:param name="main" value="${main}" />
+    <jsp:param name="Keyword" value="${Keyword}" />
 </jsp:include>
 	</div>
 
 <div>
-<form action="fboard?cmd=FBoardSearch" method="post" style="text-align: center;">
+<form action="fboard?cmd=FBoardSearch" method="post" onsubmit="return searchLogincheck()" style="text-align: center;">
 			<table style="border: 1px solid black; width: 700px; margin-left: auto; margin-right: auto;">
 				<tr>
 					<td style="border: 1px solid black;">
 						<select id="searchCondition" name="searchCondition">
 							<option value="Title">제목</option>
-							<option value="Content">닉네임</option>
+							<option value="Nick">닉네임</option>
 						</select>
 						<input id="searchKeyword" name="searchKeyword" type="text">
-						<input type="submit" value="검색 ">
+						<input type="submit" value="검색 " >
 					</td>
 				</tr>		
 			</table>

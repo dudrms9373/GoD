@@ -54,6 +54,8 @@
 
 </style>
 <link rel="stylesheet" href="css/common.css" />
+
+<% if(session.getAttribute("LoginId") == null ) { %>
 <div class="page">
   <div class="page_nation">
     <a href="fboard?cmd=FreeBoard&pagenum=${param.firstPageNo}" class="first" style="display: inline;"></a>
@@ -69,6 +71,27 @@
     <a href="fboard?cmd=FreeBoard&pagenum=${param.nextPageNo}" class="next" style="display: inline;"></a>
     <a href="fboard?cmd=FreeBoard&pagenum=${param.finalPageNo}" class="last" style="display: inline;"></a>
   </div>  
+  <div style="display: inline-block; float:right; "> <button onclick="location.href='fboard?cmd=FBoardWriter'" style="width:60; height: 30px; margin-right: 45px;">글쓰기</button></div>
 </div>
+<% }else{ %>
+<div class="page">
+  <div class="page_nation">
+    <a href="fboard?cmd=FBoardSearch&pagenum=${param.firstPageNo}&main=${ param.main }&keyword=${ param.Keyword }" class="first" style="display: inline;"></a>
+    <a href="fboard?cmd=FBoardSearch&pagenum=${param.prevPageNo}&main=${ param.main }&keyword=${ param.Keyword }" class="prev" style="display: inline;"></a>
+    <span>
+        <c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
+            <c:choose>
+                <c:when test="${i eq param.pageNo}"><a href="fboard?cmd=FBoardSearch&pagenum=${ i }&main=${ param.main }&keyword=${ param.Keyword }" class="choice" style="display: inline;">${i}</a></c:when>
+                <c:otherwise><a href="fboard?cmd=FBoardSearch&pagenum=${ i }&main=${ param.main }&keyword=${ param.Keyword }" class="choice" style="display: inline;">${i}</a></c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </span>
+    <a href="fboard?cmd=FBoardSearch&pagenum=${param.nextPageNo}&main=${ param.main }&keyword=${ param.Keyword }" class="next" style="display: inline;"></a>
+    <a href="fboard?cmd=FBoardSearch&pagenum=${param.finalPageNo}&main=${ param.main }&keyword=${ param.Keyword }" class="last" style="display: inline;"></a>
+  </div>  
+  <div style="display: inline-block; float:right; "> <button onclick="location.href='fboard?cmd=FBoardWriter'" style="width:60; height: 30px; margin-right: 45px;">글쓰기</button></div>
+</div>
+<% } %>
 
+<div>${ param.main } ${param.Keyword }</div>
 
