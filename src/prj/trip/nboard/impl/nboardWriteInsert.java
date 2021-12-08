@@ -31,7 +31,7 @@ public class nboardWriteInsert implements Action {
 		dao.nboardInsert(vo);
 		
 		
-		String path = "/view/nboard/noticeBoard.jsp";
+		String path = "/nboard?cmd=nboardList";
 		request.getRequestDispatcher(path).forward(request,response);
 		
 
