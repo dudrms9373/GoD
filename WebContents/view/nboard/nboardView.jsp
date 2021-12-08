@@ -32,9 +32,10 @@
 			<td>내용</td>
 			<td>${nboardView.nb_cont }</td>
 		</tr>
-		<tr>
-		<td><a href="/nboard?cmd=nboardUpdate&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}">수정</a></td>
-		<td><a href="/nboard?cmd=nboardDelete&mem_nick=${nboardView.mem_nick}">삭제</a></td>
+		<tr>	
+		<td><a href="/nboard?cmd=nboardUpdateForm&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}&nb_title=${nboardView.nb_title}&nb_cont=${nboardView.nb_cont}">수정</a></td>
+		<td><a href="/nboard?cmd=nboardDelete&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}">삭제</a></td>
+		
 		</tr>
 	</table>
 
