@@ -7,12 +7,23 @@
 <style>
 	.WriteForm { text-align: center; border: 1px solid black;}
 	table {margin-right: auto; margin-left: auto; }
+	textarea { outline: none;}
+	span {font-size: 13px;}
 </style>
 <link rel="stylesheet" href="../css/common.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script>
+function Logincheck() {
+	if( <%=session.getAttribute("LoginId")%> == null ){
+		alert("로그인이 필요합니다");
+		event.preventDefault();
+		return false;
+	}
+}
+</script>
 <body>
 <%@ include file="../common/header.jsp" %>
 <div style="height: 75px"></div>
@@ -45,11 +56,25 @@
 			<% } %></td>
 		</tr>
 	</table>
+	<div style="width: 400px; background-color : #F8F8F8; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;
+	 margin-bottom: 20px; ">
+		<form action="fboard?cmd=FBCInsert&fbnum=${ fbnum }" method="post" onsubmit="Logincheck()">
+		댓글
+		<textarea rows="7" cols="53" name="cont" placeholder="고운말 부탁드려요" onclick="Logincheck()"></textarea>
+		<div style="display: flex; justify-content: flex-end;">
+		<input type="submit" value="전송">
+		</div>
+		</form>
+	</div>
+	<div style="width: 400px; height:25px; padding : 10px; margin-left: auto; margin-right: auto; 
+		border-bottom: 1px solid #848484; border-top: 1px solid #848484; ">
+		댓글 수
+	</div>
 	
 	<c:forEach var="fbc" items="${ requestScope.fbcvo }">
-		<div style="width: 400px; background-color: #EBFBFF; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;">
-		닉네임 : ${ fbc.nick } <br>
-		댓글 작성 시간 : ${ fbc.tbc_date }<br><br>
+		<div style="width: 400px; padding : 10px; margin-left: auto; margin-right: auto; 
+		border-bottom: 1px solid #848484;  border-collapse: collapse; ">
+		닉네임 : ${ fbc.nick } <span>( ${ fbc.tbc_date } )</span><br>
 		내용 : ${ fbc.tbc_cont }<br><br>
 	</div>
 		</c:forEach>
