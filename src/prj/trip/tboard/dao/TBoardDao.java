@@ -24,131 +24,29 @@ public class TBoardDao {
 	private ResultSet rs;
 	
 	
-	
-	// 미완성 (테이블 불안정)
-	public List<TBoardVo> getTripList() {
-		ArrayList<TBoardVo> tripList = new ArrayList<TBoardVo>();
-		String sql  = " SELECT * FROM TBOARD";
-		try {
-			db      = new DBConn();
-			conn    = db.getConnection();
-			pstmt   = conn.prepareStatement(sql);
-			rs      = pstmt.executeQuery();
-			while( rs.next() ) {
-				int boardNum = rs.getInt("BOARD_NUM");
-				int readcnt  = rs.getInt("READCOUNT");
-				TBoardVo tVo=new TBoardVo();
-				tripList.add(tVo);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		
-		
-		return tripList;
-	}
-	
-	//게시물 불러오기
+
+	//게시물 불러오기(전면 수정 필요)
 	public TBoardVo getTBoard(int boardNum) {
 		TBoardVo board = new TBoardVo();
-		String sql = "SELECT TRIP_BOARD_NUM, TRIP_BOARD_TITLE,";
-		sql		  += " TRIP_BOARD_CONT, TRIP_BOARD_CNT, TRIP_BOARD_DATE,";
-		sql	      += " TRIP_BOARD_LIKE, TRIP_BOARD_ADDR, TRIP_BOARD_IMG1,";
-		sql		  += " TRIP_BOARD_IMG2, TRIP_BOARD_IMG3, TRIP_BOARD_IMG4,";
-		sql		  += " TRIP_BOARD_VIEDO1, TRIP_BOARD_VIDEO2, MEM_NICK";
-		sql		  += " FROM TRIP_BOARD T JOIN MEMBER M";
-		sql 	  += " ON T.MEM_NUM = M.MEM_NUM";
-		sql		  += " WHERE TRIP_BOARD_NUM = ?";
-		try {
-			db     = new DBConn();
-			conn   = db.getConnection();
-			pstmt  = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			rs = pstmt.executeQuery();
-			if( rs.next() ) {
-			   board.setTripNum(rs.getInt("TRIP_BOARD_NUM"));
-			   board.setTripTitle(rs.getString("TRIP_BOARD_TITLE"));  
-			   board.setTripCont(rs.getString("TRIP_BOARD_CONT"));  
-			   board.setReadCnt(rs.getInt("TRIP_BOARD_CNT"));
-			   board.setWrite_date(rs.getString("TRIP_BOARD_DATE"));
-			   board.setLike(rs.getInt("TRIP_BOARD_LIKE"));
-			   board.setTripAddr(rs.getString("TRIP_BOARD_ADDR"));
-			   String[] imgs = new String[4];
-			   for (int i = 8; i <= 11; i++) {
-				   if(rs.getString(i)!=null) {
-					   imgs[i-8] = rs.getString(i);
-				   }
-			   }
-			   board.setImg(imgs);
-			   String[] videos = new String[2];
-			   for (int i = 12; i <= 13; i++) {
-				if(rs.getString(i)!=null) {
-					videos[i-12] = rs.getString(i);
-				}
-			  }  
-			}
-			ArrayList<CommentVo> cmtList = getcmtList(boardNum);
-			if(cmtList!=null)
-				board.setCmtlist( cmtList );
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
+		
 		
 		return board;
 	}
 	
-	// 댓글목록 가져오기
+	// 댓글목록 가져오기(전면 수정 필요)
 	private ArrayList<CommentVo> getcmtList(int boardNum) {
 		ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
-		String sql = "SELECT TRIP_COMMENT_NUM, TRIP_COMMENT_CONT,";
-		sql		  += " TRIP_COMMENT_DATE, M.MEM_NICK";
-		sql		  += " FROM MEMBER M JOIN TRIP_BOARD T";
-		sql		  += " ON M.MEM_NUM = T.MEN_NUM";
-		sql		  += " JOIN TRIP_COMMENT R ON T.TRIP_BOARD_NUM = R.TRIP_BOARD_NUM";
-		sql		  += " WHERE T.TRIP_BOARD_NUM = ?";
-		sql		  += " AND R.MEM_NUM = M.MEM_NUM";
-		
-		try {
-			db    = new DBConn();
-			conn  = db.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				int 	cmtNum = rs.getInt("TRIP_COMMENT_NUM");
-				String cmtCont = rs.getString("TRIP_COMMENT_CONT");
-				String cmtDate = rs.getString("TRIP_COMMENT_DATE");
-				String cmtNick = rs.getString("MEM_NICK");
-				CommentVo cmtVo = new CommentVo();
-				cmtVo.setCmtCont(cmtCont);
-				cmtVo.setCmtNum(cmtNum);
-				cmtVo.setCmtWriter(cmtNick);
-				cmtVo.setCmtdate(cmtDate);
-				cmtList.add(cmtVo);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
 		
 		
 		return cmtList;
 	}
-	
-	
+
 	//여행지 추천 게시글 삽입
 	public int insertTBoard(int memNum, String title, String addr, String bcontbox, ArrayList<String> filenames) {
 		int aftcnt = 0;
 		
 		String sql = "INSERT INTO TRIP_BOARD(TB_NUM, TB_TITLE, TB_ADDR, TB_CONT, TB_IMG1, TB_IMG2, TB_IMG3, TB_IMG4, MEM_NUM)";
-		sql		  += " VALUES NVL(TB_NUM,0)+1, ?, ?, ?, ?, ?, ?, ?, ?)";
+		sql		  += " VALUES ((SELECT NVL(MAX(TB_NUM),0)+1 FROM TRIP_BOARD), ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			db    = new DBConn();
 			conn  = db.getConnection();
@@ -171,8 +69,82 @@ public class TBoardDao {
 		return aftcnt;
 		
 	}
-	
 
+	
+	
+	// 페이징 겸 게시판 목록 가져오기
+	public List<TBoardVo> getPagingData(int currentPage,int dpp) {
+		ArrayList<TBoardVo> boardList = new ArrayList<>();
+		String sql =  "SELECT *  ";
+		sql       +=  " FROM (SELECT TB.TB_NUM, TB_TITLE, TB_CNT, TB_DATE, TB_ADDR,";
+		sql		  +=  " TB_IMG1, MEM_NICK, COUNT(L.TB_NUM),";
+		sql	      +=  " ROW_NUMBER() OVER(ORDER BY TB.TB_NUM DESC NULLS LAST) RN";           
+		sql       +=  " FROM TRIP_BOARD TB JOIN MEMBER M ON TB.MEM_NUM = M.MEM_NUM";
+		sql       +=  " LEFT JOIN TB_LIKE L ON TB.TB_NUM = L.TB_NUM";
+		sql		  +=  " GROUP BY TB.TB_NUM, TB_TITLE, TB_CNT, TB_DATE, TB_ADDR, TB_IMG1,  MEM_NICK) T";
+		sql	      +=  "	WHERE RN BETWEEN 1 + (10)*(?+?) AND 10 + (10)*(?+?)";
+		
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			pstmt  = conn.prepareStatement(sql);
+			pstmt.setInt(1, currentPage-1); //첫번째 ?= 세번째 ? :누른 버튼의 번호-1
+			pstmt.setInt(2, dpp); //두번째 ?=네번째? :보여줄 자료 수(기본 10개씩 보여주나 -5,+10 으로 조절 가능) 
+			pstmt.setInt(3, currentPage-1);
+			pstmt.setInt(4, dpp); 
+			rs     = pstmt.executeQuery();
+			// 작성자 추천수, 메인 이미지
+			while( rs.next() ){
+				int    tb_num   = rs.getInt(1);    //테이블 번호 
+				String tb_title = rs.getString(2); //테이블 제목
+				int    tb_cnt   = rs.getInt(3);    // 조회수
+				String tb_date  = rs.getString(4); // 작성일
+				String tb_addr  = rs.getString(5); // 관광지 주소
+				String mainImg  = rs.getString(6); // 메인이미지
+				String nickname = rs.getString(7); // 작성자
+				int    likeCnt  = rs.getInt(8);    // 추천수
+				int    number   = rs.getInt(9);	   // 검색순대로 번호 붙이기 
+				
+				TBoardVo tVo = new TBoardVo();
+				tVo.setTbNum(tb_num);
+				tVo.setTitle(tb_title);
+				tVo.setReadCnt(tb_cnt);
+				tVo.setwDate(tb_date);
+				tVo.setAddr(tb_addr);
+				tVo.setImg1(mainImg);
+				tVo.setNickName(nickname);
+				tVo.setLikeCnt(likeCnt);
+				boardList.add(tVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return boardList;
+	}
+	
+	//총 자료수 조회
+	public int getDataCount() {
+		int    dataCnt = 0;
+		String sql     = "SELECT COUNT(*) FROM TRIP_BOARD";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs    = pstmt.executeQuery();
+			if(rs.next()){
+				dataCnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return dataCnt;
+	}
+	
 	//DB CLOSE
 	public void close() {
 		try {
@@ -184,6 +156,8 @@ public class TBoardDao {
 			e.printStackTrace();
 		}
 	}
+
+
 
 
 
