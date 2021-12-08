@@ -114,6 +114,7 @@ public class TBoardDao {
 				tVo.setImg1(mainImg);
 				tVo.setNickName(nickname);
 				tVo.setLikeCnt(likeCnt);
+				tVo.setNumber(number);
 				boardList.add(tVo);
 			}
 		} catch (SQLException e) {
