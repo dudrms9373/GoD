@@ -8,57 +8,63 @@ import prj.trip.comment.vo.CommentVo;
 
 public class TBoardVo { // nickname
 	// Fields
-	private int     		  tripNum;    //게시판 번호
-	private String  		  tripAddr;   //주소(지역까지라도 좋음)
-	private String  		  tripTitle;  //제목
+	private int     		  tbNum;    //게시판 번호
+	private String  		  addr;   //주소(지역까지라도 좋음)
+	private String  		  title;  //제목
 	private String  		  nickName;   //닉네임
-	private String  		  memberId;   //게시자아이디
-	private String   		  write_date; //작성일
-	private String  	      tripCont;   //내용 
-	private String[]  		  img;		  //이미지
-	private String[]   		  video;      //비디오
+	private String   		  wDate;      //작성일
+	private String  	      cont;   //내용 
+	private String  		  img1;		  //이미지1
+	private String  		  img2;		  //이미지2
+	private String  		  img3;		  //이미지3
+	private String  		  img4;		  //이미지4
+	private String   		  video;      //비디오
 	private ArrayList<CommentVo>     cmtelist;  //댓글
 	
-	private int 			   cmtCnt;    //댓글수
-	private int                readCnt;    //조회수
-	private int                like;       //좋아요
+	private int 			   cmtCnt;       //댓글수
+	private int                readCnt;      //조회수
+	private int                likeCnt;       //좋아요
+	private int                number;		  //검색결과에 붙이는 번호
 	// Constructor
 	public TBoardVo() {}
-	public TBoardVo(int tripNum, String tripAddr, String tripTitle, String nickName, String memberId, String write_date,
-			String tripCont, String[] img, String[] video, ArrayList<CommentVo> cmtelist, int cmtCnt, int readCnt,
-			int like) {
-		this.tripNum = tripNum;
-		this.tripAddr = tripAddr;
-		this.tripTitle = tripTitle;
+	public TBoardVo(int tbNum, String addr, String title, String nickName, String wDate, String cont, String img1,
+			String img2, String img3, String img4, String video, ArrayList<CommentVo> cmtelist, int cmtCnt, int readCnt,
+			int likeCnt, int number) {
+		this.tbNum = tbNum;
+		this.addr = addr;
+		this.title = title;
 		this.nickName = nickName;
-		this.memberId = memberId;
-		this.write_date = write_date;
-		this.tripCont = tripCont;
-		this.img = img;
+		this.wDate = wDate;
+		this.cont = cont;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.img3 = img3;
+		this.img4 = img4;
 		this.video = video;
 		this.cmtelist = cmtelist;
 		this.cmtCnt = cmtCnt;
 		this.readCnt = readCnt;
-		this.like = like;
+		this.likeCnt = likeCnt;
+		this.number = number;
 	}
-	// Getter / Setter
-	public int getTripNum() {
-		return tripNum;
+	// Getter/ Setter
+	public int getTbNum() {
+		return tbNum;
 	}
-	public void setTripNum(int tripNum) {
-		this.tripNum = tripNum;
+	public void setTbNum(int tbNum) {
+		this.tbNum = tbNum;
 	}
-	public String getTripAddr() {
-		return tripAddr;
+	public String getAddr() {
+		return addr;
 	}
-	public void setTripAddr(String tripAddr) {
-		this.tripAddr = tripAddr;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
-	public String getTripTitle() {
-		return tripTitle;
+	public String getTitle() {
+		return title;
 	}
-	public void setTripTitle(String tripTitle) {
-		this.tripTitle = tripTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getNickName() {
 		return nickName;
@@ -66,46 +72,58 @@ public class TBoardVo { // nickname
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getwDate() {
+		return wDate;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setwDate(String wDate) {
+		this.wDate = wDate;
 	}
-	public String getWrite_date() {
-		return write_date;
+	public String getCont() {
+		return cont;
 	}
-	public void setWrite_date(String write_date) {
-		this.write_date = write_date;
+	public void setCont(String cont) {
+		this.cont = cont;
 	}
-	public String getTripCont() {
-		return tripCont;
+	public String getImg1() {
+		return img1;
 	}
-	public void setTripCont(String tripCont) {
-		this.tripCont = tripCont;
+	public void setImg1(String img1) {
+		this.img1 = img1;
 	}
-	public String[] getImg() {
-		return img;
+	public String getImg2() {
+		return img2;
 	}
-	public void setImg(String[] img) {
-		this.img = img;
+	public void setImg2(String img2) {
+		this.img2 = img2;
 	}
-	public String[] getVideo() {
+	public String getImg3() {
+		return img3;
+	}
+	public void setImg3(String img3) {
+		this.img3 = img3;
+	}
+	public String getImg4() {
+		return img4;
+	}
+	public void setImg4(String img4) {
+		this.img4 = img4;
+	}
+	public String getVideo() {
 		return video;
 	}
-	public void setVideo(String[] video) {
+	public void setVideo(String video) {
 		this.video = video;
 	}
-	public ArrayList<CommentVo> getCmtlist() {
+	public ArrayList<CommentVo> getCmtelist() {
 		return cmtelist;
 	}
-	public void setCmtlist(ArrayList<CommentVo> cmtelist) {
+	public void setCmtelist(ArrayList<CommentVo> cmtelist) {
 		this.cmtelist = cmtelist;
 	}
-	public int getReplCnt() {
+	public int getCmtCnt() {
 		return cmtCnt;
 	}
-	public void setReplCnt(int cmtCnt) {
+	public void setCmtCnt(int cmtCnt) {
 		this.cmtCnt = cmtCnt;
 	}
 	public int getReadCnt() {
@@ -114,18 +132,25 @@ public class TBoardVo { // nickname
 	public void setReadCnt(int readCnt) {
 		this.readCnt = readCnt;
 	}
-	public int getLike() {
-		return like;
+	public int getLikeCnt() {
+		return likeCnt;
 	}
-	public void setLike(int like) {
-		this.like = like;
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	//toString
 	@Override
 	public String toString() {
-		return "TBoardVo [tripNum=" + tripNum + ", tripAddr=" + tripAddr + ", tripTitle=" + tripTitle + ", nickName="
-				+ nickName + ", memberId=" + memberId + ", write_date=" + write_date + ", tripCont=" + tripCont
-				+ ", img=" + Arrays.toString(img) + ", video=" + Arrays.toString(video) + ", cmtelist=" + cmtelist
-				+ ", cmtCnt=" + cmtCnt + ", readCnt=" + readCnt + ", like=" + like + "]";
+		return "TBoardVo [tbNum=" + tbNum + ", addr=" + addr + ", title=" + title + ", nickName=" + nickName
+				+ ", wDate=" + wDate + ", cont=" + cont + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3
+				+ ", img4=" + img4 + ", video=" + video + ", cmtelist=" + cmtelist + ", cmtCnt=" + cmtCnt + ", readCnt="
+				+ readCnt + ", likeCnt=" + likeCnt + ", number=" + number + "]";
 	}
+	
 }
