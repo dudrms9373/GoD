@@ -160,15 +160,67 @@ public class NBoardDao {
 
 		return vo;
 	}
+	
+	//수정
+	public void nboardUpdate(int nboardNum, String cont, String title) {
 
-	public NBoardVo nboardUpdate(int nboardNum) {
-		// TODO Auto-generated method stub
-		return null;
+
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql = "{CALL PKG_NBOARD.PROC_NBOARD_UPDATE(?,?,?)}";
+
+			cstmt = conn.prepareCall(sql);
+
+			cstmt.setInt(1, nboardNum);
+			cstmt.setString(2, cont);
+			cstmt.setString(3, title);
+			
+			cstmt.execute();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (cstmt != null)
+					cstmt.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (SQLException e) {
+			}
+		}
+
 	}
 
-	public NBoardVo nboardDelete(int nboardNum) {
-		// TODO Auto-generated method stub
-		return null;
+	//삭제
+	public void nboardDelete(int nboardNum) {
+
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql = "{CALL PKG_NBOARD.PROC_NBOARD_DELETE(?)}";
+
+			cstmt = conn.prepareCall(sql);
+
+			cstmt.setInt(1, nboardNum);
+			
+			cstmt.execute();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (cstmt != null)
+					cstmt.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (SQLException e) {
+			}
+		}
 	}
 
 }
