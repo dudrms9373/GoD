@@ -45,5 +45,13 @@
 			<% } %></td>
 		</tr>
 	</table>
+	
+	<c:forEach var="fbc" items="${ requestScope.fbcvo }">
+		<div style="width: 400px; background-color: #EBFBFF; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;">
+		닉네임 : ${ fbc.nick } <br>
+		댓글 작성 시간 : ${ fbc.tbc_date }<br><br>
+		내용 : ${ fbc.tbc_cont }<br><br>
+	</div>
+		</c:forEach>
 </body>
 </html>
