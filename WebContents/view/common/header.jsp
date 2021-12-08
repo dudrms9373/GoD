@@ -29,7 +29,10 @@ function enter() {
 <div class="headerTop">
 
 <div style="display :flex;  width: 100vw; height :50px;  text-align: center; position: relative; z-index: 2">
-
+<div id="div_search">
+    <div style="display:inline; text-align: center;"><a href="www.naver.com" id="ent"><img src="../../img/whitem2.png"></a></div>
+	<div><input type="text" id="input_search" size="19" onkeyup="if(window.event.keyCode==13){enter()}"  placeholder="                              검색"></div>
+</div>
 	
 	<!-- 제목 -->
 	<div class="mainTitle"><a href="/view/common/index.jsp">제목 </a><small style=" display :block;    font-size:0.6rem;
