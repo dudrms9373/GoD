@@ -29,6 +29,9 @@ public class ActionFactory {
 		case "nboardUpdate":
 			action = new nboardUpdate();
 			break;
+	        case "nboardUpdateForm":
+			action = new nboardUpdateForm();
+			break;
 		case "nboardDelete":
 			action = new nboardDelete();
 			break;
