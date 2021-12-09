@@ -501,8 +501,58 @@ public void InsertFBC(String fnum,String memnum, String cont) {
 		e.printStackTrace();
 	}
 	
+}
+
+
+public void InsertFBLike(String fbnum,String memnum) {
+	ResultSet rs = null;
+	String sql =" INSERT INTO FB_LIKE ( FBL_NUM, MEM_NUM, FB_NUM ) "
+			+ " VALUES ( (SELECT NVL( MAX(FBL_NUM),0 )+1 FROM FB_LIKE) , ?, ? ) ";
 	
+	DBConn db = new DBConn();
+	conn =  db.getConnection();
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, memnum);
+		pstmt.setString(2, fbnum);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			
+			conn.commit();
+			System.out.println("추천 올라감");
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
 	
+}
+
+public int getTotalTB(){
+	ResultSet rs = null;
+	int count = 0;
+	String sql = " select NVL( MAX(FB_NUM),0 )FBNUM from FREE_BOARD ";
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		if(rs.next()){
+			count = rs.getInt(1);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	return count; // 총 레코드 수 리턴
 }
 
 
