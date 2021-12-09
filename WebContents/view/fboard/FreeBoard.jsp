@@ -53,7 +53,6 @@ tr:hover {
 
 tr:hover:not(.table_th) .list_title {
 	color: #59B1E6;
-	text-decoration: underline;
 	font-weight: bold;
 }
 
@@ -86,6 +85,8 @@ tr:hover:not(.table_th) .list_title {
 	color: #f94b4b;
 	font-weight: bold;
 }
+.fb_title_a {color: black; text-decoration: none;}
+.fb_title_a:visited {color: #8B8B8B;}
 </style>
 </head>
 <link rel="stylesheet" href="../css/common.css" />
@@ -132,7 +133,7 @@ tr:hover:not(.table_th) .list_title {
 								href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }
 								<span class="riple"> 
 									<c:choose>
-										<c:when test="${fb.fbc eq '0'}"></c:when>
+										<c:when test="${fb.fbc eq '0'}">  </c:when>
 										<c:otherwise> [${ fb.fbc }] </c:otherwise>
 									</c:choose>
 								</span>
