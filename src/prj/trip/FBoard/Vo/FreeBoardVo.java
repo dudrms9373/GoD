@@ -8,6 +8,7 @@ public class FreeBoardVo {
 	private String cnt;
 	private String cont;
 	private String likecnt;
+	private int fbc;
 	public FreeBoardVo() {
 		super();
 		
@@ -15,6 +16,21 @@ public class FreeBoardVo {
 	
 	
 	
+	public FreeBoardVo(String num, String title, String nick, String date, String cnt, String cont, String likecnt,
+			int fbc) {
+		super();
+		this.num = num;
+		this.title = title;
+		this.nick = nick;
+		this.date = date;
+		this.cnt = cnt;
+		this.cont = cont;
+		this.likecnt = likecnt;
+		this.fbc = fbc;
+	}
+
+
+
 	public FreeBoardVo(String num, String title, String date, String cnt, String cont, String likecnt, String nick) {
 		super();
 		this.num = num;
@@ -86,10 +102,19 @@ public class FreeBoardVo {
 	public void setLikecnt(String likecnt) {
 		this.likecnt = likecnt;
 	}
+	
+	public int getFbc() {
+		return fbc;
+	}
+	public void setFbc(int fbc) {
+		this.fbc = fbc;
+	}
+
 	@Override
 	public String toString() {
 		return "FreeBoardVo [num=" + num + ", title=" + title + ", nick=" + nick + ", date=" + date + ", cnt=" + cnt
-				+ ", likecnt=" + likecnt + "]";
+				+ ", cont=" + cont + ", likecnt=" + likecnt + ", fbc=" + fbc + "]";
 	}
+
 	
 }
