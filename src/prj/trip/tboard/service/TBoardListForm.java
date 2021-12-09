@@ -24,6 +24,8 @@ public class TBoardListForm implements Action {
 		
 		TBoardDao dao = new TBoardDao();
 		int totalData   = dao.getDataCount();
+		int searchNum   = 0;
+		request.setAttribute("searchNum", 0);
 		request.setAttribute("dpp", dpp);
 		request.setAttribute("totalData", totalData);
 		List<TBoardVo> boardList =  dao.getPagingData(currentPage, dpp-10);
