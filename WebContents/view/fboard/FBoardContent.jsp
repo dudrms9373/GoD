@@ -50,6 +50,8 @@ function Logincheck() {
 			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnum }'">추천수 : ${ like } </td>
 		</tr>
 	</table>
+	
+	<!-- 댓글영역 -->
 	<div style="width: 400px; background-color : #F8F8F8; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;
 	 margin-bottom: 20px; ">
 		<form action="fboard?cmd=FBCInsert&fbnum=${ fbnum }" method="post" onsubmit="Logincheck()">
@@ -60,9 +62,10 @@ function Logincheck() {
 		</div>
 		</form>
 	</div>
+	
 	<div style="width: 400px; height:25px; padding : 10px; margin-left: auto; margin-right: auto; 
-		border-bottom: 1px solid #848484; border-top: 1px solid #848484; ">
-		댓글 수
+		border-bottom: 1px solid #848484; border-top: 1px solid #848484; font-weight: bold; ">
+		댓글 수 (${ FBCTotal })
 	</div>
 	
 	<c:forEach var="fbc" items="${ requestScope.fbcvo }">
