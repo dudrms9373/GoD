@@ -28,8 +28,8 @@
 main { box-sizing:border-box;}
 table, td { border-top: 2px solid silver; 
 			border-bottom: 2px solid silver; border-collapse: collapse; }
-caption   { margin: 20px; font-size:50px; font-family: fantasy; color:gray;}
-form      { padding-top:200px; }
+caption   { padding-top:200px; margin: 20px; font-size:50px; font-family: fantasy; color:gray;}
+/*form      { padding-top:200px; }*/
 .tboard   { margin:0 auto; width:1500px; height:3000px;}
 #mainimage { height:500px; width:50%; text-align:center;}
 .tboard #input { height:125px; width:50%; padding-left:50px; font-size:20px;
@@ -57,6 +57,9 @@ td input  { font-size:20px; width:80%; height:30px;
 #submit   { text-align:center;  width:200px; font-size:50px; height:100px;}
 .submit   { text-align:center;}
 /* 여행지 추천 게시물 보기  */
+.bcont     { margin-top:200px; overflow:hidden; resize:none; border:none;
+			 background-color:white; 
+		    width:1500px; height:300px; font-size:20px; text-align:center;  }
 
 
 
