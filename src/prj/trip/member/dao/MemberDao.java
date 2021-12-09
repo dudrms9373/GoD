@@ -271,6 +271,7 @@ public class MemberDao {
 			DBConn db = new DBConn();
 			conn = db.getConnection();
 			 String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT "
+					+ " ,(select COUNT(*) FBCNUM from FB_COMMENT WHERE FB_NUM = AA.FB_NUM )FBC "
 			 		+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M "
 			 		+ " WHERE RNUM >= ? "
 			 		+ " AND M.MEM_NUM = AA.MEM_NUM "
@@ -291,8 +292,9 @@ public class MemberDao {
 				String date = rs.getString(4);	
 				String cnt = rs.getString(5);	
 				String likecnt = rs.getString("LIKECNT");	
+				int fbc = rs.getInt("FBC");	
 				
-				FreeBoardVo fbvo = new FreeBoardVo(num, title, nick, date, cnt, likecnt);
+				FreeBoardVo fbvo = new FreeBoardVo(num, title, nick, date, likecnt, cnt, likecnt, fbc);
 				
 				FreeBoardList.add(fbvo);
 			}
