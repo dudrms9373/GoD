@@ -8,7 +8,7 @@
 <style>
 	section { min-height: 1200px;}
 	.list_no {width: 50px;}
-	.list_title {width: 400px; }
+	.list_title {width: 400px;}
 	.list_writer {width: 100px;}
 	.list_time {width: 120px;}
 	.list_hit {width: 55px;}
@@ -22,6 +22,9 @@
 	color:#fff;
 	border:1px solid #42454c;}
 	.f_search {background-color: #59B1E6; color: white; border: 1px solid #59B1E6; border-radius: 3px;}
+	.table_th { border-bottom: 1px solid #E2E2E2; border-top: 1px solid #E2E2E2;}
+	.table_tr { border-bottom: 1px solid #E2E2E2;}
+	.fb_title_a {text-align: left;}
 </style>
 </head>
 <link rel="stylesheet" href="../css/common.css" />
@@ -39,11 +42,8 @@ function searchLogincheck() {
 </script>
 <body>
 <%@ include file="../common/header.jsp" %>
-<div style="height: 270px">
-<div style="height: 75px"></div>
-
-<div class="home">
-	<a href="/view/common/index.jsp"><img src="/img/home.png" style="width: 50px; height: 50px;"></a>
+<div>
+	<img alt="" src="/img/polynesia2.jpg" width="1919px" height="263px">
 </div>
 
 </div>
@@ -62,9 +62,9 @@ function searchLogincheck() {
 		</tr>
 
 		<c:forEach var="fb" items="${ requestScope.fbvo }">
-		<tr>
+		<tr class="table_tr" >
 			<td class="list_no">${ fb.num }</td>
-			<td class="list_title"><a href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }</a> </td>
+			<td class="list_title"><a class="fb_title_a" href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }</a> </td>
 			<td class="list_writer">${ fb.nick }</td>
 			<td class="list_time">${ fb.date }</td>
 			<td class="list_hit">${ fb.cnt }</td>

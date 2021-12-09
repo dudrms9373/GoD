@@ -26,9 +26,9 @@ function Logincheck() {
 </script>
 <body>
 <%@ include file="../common/header.jsp" %>
-<div style="height: 75px"></div>
-<div class="home">
-	<a href="/view/common/index.jsp" id="main"><img src="../img/home.png" style="width: 50px; height: 50px;"></a>
+
+<div>
+	<img alt="" src="/img/polynesia2.jpg" width="1919px" height="263px">
 </div>
 
 <table>		
@@ -42,18 +42,12 @@ function Logincheck() {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3"><textarea rows="12" cols="50"
-					name="writeContent"  readonly="readonly">${ cont }</textarea></td>
+			<td colspan="3"><textarea rows="12" cols="50" name="writeContent"  readonly="readonly">${ cont }</textarea></td>
 		</tr>
 		<tr>
 			<td align="center"><input type="submit" value="작성" class="button"></td>
 			<td ><input type="button" value="게시판으로 이동" onclick="location.href='fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1'"></td>
-			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&id=${ fbnum }'">추천수 : 
-			<% if( session.getAttribute("like") == null ){ %>
-				0
-			<% }else{ %>
-				${ like }
-			<% } %></td>
+			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnum }'">추천수 : ${ like } </td>
 		</tr>
 	</table>
 	<div style="width: 400px; background-color : #F8F8F8; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;
@@ -62,7 +56,7 @@ function Logincheck() {
 		댓글
 		<textarea rows="7" cols="53" name="cont" placeholder="고운말 부탁드려요" onclick="Logincheck()"></textarea>
 		<div style="display: flex; justify-content: flex-end;">
-		<input type="submit" value="전송">
+		<input type="submit" value="작성">
 		</div>
 		</form>
 	</div>
