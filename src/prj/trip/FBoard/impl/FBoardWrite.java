@@ -22,6 +22,7 @@ public class FBoardWrite implements Action{
 		request.setAttribute("id", id);
 		request.setAttribute("title", title);
 		request.setAttribute("cont", cont);
+		request.setAttribute("like", 0);
 		
 		
 		FreeBoardDao dao = new FreeBoardDao();
@@ -30,9 +31,10 @@ public class FBoardWrite implements Action{
 		request.setAttribute("nick", nick);
 		System.out.println(id +title + cont + memnum+"닉네임 : " + nick );
 		int insertcheck = dao.InsertFBboard( title, cont, memnum);
+		int fbnum = dao.getTotalTB();
 		
 		if(insertcheck == 1 ) {
-			String path="/view/fboard/FBoardContent.jsp";
+			String path="fboard?cmd=FBoardClick&fbnum=" + fbnum;
 			request.getRequestDispatcher(path).forward(request, response);
 		}else {
 			String path="/view/fboard/FBoardWrite.jsp";

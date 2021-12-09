@@ -17,7 +17,7 @@ public class FBoardClick implements Action{
 	@Override
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fbnum = request.getParameter("fbnum");
-		System.out.println(fbnum);
+		System.out.println("게시글 번호 : " + fbnum);
 		FreeBoardDao dao  =new FreeBoardDao();
 		
 		//조회수 증가
