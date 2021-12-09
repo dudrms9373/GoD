@@ -3,8 +3,11 @@ package prj.trip.tboard.controller;
 
 
 import prj.trip.tboard.service.Action;
+import prj.trip.tboard.service.SearchPagingAction;
 import prj.trip.tboard.service.TBoardListForm;
 import prj.trip.tboard.service.TBoardPagingAction;
+import prj.trip.tboard.service.TBoardReadCont;
+import prj.trip.tboard.service.TBoardSearchAction;
 import prj.trip.tboard.service.TBoardWriteAction;
 import prj.trip.tboard.service.TBoardWriteForm;
 
@@ -26,6 +29,15 @@ public class ActionFactory {
 			break;
 		case "BOARDPAGINGACTION": //게시판 페이징
 			action = new TBoardPagingAction();
+			break;
+		case "READBOARDCONT": //게시물 보기
+			action = new TBoardReadCont();
+			break;
+		case "TBOARDSEARCHACTION": //게시판 검색
+			action = new TBoardSearchAction();
+			break;
+		case "SEARCHPAGINGACTION": //게시판 검색
+			action = new SearchPagingAction();
 			break;
 	
 	
