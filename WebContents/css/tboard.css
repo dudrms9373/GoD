@@ -1,7 +1,12 @@
 @CHARSET "UTF-8";
 /* 여행지 추천 게시판 */
 #tboardTitle { font-size:50px; margin:0 auto; text-align:center; padding-top:100px;}
-#writeButton { float:right; margin-right: 10%; margin-top:50px; color:blue; text-decoration: underline; font-size:30px;}
+#searchBox   { display:inline-block; margin:0 auto; width:24%; height:50px;
+			   margin-left:48%; margin-top:40px;  }
+#keyword     { width:70%; margin-right:10px; height:25px;}
+#searchok      { width:22%; height:30px;}
+
+#writeButton { float:right; margin-right: 10%; margin-top:100px; color:blue; text-decoration: underline; font-size:30px;}
 #writeButton:hover { color:cyan; }
 #boardbox  { border-top:1px solid gray; border-bottom:1px solid gray; 
 			 text-align:left;  display:inline-block; width:1005px; height:400px; margin-top:5px; margin-left:25%;}
