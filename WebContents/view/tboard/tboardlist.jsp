@@ -16,11 +16,12 @@
 	  var pageCount = Math.ceil(totalData/dataPerPage);  
   } else{
   var pageCount = 10;        // 한 화면에 나타낼 페이지 수(불변 예정)
-	  
   }
-	
-  function paging(totalData, dataPerPage, pageCount, currentPage){
-    
+  var searchNum = ${searchNum};
+  
+  function paging(totalData, dataPerPage, pageCount, currentPage, searchNum, keyword){
+    console.log("searchNum: "+searchNum);
+    console.dir("keyword: "+keyword);
     console.log("currentPage : " + currentPage);
     
     var totalPage = Math.ceil(totalData/dataPerPage);    // 총 페이지 수
@@ -60,6 +61,7 @@
                                        "color":"red", 
                                        "font-weight":"bold"});    // 현재 페이지 표시
                                        
+       
     $("#paging a").click(function(){
         
         var $item = $(this);
@@ -69,20 +71,76 @@
         if($id == "next")    selectedPage = next;
         if($id == "prev")    selectedPage = prev;
         
-        paging(totalData, dataPerPage, pageCount, selectedPage);
-        
+        paging(totalData, dataPerPage, pageCount, selectedPage, searchNum, keyword);
+        console.log(searchNum);
         if($id=="next"||$id=="prev"){
-        	console.log('none action');
+        	console.log('none');
         } else{
+        	if(searchNum!=0){
+        		$.ajax({   // 검색 ajax
+         		   url:'/tboard?cmd=SEARCHPAGINGACTION',	//검색용 cmd	
+         		   data:{ currentpage:$id,
+         		   		  dpp:dataPerPage,
+         		   		  keyword:keyword,
+         		   		  aa: new Date() //304 방지용 dummy data
+         		   		  
+         		   },
+         		   datatype:'json'
+         	}).done(function( json ){
+         		let tag='';
+         		  var totalData = json.total;    // 총 데이터 수 ${totalData}
+         		  var dataPerPage = json.dpp;    // 한 페이지에 나타낼 데이터 수 ${dpp}
+         		  
+         		  if(totalData<100){
+         			  var pageCount = Math.ceil(totalData/dataPerPage);  
+         		  } else{
+         		  var pageCount = 10;        // 한 화면에 나타낼 페이지 수
+         			  
+         		  }
+         		  
+         		  
+         		  var cnt=1;
+         		  json.tboard.forEach(function(tboard,index){
+         			 console.dir(tboard.title);
+ 					if(cnt==2){
+ 					tag+='<div id="boardbox2">';
+ 					
+ 					} else{
+ 					tag+='<div id="boardbox">';
+ 						
+ 					cnt=cnt+1;
+ 					}
+ 					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
+ 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
+ 					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
+ 					tag+= '제목:'+tboard.title+'<br>';
+ 					tag+= '작성자:'+ tboard.nickname +'<br>';
+ 					tag+= '조회수:'+ tboard.readCnt  +'<br>';
+ 					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
+ 					tag+= '작성일:'+ tboard.wDate    +'</div>';
+ 					tag+='</div>';
+         			  
+         		  });
+         		
+ 				
+ 				$('#tlist').html(tag);
+ 				
+ 			}).fail( function(xhr ){
+ 				alert(xhr.status+''+xhr.statusText);
+ 			 }) //ajax
+        		
+        		
+        		
+        	} // 검색 ajax 끝
+        	else{
         	
-        $.ajax({
-        	url:'/tboard?cmd=BOARDPAGINGACTION',
-        	data:{ currentpage:$id,
+        	$.ajax({  // 게시판 목록 ajax
+        		   url:'/tboard?cmd=BOARDPAGINGACTION',		
+        		   data:{ currentpage:$id,
         		   dpp:dataPerPage,
         		   aa: new Date() //304 방지용 dummy data
         		   },
-        	datatype:'json'
-        
+        		   datatype:'json'
         	}).done(function( json ){
         		let tag='';
         		  var totalData = json.total;    // 총 데이터 수 ${totalData}
@@ -102,7 +160,6 @@
 					if(cnt==2){
 					tag+='<div id="boardbox2">';
 					
-						
 					} else{
 					tag+='<div id="boardbox">';
 						
@@ -126,6 +183,7 @@
 			}).fail( function(xhr ){
 				alert(xhr.status+''+xhr.statusText);
 			 }) //ajax
+        	}
         	} //다음과 이전 버튼이 아닌 경우  
     })  //페이징 클릭시
         	
@@ -134,10 +192,67 @@
                                        
 } //페이징 함수 끝
 
-  $(function() {        
-    paging(totalData, dataPerPage, pageCount, 1);
+  $(function() {    
+	  
+    paging(totalData, dataPerPage, pageCount, 1 , 0 ,' ');
    
-    
+    $('#searchok').on('click',function(){
+    	console.log('success');
+    	$.ajax({
+    		url:'/tboard?cmd=TBOARDSEARCHACTION',
+    		data:{ keyword:$('#keyword').val() } }).done(function( json ){
+        	  var keyword= $('#keyword').val();
+    	      let tag='';
+    	      console.log(keyword);
+      		  var totalData = json.total;    // 총 데이터 수 ${totalData}
+      		  var dataPerPage = json.dpp;    // 한 페이지에 나타낼 데이터 수 ${dpp}
+      		  var searchNum   = json.searchNum; //검색 식별 번호
+      		  if(totalData<100){
+      			  var pageCount = Math.ceil(totalData/dataPerPage);  
+      		  } else{
+      		  var pageCount = 10;        // 한 화면에 나타낼 페이지 수
+      			  
+      		  }
+      		 paging(totalData, dataPerPage, pageCount, 1, searchNum ,keyword); // 검색결과에 맞춰 페이징
+      		  var cnt=1;
+      		  json.tboard.forEach(function(tboard,index){
+      			 console.dir(tboard.title);
+					if(cnt==2){
+					tag+='<div id="boardbox2">';
+					
+						
+					} else{
+					tag+='<div id="boardbox">';
+						
+					cnt=cnt+1;
+					}
+					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
+					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
+					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
+					tag+= '제목:'+tboard.title+'<br>';
+					tag+= '작성자:'+ tboard.nickname +'<br>';
+					tag+= '조회수:'+ tboard.readCnt  +'<br>';
+					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
+					tag+= '작성일:'+ tboard.wDate    +'</div>';
+					tag+='</div>';
+      			  
+      		  });
+      		
+				
+				$('#tlist').html(tag);
+				
+			}).fail( function(xhr ){
+				alert(xhr.status+''+xhr.statusText);
+			 }) //ajax
+    	})
+ 
+   $('#keyword').on('keyup',function(e){
+
+	   if(e.keyCode==13){
+		   $('#searchok').click();
+	   }
+
+	});//엔터 키로 검색
     
   });
 </script>
@@ -145,7 +260,9 @@
 <body id="listcontainer">
 	<%@include file = "/view/common/header.jsp" %>
 	<h2 id="tboardTitle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	&nbsp;&nbsp;&nbsp;&nbsp;여행지 추천</h2><a id="writeButton" href="/tboard?cmd=" >게시물 작성</a>
+	&nbsp;&nbsp;&nbsp;&nbsp;여행지 추천</h2>
+	<div id="searchBox"><input id="keyword" type="text" name="keyword" /><button id="searchok">검색</button></div>
+	<a id="writeButton" href="/tboard?cmd=TBOARDWRITEFORM" >게시물 작성</a>
 	<div id="tlist">
 	<a href="/tboard?cmd=TBOARDWRITEFORM?id=${ LoginId }"></a>
 	<c:set var="i" value="1"/>
