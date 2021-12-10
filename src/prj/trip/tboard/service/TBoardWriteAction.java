@@ -26,10 +26,10 @@ public class TBoardWriteAction implements Action {
 		
 		request.setCharacterEncoding("UTF-8");
 		// 필요한 인자: memNum, title, addr, bcont1,2,3,4 image1,m,3,2
-		String loginId  = (String) session.getAttribute("LoginId"); //세션과의 연결
+		//String loginId  = (String) session.getAttribute("LoginId"); //세션과의 연결
 		MemberDao mDao  = new MemberDao();
-		int memNum      = mDao.getMemNum(loginId);
-		//int memNum  = 1;
+		//int memNum      = mDao.getMemNum(loginId);
+		int memNum  = 1;
 		
 		//String filepath = request.getRealPath("/uploadFiles"); //절대 경로
 		String filepath = "D:\\kss_ws\\jsp\\PrjReqTrip\\WebContents\\uploadFiles"; //상대 경로
@@ -40,7 +40,7 @@ public class TBoardWriteAction implements Action {
 	   
 	    
 	    //ArrayList original_filename= new ArrayList();
-	    String bcont1, bcont2, bcont3, bcont4; //게시물 구분점 %111%
+	    String bcont1, bcont2, bcont3, bcont4; //게시물 구분점 " %111% "
 	    String bcontbox;
 	    
 	    try{
@@ -54,12 +54,12 @@ public class TBoardWriteAction implements Action {
 	    	bcont3 = multiRequest.getParameter("bcont3");
 	    	bcont4 = multiRequest.getParameter("bcont4");
 	    	bcontbox = bcont1;
-	    	if( bcont2==null||!bcont2.trim().equals(""))
-	    		bcontbox+=" %111% "+bcont2;
-	    	if( bcont3==null||!bcont3.trim().equals(""))
-	    		bcontbox+=" %111% "+bcont3;
-	    	if( bcont4==null||!bcont4.trim().equals(""))
-	    		bcontbox+=" %111% "+bcont4;
+	    	if( bcont2!=null||!bcont2.trim().equals(""))
+	    		bcontbox+="%111%"+bcont2;
+	    	if( bcont3!=null||!bcont3.trim().equals(""))
+	    		bcontbox+="%111%"+bcont3;
+	    	if( bcont4!=null||!bcont4.trim().equals(""))
+	    		bcontbox+="%111%"+bcont4;
 	    	
 	    	Enumeration files = multiRequest.getFileNames();
 	    	
@@ -97,7 +97,7 @@ public class TBoardWriteAction implements Action {
 		
 		
 		
-		String path = "/tboard?cmd=TBOARDLISTFORM?id="+loginId;
+		String path = "/tboard?cmd=TBOARDLISTFORM";
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
