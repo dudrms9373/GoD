@@ -18,6 +18,41 @@ public class MemberDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 
+	
+	//Level 가져오기
+	public int getMemLevel(String id) {
+		
+		ResultSet      rs         = null;
+		int level=0;
+		
+		try {
+			DBConn    db   =  new DBConn();
+			conn           =  db.getConnection();
+			String    sql  =  " SELECT  MEM_LEVEL";
+			sql += " FROM   MEMBER ";
+			sql += " WHERE  MEM_ID =  ? ";
+			pstmt          =  conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			rs       =  pstmt.executeQuery();
+	
+			if(rs.next())
+				level = rs.getInt("MEM_LEVEL");
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		
+		return   level;
+	}
 	public void InsertUser(MemberVo vo) {
 		String gender = "";
 		if (vo.getMem_gender().equals("f")) {
