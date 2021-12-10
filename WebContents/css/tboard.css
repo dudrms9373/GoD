@@ -30,16 +30,16 @@ table, td { border-top: 2px solid silver;
 			border-bottom: 2px solid silver; border-collapse: collapse; }
 caption   { padding-top:200px; margin: 20px; font-size:50px; font-family: fantasy; color:gray;}
 /*form      { padding-top:200px; }*/
-.tboard   { margin:0 auto; width:1500px; height:3000px;}
+.tboard   { margin:0 auto; width:1100px; height:100%;}
 #mainimage { height:500px; width:50%; text-align:center;}
-.tboard #input { height:125px; width:50%; padding-left:50px; font-size:20px;
+.tboard #input { height:125px; width:40%; padding-left:50px; font-size:20px;
 				 vertical-align: bottom; }
 td input  { font-size:20px; width:80%; height:30px;
 		    border:none;  font-size:18px; }
 #cont     { margin-top:200px; overflow:hidden; resize:none;
-		    width:1500px; height:300px; font-size:20px; text-align:center;  }
+		    width:1100px; height:300px; font-size:20px; text-align:center;  }
 #insertcont {  overflow:hidden; resize:none;
-		    width:1500px; height:600px; font-size:20px; text-align:center; }
+		    width:1100px; height:600px; font-size:20px; text-align:center; }
 #insertbtn  { width:600px; height:450px; text-align:center; border:none; background-color:white; }
 #insertbtn2  { width:600px; height:450px; text-align:center; border:none; background-color:white; }
 #insertbtn3  { width:600px; height:450px; text-align:center; border:none; background-color:white; }
@@ -59,16 +59,39 @@ td input  { font-size:20px; width:80%; height:30px;
 /* 여행지 추천 게시물 보기  */
 .bcont     { margin-top:200px; overflow:hidden; resize:none; border:none;
 			 background-color:white; 
-		    width:1500px; height:300px; font-size:20px; text-align:center;  }
+		    width:1100px; height:100px; font-size:20px; text-align:center;  }
+
+/* 댓글 부분 */
+.comment { display:inline-block; margin-left:14%; 
+		  
+		   border-collapse: collapse; width:1100px; height:1000px;}
+.cmtwrite { display:inline-block; border:1px solid black; 
+		   border-collapse: collapse; width:1100px; height:300px; }
+.cmtwrite h2 { text-align:center; margin:0 auto; margin-top:20px; margin-bottom: 20px;}
+.cmtCont  {  width:70%; height:200px; margin-left:8%; overflow:hidden; resize:none;}
+#cmtSubmit { width:10%; height: 70%; float:right; margin-right:90px; }
+.cmtlist { border:1px solid black; width:1100px;  margin:0 auto;}
+.cmtlist h2 { margin:0 auto;}
+.cmt     { margin-left:18%; width:60%; height:40px; overflow: hidden;
+		   resize:none; }
+#cmtlike, #cmtupdate, #cmtdelete, #reportc, #cmtlikeCancel { float:right; border: 1px solid black; border-collapse: collapse;
+											width:80px;}
+#reportc { margin-right:23%; }
 
 
+/* 게시물 버튼*/
+#likeCancel {display:none;}
+#prev { background-color: silver; }
+.boardbtn   { text-align:center;}
+.boardbtn a { float:right;  width:100px; height:30px; border:1px solid black; border-collapse: collapse;}
 
-
-
-
-
-
-
+/* 게시물 내 댓글*/
+#cmtPaging { display:inline-block; width:500px; background-color:gray;
+		  margin-left:24%; margin-top:10px; text-align:center; }
+#cmtPaging a{ float:left; padding:10px; border:1px solid black; background-color:white; }
+#cmtPaging:nth-of-type(1){padding-left:135px;}
+#cmtlikeCancel { display:none; }
+#cmtdelete, #cmtupdate { display:none; }
 
 
 
