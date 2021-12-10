@@ -16,6 +16,19 @@ public class FreeBoardVo {
 	
 	
 	
+	public FreeBoardVo(String num, String title, String nick, String date, String cnt, String likecnt, int fbc) {
+		super();
+		this.num = num;
+		this.title = title;
+		this.nick = nick;
+		this.date = date;
+		this.cnt = cnt;
+		this.likecnt = likecnt;
+		this.fbc = fbc;
+	}
+
+
+
 	public FreeBoardVo(String num, String title, String nick, String date, String cnt, String cont, String likecnt,
 			int fbc) {
 		super();
