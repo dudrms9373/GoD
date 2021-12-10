@@ -382,7 +382,6 @@ public String getNick(String id) {  //닉네임 가져오기
 }
 
 public void CntUpdate(String fbnum) {
-	ResultSet rs =null;
 	DBConn db = new DBConn();
 	conn = db.getConnection();
 	String sql=" UPDATE FREE_BOARD SET FB_CNT = FB_CNT+1 WHERE FB_NUM = ? ";
@@ -390,7 +389,7 @@ public void CntUpdate(String fbnum) {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, fbnum);
 		
-		int r = pstmt.executeUpdate();
+		pstmt.executeUpdate();
 		conn.commit();
 		
 	} catch (SQLException e) {
@@ -553,6 +552,62 @@ public int getTotalTB(){
 		}
 	}
 	return count; // 총 레코드 수 리턴
+}
+public int getTBCTotal(String fnum){
+	ResultSet rs = null;
+	int count = 0;
+	String sql = " select COUNT(*) FBCNUM from FB_COMMENT WHERE FB_NUM = ?  "
+			+ " ";
+	try {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, fnum);		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()){
+			count = rs.getInt(1);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if(rs    != null )  rs.close();
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	return count; // 총 레코드 수 리턴
+}
+
+public void FBCDelete(String fbcnum) {
+	int rs = 0;
+	String sql=" DELETE FROM FB_COMMENT  WHERE FBC_NUM = ? ";
+	
+	DBConn db = new DBConn();
+	conn = db.getConnection();
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, fbcnum);
+		
+		pstmt.executeUpdate();
+		conn.commit();
+		
+		System.out.println("댓글삭제완료");
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		try {
+			if(pstmt != null )  pstmt.close();
+			if(conn  != null )  conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	
+	
 }
 
 
