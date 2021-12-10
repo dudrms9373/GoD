@@ -129,15 +129,16 @@ tr:hover:not(.table_th) .list_title {
 					<c:forEach var="fb" items="${ requestScope.fbvo }">
 						<tr class="table_tr">
 							<td class="list_no">${ fb.num }</td>
-							<td class="list_title"><a class="fb_title_a"
-								href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }
+							<td class="list_title">
+							<a class="fb_title_a" href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }
 								<span class="riple"> 
 									<c:choose>
 										<c:when test="${fb.fbc eq '0'}">  </c:when>
 										<c:otherwise> [${ fb.fbc }] </c:otherwise>
 									</c:choose>
 								</span>
-							</a></td>
+							</a>
+							</td>
 							<td class="list_writer">${ fb.nick }</td>
 							<td class="list_time">${ fb.date }</td>
 							<td class="list_hit">${ fb.cnt }</td>

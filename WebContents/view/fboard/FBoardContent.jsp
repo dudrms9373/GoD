@@ -14,8 +14,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
 <script>
+var openWin;
+
 function Logincheck() {
 	if( <%=session.getAttribute("LoginId")%> == null ){
 		alert("로그인이 필요합니다");
@@ -24,8 +25,17 @@ function Logincheck() {
 	}
 }
 
+function openWin(fbcnum, fbnum){
+	var id = "${ LoginId }";
+	
+	var link = "/view/fboard/FBCUpdate.jsp?id="+ id+"&fbcnum="+fbcnum+"&fbnum="+fbnum ;
+    window.open( link, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );
+    openWin.document
+}
+
 
 </script>
+</head>
 <body>
 <%@ include file="../common/header.jsp" %>
 
@@ -83,7 +93,7 @@ function Logincheck() {
 			<c:when test="${LoginNick eq null}">
 			<c:set var = "LoginNicka" scope = "request" value = "null"></c:set>
 		<% if( request.getAttribute("LoginNicka").equals(request.getAttribute("dd")) ){ %>
-				<button onclick="">수정</button>
+				<button onclick=" location='fboard?cmd=FBCUpdate&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }&fbnum=${ fbc.tb_num }' ">수정</button>
 				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }&fbnum=${ fbc.tb_num }' ">삭제</button>
 		<%}else { %>
 				<button style="display: none;">수정</button>
@@ -92,7 +102,7 @@ function Logincheck() {
 			</c:when>
 			<c:otherwise>
 		<% if( session.getAttribute("LoginNick").equals(request.getAttribute("dd")) ){ %>
-				<button onclick="">수정</button>
+				<button onclick="javascript:openWin(${ fbc.tbc_num },${ fbc.tb_num })">수정</button>
 				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }&fbnum=${ fbc.tb_num }' ">삭제</button>
 		<%}else { %>
 				<button style="display: none;">수정</button>
