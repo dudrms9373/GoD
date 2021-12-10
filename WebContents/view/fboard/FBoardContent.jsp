@@ -56,7 +56,7 @@ function Logincheck() {
 	<!-- 댓글영역 -->
 	<div style="width: 400px; background-color : #F8F8F8; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;
 	 margin-bottom: 20px; ">
-		<form action="fboard?cmd=FBCInsert&fbnum=${ fbnum }" method="post" onsubmit="Logincheck()">
+		<form action="fboard?cmd=FBCInsert&fbnum=${ fbnuma }" method="post" onsubmit="Logincheck()">
 		댓글
 		<textarea rows="7" cols="53" name="cont" placeholder="고운말 부탁드려요" onclick="Logincheck()"></textarea>
 		<div style="display: flex; justify-content: flex-end;">
@@ -83,7 +83,7 @@ function Logincheck() {
 			<c:set var = "LoginNicka" scope = "request" value = "null"></c:set>
 		<% if( request.getAttribute("LoginNicka").equals(request.getAttribute("dd")) ){ %>
 				<button onclick="">수정</button>
-				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }' ">삭제</button>
+				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }&fbnum=${ fbc.tb_num }' ">삭제</button>
 		<%}else { %>
 				<button style="display: none;">수정</button>
 				<button style="display: none;">삭제</button> 
@@ -92,7 +92,7 @@ function Logincheck() {
 			<c:otherwise>
 		<% if( session.getAttribute("LoginNick").equals(request.getAttribute("dd")) ){ %>
 				<button onclick="">수정</button>
-				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }' ">삭제</button>
+				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }&fbnum=${ fbc.tb_num }' ">삭제</button>
 		<%}else { %>
 				<button style="display: none;">수정</button>
 				<button style="display: none;">삭제</button> 
