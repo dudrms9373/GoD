@@ -686,6 +686,30 @@ public void FBCDelete(String fbcnum) {
 	
 }
 
+public void RipleUpdate(String fbnum,String cont) {
+	DBConn db = new DBConn();
+	conn = db.getConnection();
+	String sql=" UPDATE FB_COMMENT SET FBC_CONT = ? WHERE FBC_NUM = ? ";
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, cont);
+		pstmt.setString(2, fbnum);
+		
+		int r = pstmt.executeUpdate();
+		conn.commit();
+		System.out.println("업데이트 된 수"+r);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+	    try {
+	    	  if(pstmt!=null)pstmt.close();
+	    	  if(conn!=null)conn.close();
+	   } catch (SQLException e) {
+	      e.printStackTrace();
+	   }
+	   }
+}
+
 
 
 
