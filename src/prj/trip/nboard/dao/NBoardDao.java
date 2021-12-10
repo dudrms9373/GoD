@@ -2,17 +2,21 @@ package prj.trip.nboard.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import oracle.jdbc.OracleCallableStatement;
 import prj.trip.db.DBConn;
 import prj.trip.nboard.vo.NBoardVo;
 
 public class NBoardDao {
 	private Connection conn = null;
+	private PreparedStatement pstmt = null;
 	private CallableStatement cstmt = null;
+	private ResultSet rs = null;
 
 	// 게시글 삽입
 	public void nboardInsert(NBoardVo vo) {
@@ -21,19 +25,19 @@ public class NBoardDao {
 			DBConn db = new DBConn();
 			conn = db.getConnection();
 			String sql = "INSERT INTO NOTICE_BOARD VALUES((SELECT NVL(MAX(NB_NUM),0)+1 FROM NOTICE_BOARD),?,?,0,SYSDATE,NULL,NULL,?)";
-			cstmt = conn.prepareCall(sql);
+			pstmt = conn.prepareStatement(sql);
 
-			cstmt.setString(1, vo.getNb_title());
-			cstmt.setString(2, vo.getNb_cont());
-			cstmt.setInt(3, vo.getMem_num());
-			cstmt.execute();
+			pstmt.setString(1, vo.getNb_title());
+			pstmt.setString(2, vo.getNb_cont());
+			pstmt.setInt(3, vo.getMem_num());
+			pstmt.execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (cstmt != null)
-					cstmt.close();
+				if (pstmt != null)
+					pstmt.close();
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
@@ -54,9 +58,9 @@ public class NBoardDao {
 			sql += " FROM NOTICE_BOARD NB, MEMBER M";
 			sql += " WHERE M.MEM_NUM = NB.MEM_NUM";
 
-			cstmt = conn.prepareCall(sql);
+			pstmt = conn.prepareStatement(sql);
 
-			rs = cstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				int nb_num = rs.getInt("NB_NUM");
@@ -74,8 +78,8 @@ public class NBoardDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (cstmt != null)
-					cstmt.close();
+				if (pstmt != null)
+					pstmt.close();
 				if (conn != null)
 					conn.close();
 				if (rs != null)
@@ -86,30 +90,44 @@ public class NBoardDao {
 		return vo;
 	}
 
-	 //개인 식별번호 가져오기
-	
+	// 개인 식별번호 가져오기
+
 	public int getMem_num(String nick) {
-	  
-	  ResultSet rs = null; int mem_num = 0;
-	  
-	  try { DBConn db = new DBConn(); conn = db.getConnection(); String sql =
-	  "SELECT M.MEM_NUM FROM MEMBER M"; sql += " WHERE M.MEM_NICK = ?";
-	  
-	  cstmt = conn.prepareCall(sql);
-	  
-	  cstmt.setString(1,nick);
-	  
-	  rs = cstmt.executeQuery();
-	  
-	  if(rs.next()) mem_num = rs.getInt("MEM_NUM");
-	  
-	  
-	  } catch (SQLException e) { e.printStackTrace(); } finally { try { if (cstmt
-	  != null) cstmt.close(); if (conn != null) conn.close(); if(rs!=null)
-	  rs.close(); } catch (SQLException e) { } } return mem_num;
-	  
-	  }
-	 
+
+		ResultSet rs = null;
+		int mem_num = 0;
+
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql = "SELECT M.MEM_NUM FROM MEMBER M";
+			sql += " WHERE M.MEM_NICK = ?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, nick);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next())
+				mem_num = rs.getInt("MEM_NUM");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {
+			}
+		}
+		return mem_num;
+
+	}
 
 	// 제목누르면 해당 게시글 들고옴
 	public NBoardVo getnBoard(int getnb_num) {
@@ -126,6 +144,7 @@ public class NBoardDao {
 
 			cstmt.setInt(1, getnb_num);
 			cstmt.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+
 			cstmt.execute();
 
 			OracleCallableStatement ostmt = (OracleCallableStatement) cstmt;
@@ -160,10 +179,9 @@ public class NBoardDao {
 
 		return vo;
 	}
-	
-	//수정
-	public void nboardUpdate(int nboardNum, String cont, String title) {
 
+	// 수정
+	public void nboardUpdate(int nboardNum, String cont, String title) {
 
 		try {
 			DBConn db = new DBConn();
@@ -175,9 +193,8 @@ public class NBoardDao {
 			cstmt.setInt(1, nboardNum);
 			cstmt.setString(2, cont);
 			cstmt.setString(3, title);
-			
-			cstmt.execute();
 
+			cstmt.execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -194,7 +211,7 @@ public class NBoardDao {
 
 	}
 
-	//삭제
+	// 삭제
 	public void nboardDelete(int nboardNum) {
 
 		try {
@@ -205,9 +222,8 @@ public class NBoardDao {
 			cstmt = conn.prepareCall(sql);
 
 			cstmt.setInt(1, nboardNum);
-			
-			cstmt.execute();
 
+			cstmt.execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -223,4 +239,81 @@ public class NBoardDao {
 		}
 	}
 
+	public int getDataCount() {
+		int    dataCnt = 0;
+		String sql     = "SELECT COUNT(*) FROM NOTICE_BOARD";
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs    = pstmt.executeQuery();
+			if(rs.next()){
+				dataCnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {}
+		}
+		return dataCnt;
+	}
+
+	public List<NBoardVo> getPagingData(int currentpage, int dpp) {
+		ArrayList<NBoardVo> boardList = new ArrayList<>();
+
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql = "SELECT * ";
+			sql += " FROM (SELECT NB_NUM, NB_TITLE, NB_CNT, NB_DATE, MEM_NICK,";
+			sql += " ROW_NUMBER() OVER(ORDER BY NB.NB_NUM DESC NULLS LAST) RN ";
+			sql += " FROM NOTICE_BOARD NB JOIN MEMBER M ON NB.MEM_NUM = M.MEM_NUM";
+			sql += " GROUP BY NB.NB_NUM, NB_TITLE, NB_CNT, NB_DATE, MEM_NICK) T";
+			sql += " WHERE RN BETWEEN 1 + (10)*(?+?) AND 10 + (10)*(?+?)";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, currentpage - 1); // 첫번째 ?= 세번째 ? :누른 버튼의 번호-1
+			pstmt.setInt(2, dpp); // 두번째 ?=네번째? :보여줄 자료 수(기본 10개씩 보여주나 -5,+10 으로 조절 가능)
+			pstmt.setInt(3, currentpage - 1);
+			pstmt.setInt(4, dpp);
+			rs = pstmt.executeQuery();
+			// 작성자 추천수, 메인 이미지
+			while (rs.next()) {
+				int nb_num = rs.getInt(1); // 테이블 번호
+				String nb_title = rs.getString(2); // 테이블 제목
+				int nb_cnt = rs.getInt(3); // 조회수
+				String nb_date = rs.getString(4); // 작성일
+				String nick = rs.getString(5); // 작성자
+
+				NBoardVo nVo = new NBoardVo();
+				nVo.setNb_num(nb_num);
+				nVo.setNb_title(nb_title);
+				nVo.setNb_cnt(nb_cnt);
+				nVo.setNb_date(nb_date);
+				nVo.setMem_nick(nick);
+				boardList.add(nVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+				if (rs != null)
+					rs.close();
+			} catch (SQLException e) {}
+
+		}
+		return boardList;
+
+	}
 }
