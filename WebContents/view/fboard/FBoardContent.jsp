@@ -23,6 +23,8 @@ function Logincheck() {
 		return false;
 	}
 }
+
+
 </script>
 <body>
 <%@ include file="../common/header.jsp" %>
@@ -47,7 +49,7 @@ function Logincheck() {
 		<tr>
 			<td align="center"><input type="submit" value="작성" class="button"></td>
 			<td ><input type="button" value="게시판으로 이동" onclick="location.href='fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1'"></td>
-			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnum }'">추천수 : ${ like } </td>
+			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnuma }'">추천수 : ${ like } </td>
 		</tr>
 	</table>
 	
@@ -73,7 +75,38 @@ function Logincheck() {
 		border-bottom: 1px solid #848484;  border-collapse: collapse; ">
 		닉네임 : ${ fbc.nick } <span>( ${ fbc.tbc_date } )</span><br>
 		내용 : ${ fbc.tbc_cont }<br><br>
+		<div style="text-align: right;">
+		<c:set var = "dd" scope = "request" value = "${ fbc.nick }"/>
+
+		<c:choose>
+			<c:when test="${LoginNick eq null}">
+			<c:set var = "LoginNicka" scope = "request" value = "null"></c:set>
+		<% if( request.getAttribute("LoginNicka").equals(request.getAttribute("dd")) ){ %>
+				<button onclick="">수정</button>
+				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }' ">삭제</button>
+		<%}else { %>
+				<button style="display: none;">수정</button>
+				<button style="display: none;">삭제</button> 
+		<% } %>
+			</c:when>
+			<c:otherwise>
+		<% if( session.getAttribute("LoginNick").equals(request.getAttribute("dd")) ){ %>
+				<button onclick="">수정</button>
+				<button onclick=" location='fboard?cmd=FBCDelete&fbcnum=${ fbc.tbc_num }&id=${ sessionScope.LoginId }' ">삭제</button>
+		<%}else { %>
+				<button style="display: none;">수정</button>
+				<button style="display: none;">삭제</button> 
+		<% } %>	
+			</c:otherwise>
+		</c:choose>
+		
+		<c:if test="${LoginNick eq null}">
+		</c:if>
+		
+		
+		</div>
 	</div>
 		</c:forEach>
+		
 </body>
 </html>
