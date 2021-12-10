@@ -132,7 +132,8 @@ function paging(totalData, dataPerPage, pageCount, currentPage){
 					
 					tag +='<tr>'
 					tag +='<td>'+ nboard.nbNum +'</td>';
-					tag+= '<td>'+nboard.title+'</td>';
+					tag += '<td><a href="/nboard?cmd=nboardView&nb_num='+ nboard.nbNum + '&nb_nick='+nboard.nick+'">';
+					tag +=  nboard.title+'</a></td>'
 					tag+= '<td>'+ nboard.nick +'</td>';
 					tag+= '<td>'+ nboard.date +'</td>' +'</div>';
 					tag+= '<td>'+ nboard.cnt  +'</td>';
