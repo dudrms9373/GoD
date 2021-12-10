@@ -47,13 +47,13 @@ function Logincheck() {
 			<td colspan="3"><textarea rows="12" cols="50" name="writeContent"  readonly="readonly">${ cont }</textarea></td>
 		</tr>
 		<tr>
-			<td align="center"><input type="submit" value="작성" class="button"></td>
+			<td align="center"><input type="submit" value="수정" class="button"></td>
 			<td ><input type="button" value="게시판으로 이동" onclick="location.href='fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1'"></td>
 			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnuma }'">추천수 : ${ like } </td>
 		</tr>
 	</table>
 	
-	<!-- 댓글영역 -->
+				<!-- 댓글작성영역 -->
 	<div style="width: 400px; background-color : #F8F8F8; padding : 10px; margin-left: auto; margin-right: auto; margin-top: 20px;
 	 margin-bottom: 20px; ">
 		<form action="fboard?cmd=FBCInsert&fbnum=${ fbnuma }" method="post" onsubmit="Logincheck()">
@@ -65,7 +65,8 @@ function Logincheck() {
 		</form>
 	</div>
 	
-	<div style="width: 400px; height:25px; padding : 10px; margin-left: auto; margin-right: auto; 
+	<!-- 댓글목록영역 -->
+	<div style="width: 400px; height:25px; padding : 10px; margin-top:50px; margin-left: auto; margin-right: auto; 
 		border-bottom: 1px solid #848484; border-top: 1px solid #848484; font-weight: bold; ">
 		댓글 수 (${ FBCTotal })
 	</div>
@@ -107,6 +108,23 @@ function Logincheck() {
 		</div>
 	</div>
 		</c:forEach>
+		
+	<!-- 댓글페이징영역 -->
+		<div style="height: 50px; text-align: center;">
+					<!-- 페이징 기능 -->
+					<jsp:include page="Riplepaging.jsp" flush="false">
+						<jsp:param name="firstPageNo" value="${pvo.firstPageNo}" />
+						<jsp:param name="prevPageNo" value="${pvo.prevPageNo}" />
+						<jsp:param name="startPageNo" value="${pvo.startPageNo}" />
+						<jsp:param name="pageNo" value="${pvo.pageNo}" />
+						<jsp:param name="endPageNo" value="${pvo.endPageNo}" />
+						<jsp:param name="nextPageNo" value="${pvo.nextPageNo}" />
+						<jsp:param name="finalPageNo" value="${pvo.finalPageNo}" />
+						<jsp:param name="main" value="${main}" />
+						<jsp:param name="Keyword" value="${Keyword}" />
+					</jsp:include>
+				</div>
+		
 		
 </body>
 </html>
