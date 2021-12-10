@@ -28,7 +28,7 @@ public class TBoardDao {
 	
 	
 
-	//게시물 불러오기
+	//게시물 불러오기(조회수 증가하는 버전)
 	public TBoardVo getTBoard(int inBoardNum) {
 		TBoardVo board = new TBoardVo();
 		String sql = "{ CALL PKG_TRIPREQ.PROC_GETBOARD( ? , ? ) }";
@@ -465,7 +465,119 @@ public class TBoardDao {
 		return aftcnt;
 	}
 	
+	//게시물 수정
+	public int updateTBoard(int tbNum, String title, String addr, String bcontbox, ArrayList<String> filenames) {
+		int aftcnt=0;
+		String sql = "UPDATE TRIP_BOARD";
+		sql		  += " SET TB_TITLE = ?";
+		sql		  += " ,TB_ADDR = ?";
+		sql		  += " ,TB_CONT = ?";
+		sql		  += " ,TB_IMG1 = ?";
+		sql		  += " ,TB_IMG2 = ?";
+		sql		  += " ,TB_IMG3 = ?";
+		sql		  += " ,TB_IMG4 = ?";
+		sql		  += " WHERE TB_NUM = ?";
+		
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, addr);
+			pstmt.setString(3, bcontbox);
+			pstmt.setString(4, filenames.get(1));
+			pstmt.setString(5, filenames.get(0));
+			pstmt.setString(6, filenames.get(3));
+			pstmt.setString(7, filenames.get(2));
+			pstmt.setInt(8, tbNum);
+			aftcnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		
+		return aftcnt;
+	}
 	
+	//게시물 불러오기
+	public TBoardVo selectTBoard(int inBoardNum) {
+		TBoardVo board = new TBoardVo();
+		String sql = "";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inBoardNum);
+			
+			rs    = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				int    boardNum    = rs.getInt("TB_NUM");
+				String title       = rs.getString("TB_TITLE");
+				String allcont     = rs.getString("TB_CONT"); // %111%로 SPLIT 필요
+				String[] contbox   = allcont.split("%111%");
+				int    readCnt     = rs.getInt("TB_CNT");
+				String date        = rs.getString("TB_DATE");
+				String addr        = rs.getString("TB_ADDR");
+				String img1        = rs.getString("TB_IMG1");
+				String img2        = rs.getString("TB_IMG2");
+				String img3        = rs.getString("TB_IMG3");
+				String img4        = rs.getString("TB_IMG4");
+				//String video1      = rs.getString("TB_VIDEO1");
+				//String video2      = rs.getString("TB_VIDEO2");
+				String writer	   = rs.getString("MEM_NICK");
+				int    likeCnt	   = rs.getInt("LIKECNT");
+				int    cmtCnt      = rs.getInt("CMTCNT");
+				System.out.println(img1+" "+img2+" "+img3+" "+img4);
+				if( img3 == null) {
+					img3 = "0";
+					if( img4 == null) {
+						img4 = "0";
+					}
+					
+				}
+				// vo 안에 투입
+				board.setTbNum(boardNum);
+				board.setTitle(title);
+				for (int i = 0; i < contbox.length; i++) {
+					System.out.println(i+":"+contbox[i]);
+					switch(i) {
+					case 0: board.setCont(contbox[i]); break;
+					case 1: board.setCont2(contbox[i]); break;
+					case 2: board.setCont3(contbox[i]); break;
+					case 3: board.setCont4(contbox[i]); break;
+					}
+				}
+				
+			
+				System.out.println(board.getCont2());
+				System.out.println(board.getCont4());
+				board.setReadCnt(readCnt);
+				board.setwDate(date);
+				board.setAddr(addr);
+				board.setImg1(img1); // 예외처리 필요
+				board.setImg2(img2);
+				board.setImg3(img3);
+				board.setImg4(img4);
+				board.setNickName(writer);
+				board.setLikeCnt(likeCnt);
+				board.setCmtCnt(cmtCnt);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		
+		
+		
+		return board;
+	}
 	
 	//DB CLOSE
 	public void close() {
@@ -478,6 +590,8 @@ public class TBoardDao {
 			e.printStackTrace();
 		}
 	}
+
+
 
 	
 
