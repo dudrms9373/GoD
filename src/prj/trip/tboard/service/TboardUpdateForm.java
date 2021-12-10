@@ -20,7 +20,7 @@ public class TboardUpdateForm implements Action {
 		System.out.println(sboardNum);
 		// 게시물 불러오기
 		TBoardDao dao       =  new TBoardDao();
-		TBoardVo  tboardVo  = dao.getTBoard(boardNum);
+		TBoardVo  tboardVo  = dao.selectTBoard(boardNum);
 		
 		request.setAttribute("tboardVo", tboardVo);
 		
