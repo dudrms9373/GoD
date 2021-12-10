@@ -14,12 +14,15 @@ public class TBoardVo { // nickname
 	private String  		  nickName;   //닉네임
 	private String   		  wDate;      //작성일
 	private String  	      cont;   //내용 
+	private String  	      cont2;   //내용 
+	private String  	      cont3;   //내용 
+	private String  	      cont4;   //내용 
 	private String  		  img1;		  //이미지1
 	private String  		  img2;		  //이미지2
 	private String  		  img3;		  //이미지3
 	private String  		  img4;		  //이미지4
 	private String   		  video;      //비디오
-	private ArrayList<CommentVo>     cmtelist;  //댓글
+	
 	
 	private int 			   cmtCnt;       //댓글수
 	private int                readCnt;      //조회수
@@ -27,21 +30,23 @@ public class TBoardVo { // nickname
 	private int                number;		  //검색결과에 붙이는 번호
 	// Constructor
 	public TBoardVo() {}
-	public TBoardVo(int tbNum, String addr, String title, String nickName, String wDate, String cont, String img1,
-			String img2, String img3, String img4, String video, ArrayList<CommentVo> cmtelist, int cmtCnt, int readCnt,
-			int likeCnt, int number) {
+	public TBoardVo(int tbNum, String addr, String title, String nickName, String wDate, String cont, String cont2,
+			String cont3, String cont4, String img1, String img2, String img3, String img4, String video, int cmtCnt,
+			int readCnt, int likeCnt, int number) {
 		this.tbNum = tbNum;
 		this.addr = addr;
 		this.title = title;
 		this.nickName = nickName;
 		this.wDate = wDate;
 		this.cont = cont;
+		this.cont2 = cont2;
+		this.cont3 = cont3;
+		this.cont4 = cont4;
 		this.img1 = img1;
 		this.img2 = img2;
 		this.img3 = img3;
 		this.img4 = img4;
 		this.video = video;
-		this.cmtelist = cmtelist;
 		this.cmtCnt = cmtCnt;
 		this.readCnt = readCnt;
 		this.likeCnt = likeCnt;
@@ -84,6 +89,24 @@ public class TBoardVo { // nickname
 	public void setCont(String cont) {
 		this.cont = cont;
 	}
+	public String getCont2() {
+		return cont2;
+	}
+	public void setCont2(String cont2) {
+		this.cont2 = cont2;
+	}
+	public String getCont3() {
+		return cont3;
+	}
+	public void setCont3(String cont3) {
+		this.cont3 = cont3;
+	}
+	public String getCont4() {
+		return cont4;
+	}
+	public void setCont4(String cont4) {
+		this.cont4 = cont4;
+	}
 	public String getImg1() {
 		return img1;
 	}
@@ -114,12 +137,6 @@ public class TBoardVo { // nickname
 	public void setVideo(String video) {
 		this.video = video;
 	}
-	public ArrayList<CommentVo> getCmtelist() {
-		return cmtelist;
-	}
-	public void setCmtelist(ArrayList<CommentVo> cmtelist) {
-		this.cmtelist = cmtelist;
-	}
 	public int getCmtCnt() {
 		return cmtCnt;
 	}
@@ -148,9 +165,10 @@ public class TBoardVo { // nickname
 	@Override
 	public String toString() {
 		return "TBoardVo [tbNum=" + tbNum + ", addr=" + addr + ", title=" + title + ", nickName=" + nickName
-				+ ", wDate=" + wDate + ", cont=" + cont + ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3
-				+ ", img4=" + img4 + ", video=" + video + ", cmtelist=" + cmtelist + ", cmtCnt=" + cmtCnt + ", readCnt="
-				+ readCnt + ", likeCnt=" + likeCnt + ", number=" + number + "]";
+				+ ", wDate=" + wDate + ", cont=" + cont + ", cont2=" + cont2 + ", cont3=" + cont3 + ", cont4=" + cont4
+				+ ", img1=" + img1 + ", img2=" + img2 + ", img3=" + img3 + ", img4=" + img4 + ", video=" + video
+				+ ", cmtCnt=" + cmtCnt + ", readCnt=" + readCnt + ", likeCnt=" + likeCnt + ", number=" + number + "]";
 	}
+	
 	
 }
