@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import oracle.jdbc.OracleCallableStatement;
 import prj.trip.db.DBConn;
 import prj.trip.comment.vo.CommentVo;
 import prj.trip.tboard.vo.TBoardVo;
@@ -25,22 +28,160 @@ public class TBoardDao {
 	
 	
 
-	//게시물 불러오기(전면 수정 필요)
-	public TBoardVo getTBoard(int boardNum) {
+	//게시물 불러오기
+	public TBoardVo getTBoard(int inBoardNum) {
 		TBoardVo board = new TBoardVo();
+		String sql = "{ CALL PKG_TRIPREQ.PROC_GETBOARD( ? , ? ) }";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			cstmt = conn.prepareCall(sql);
+			cstmt.setInt(1, inBoardNum);
+			cstmt.registerOutParameter(2, oracle.jdbc.OracleTypes.CURSOR);
+			
+			cstmt.execute();
+			OracleCallableStatement ocstmt = (OracleCallableStatement) cstmt;
+			rs = ocstmt.getCursor(2);
+			if(rs.next()) {
+				int    boardNum    = rs.getInt("TB_NUM");
+				String title       = rs.getString("TB_TITLE");
+				String allcont     = rs.getString("TB_CONT"); // %111%로 SPLIT 필요
+				String[] contbox   = allcont.split("%111%");
+				int    readCnt     = rs.getInt("TB_CNT");
+				String date        = rs.getString("TB_DATE");
+				String addr        = rs.getString("TB_ADDR");
+				String img1        = rs.getString("TB_IMG1");
+				String img2        = rs.getString("TB_IMG2");
+				String img3        = rs.getString("TB_IMG3");
+				String img4        = rs.getString("TB_IMG4");
+				//String video1      = rs.getString("TB_VIDEO1");
+				//String video2      = rs.getString("TB_VIDEO2");
+				String writer	   = rs.getString("MEM_NICK");
+				int    likeCnt	   = rs.getInt("LIKECNT");
+				int    cmtCnt      = rs.getInt("CMTCNT");
+				System.out.println(img1+" "+img2+" "+img3+" "+img4);
+				if( img3 == null) {
+					img3 = "0";
+					if( img4 == null) {
+						img4 = "0";
+					}
+					
+				}
+				// vo 안에 투입
+				board.setTbNum(boardNum);
+				board.setTitle(title);
+				for (int i = 0; i < contbox.length; i++) {
+					System.out.println(i+":"+contbox[i]);
+					switch(i) {
+					case 0: board.setCont(contbox[i]); break;
+					case 1: board.setCont2(contbox[i]); break;
+					case 2: board.setCont3(contbox[i]); break;
+					case 3: board.setCont4(contbox[i]); break;
+					}
+				}
+				
+			
+				System.out.println(board.getCont2());
+				System.out.println(board.getCont4());
+				board.setReadCnt(readCnt);
+				board.setwDate(date);
+				board.setAddr(addr);
+				board.setImg1(img1); // 예외처리 필요
+				board.setImg2(img2);
+				board.setImg3(img3);
+				board.setImg4(img4);
+				board.setNickName(writer);
+				board.setLikeCnt(likeCnt);
+				board.setCmtCnt(cmtCnt);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		
 		
 		
 		return board;
 	}
 	
-	// 댓글목록 가져오기(전면 수정 필요)
-	private ArrayList<CommentVo> getcmtList(int boardNum) {
+	// 댓글목록 가져오기(페이징)
+	public ArrayList<CommentVo> getCmtList(int boardNum, int currentPage, int dpp) {
 		ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
 		
-		
+		String sql = "SELECT * ";
+		sql		  += " FROM (SELECT TBC_NUM, TBC_CONT, TBC_DATE, MEM_NICK ,";
+		sql		  += " ROW_NUMBER() OVER (ORDER BY TBC_NUM DESC NULLS LAST) RN";
+		sql		  += " FROM   TB_COMMENT C JOIN TRIP_BOARD T ON C.TB_NUM = T.TB_NUM";
+		sql		  += " JOIN MEMBER M ON T.MEM_NUM = M.MEM_NUM";
+		sql		  += " WHERE C.MEM_NUM = M.MEM_NUM ";
+		sql		  += " AND C.TB_NUM = ? )T"; 
+		sql	      += "	WHERE RN BETWEEN 1 + (10)*(?+?) AND 10 + (10)*(?+?)";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			pstmt.setInt(2, currentPage-1);
+			pstmt.setInt(3, dpp);
+			pstmt.setInt(4, currentPage-1);
+			pstmt.setInt(5, dpp);
+			rs = pstmt.executeQuery();
+			while( rs.next() ) {
+				int    cmtNum  = rs.getInt("TBC_NUM");
+				String cmtCont = rs.getString("TBC_CONT");
+				String cmtDate = rs.getString("TBC_DATE");
+				String cmtNick = rs.getString("MEM_NICK");
+				CommentVo cmtVo = new CommentVo(cmtNum, cmtCont, cmtNick, cmtDate, boardNum);
+				cmtList.add(cmtVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return cmtList;
 	}
 
+	// 댓글추가+입력(프로시저 각: 추가와 조회)
+		public List<CommentVo> insertCmt( int memNum, int tbNum, String comment,int currentPage, int dpp) {
+			ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
+			
+			String sql = "{ CALL PKG_TRIPREQ.PROC_INSERTCMT( ? , ? , ? , ?, ?, ? ) }";
+			
+			try {
+				db    = new DBConn();
+				conn  = db.getConnection();
+				cstmt = conn.prepareCall(sql);
+				cstmt.setInt(1, memNum);
+				cstmt.setInt(2, tbNum);
+				cstmt.setString(3, comment);
+				cstmt.setInt(4, currentPage-1);
+				cstmt.setInt(5, dpp);
+				cstmt.registerOutParameter(6, oracle.jdbc.OracleTypes.CURSOR);
+				
+				cstmt.execute();
+				OracleCallableStatement ocstmt = (OracleCallableStatement) cstmt;
+				rs = ocstmt.getCursor(6);
+				while( rs.next() ){
+					CommentVo cVo = new CommentVo();
+					cVo.setCmtNum(rs.getInt("TBC_NUM"));
+					cVo.setCmtCont(rs.getString("TBC_CONT"));  
+					cVo.setCmtWriter(rs.getString("MEM_NICK"));
+					cVo.setCmtdate(rs.getString("TBC_DATE")); 
+					cmtList.add(cVo);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+			return cmtList;
+		}
+	
+	
 	//여행지 추천 게시글 삽입
 	public int insertTBoard(int memNum, String title, String addr, String bcontbox, ArrayList<String> filenames) {
 		int aftcnt = 0;
@@ -235,6 +376,97 @@ public class TBoardDao {
 	}
 	
 	
+	//좋아요 후 추천수 조회
+	public int updateLike(int tbNum, int memNum) {
+		int likeCnt = 0;
+		String sql = " { CALL PKG_TRIPREQ.PROC_LIKEUPDATE( ? , ? , ? ) }";
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			cstmt  = conn.prepareCall(sql);
+			cstmt.setInt(1, memNum);
+			cstmt.setInt(2, tbNum);
+			cstmt.registerOutParameter(3, Types.NUMERIC);
+			cstmt.execute();
+			likeCnt = cstmt.getInt(3);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return likeCnt;
+	}
+	
+	//좋아요 취소
+	public int deleteLike(int tbNum, int memNum) {
+		int likeCnt = 0;
+		String sql = " { CALL PKG_TRIPREQ.PROC_LIKEDELETE( ? , ? , ? ) }";
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			cstmt  = conn.prepareCall(sql);
+			cstmt.setInt(1, memNum);
+			cstmt.setInt(2, tbNum);
+			cstmt.registerOutParameter(3, Types.NUMERIC);
+			cstmt.execute();
+			likeCnt = cstmt.getInt(3);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return likeCnt;
+	}
+	
+	
+	// 총 댓글수 가져오기
+	public int getCmtCount(int tbNum) {
+		int    dataCnt = 0;
+		String sql     = "SELECT COUNT(*) FROM TB_COMMENT WHERE TB_NUM = ? ";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tbNum);
+			rs    = pstmt.executeQuery();
+			if(rs.next()){
+				dataCnt = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return dataCnt;
+	}
+	
+	
+	
+	//게시물 삭제
+	public int deleteTBoard(int tbNum) {
+		int aftcnt = 0;
+		String sql="DELETE FROM TRIP_BOARD WHERE TB_NUM = ?";
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, tbNum);
+			aftcnt = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return aftcnt;
+	}
+	
+	
+	
 	//DB CLOSE
 	public void close() {
 		try {
@@ -247,7 +479,7 @@ public class TBoardDao {
 		}
 	}
 
-
+	
 
 
 
