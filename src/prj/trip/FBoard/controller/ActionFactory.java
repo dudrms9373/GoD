@@ -3,6 +3,7 @@ package prj.trip.FBoard.controller;
 
 import prj.trip.FBoard.impl.FBCDelete;
 import prj.trip.FBoard.impl.FBCInsert;
+import prj.trip.FBoard.impl.FBCUpdate;
 import prj.trip.FBoard.impl.FBLikeCnt;
 import prj.trip.FBoard.impl.FBoardClick;
 import prj.trip.FBoard.impl.FBoardSearch;
@@ -40,6 +41,9 @@ public class ActionFactory {
 			break;
 		case "FBCDelete":
 			action = new FBCDelete();
+			break;
+		case "FBCUpdate":
+			action = new FBCUpdate();
 			break;
 			
 			
