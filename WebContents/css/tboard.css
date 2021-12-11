@@ -39,7 +39,7 @@ td input  { font-size:20px; width:80%; height:30px;
 #cont     { margin-top:200px; overflow:hidden; resize:none;
 		    width:1100px; height:300px; font-size:20px; text-align:center;  }
 #insertcont {  overflow:hidden; resize:none;
-		    width:1100px; height:600px; font-size:20px; text-align:center; }
+		    width:1100px; height:300px; font-size:20px; text-align:center; }
 #insertbtn  { width:600px; height:450px; text-align:center; border:none; background-color:white; }
 #insertbtn2  { width:600px; height:450px; text-align:center; border:none; background-color:white; }
 #insertbtn3  { width:600px; height:450px; text-align:center; border:none; background-color:white; }
@@ -54,16 +54,20 @@ td input  { font-size:20px; width:80%; height:30px;
 			 border:none; background-color: white; color:silver;} 
 
 
-#submit   { text-align:center;  width:200px; font-size:50px; height:100px;}
+#submit   { margin-left:10px; margin-top:10px; text-align:center;  width:150px; font-size:50px; height:100px;
+			background-color:#0080ff; border-radius:10px;  }
 .submit   { text-align:center;}
 /* 여행지 추천 게시물 보기  */
-.bcont     { margin-top:200px; overflow:hidden; resize:none; border:none;
+.tbcont     { margin-top:200px; overflow:hidden; resize:none; border:none;
+			 background-color:white; 
+		    width:1100px; height:100px; font-size:20px; text-align:center;  }
+.bcont     { overflow:hidden; resize:none; border:none;
 			 background-color:white; 
 		    width:1100px; height:100px; font-size:20px; text-align:center;  }
 
 /* 댓글 부분 */
-.comment { display:inline-block; margin-left:14%; 
-		  
+.comment { display:block; /*margin-left:21%;*/
+		   margin:0 auto;
 		   border-collapse: collapse; width:1100px; height:1000px;}
 .cmtwrite { display:inline-block; border:1px solid black; 
 		   border-collapse: collapse; width:1100px; height:300px; }
@@ -93,8 +97,12 @@ td input  { font-size:20px; width:80%; height:30px;
 #cmtlikeCancel { display:none; }
 #cmtdelete, #cmtupdate { display:none; }
 
-
-
-
-
+/* 게시물 수정*/
+#mimage,#image1,#image2,#image3 { display:none;}
+#mimg { height:450px; width:600px; }
+.bucont     { overflow:hidden; resize:none;
+			 background-color:white; 
+		    width:1100px; height:100px; font-size:20px; text-align:center;  }
+#before   { border:none; background-color:silver;
+			text-align:center;  width:150px; font-size:50px; height:100px; border-radius:10px;  }
 
