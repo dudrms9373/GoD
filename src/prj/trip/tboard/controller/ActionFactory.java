@@ -72,7 +72,15 @@ public class ActionFactory {
 		case "TBCMTPAGINGACTION": //댓글 작성
 			action = new CommentPagingAction();
 			break;
-				
+		case "CMTLIKEUPDATEACTION": //댓글 좋아요
+			action = new CMTLikeUpdateAction();
+			break;
+		case "CMTLIKEDELETEACTION": //댓글 좋아요 취소
+			action = new CMTLikeDeleteAction();
+			break;
+		case "COMMENTDELETEACTION": //댓글 삭제
+			action = new CommentDeleteAction();
+			break;		
 		default: break;
 		}
 		
