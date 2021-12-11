@@ -112,12 +112,14 @@ public class TBoardDao {
 		ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
 		
 		String sql = "SELECT * ";
-		sql		  += " FROM (SELECT TBC_NUM, TBC_CONT, TBC_DATE, MEM_NICK ,";
+		sql		  += " FROM (SELECT T.TBC_NUM, TBC_CONT, TBC_DATE, MEM_NICK , COUNT(L.TBC_NUM) LIKECNT, ";
 		sql		  += " ROW_NUMBER() OVER (ORDER BY TBC_NUM DESC NULLS LAST) RN";
 		sql		  += " FROM   TB_COMMENT C JOIN TRIP_BOARD T ON C.TB_NUM = T.TB_NUM";
 		sql		  += " JOIN MEMBER M ON T.MEM_NUM = M.MEM_NUM";
+		sql		  += " LEFT JOIN TBC_LIKE L ON C.TBC_NUM = L.TBC_NUM";
 		sql		  += " WHERE C.MEM_NUM = M.MEM_NUM ";
-		sql		  += " AND C.TB_NUM = ? )T"; 
+		sql		  += " AND C.TB_NUM = ?";
+		sql		  += " GROUP BY T.TBC_NUM, TBC_CONT, TBC_DATE, MEM_NICK )T"; 
 		sql	      += "	WHERE RN BETWEEN 1 + (10)*(?+?) AND 10 + (10)*(?+?)";
 		try {
 			db    = new DBConn();
@@ -134,7 +136,8 @@ public class TBoardDao {
 				String cmtCont = rs.getString("TBC_CONT");
 				String cmtDate = rs.getString("TBC_DATE");
 				String cmtNick = rs.getString("MEM_NICK");
-				CommentVo cmtVo = new CommentVo(cmtNum, cmtCont, cmtNick, cmtDate, boardNum);
+				int    likeCnt  = rs.getInt("LIKECNT");
+				CommentVo cmtVo = new CommentVo(cmtNum, cmtCont, cmtNick, cmtDate, boardNum, likeCnt);
 				cmtList.add(cmtVo);
 			}
 		} catch (SQLException e) {
@@ -171,6 +174,7 @@ public class TBoardDao {
 					cVo.setCmtCont(rs.getString("TBC_CONT"));  
 					cVo.setCmtWriter(rs.getString("MEM_NICK"));
 					cVo.setCmtdate(rs.getString("TBC_DATE")); 
+					cVo.setLikeCnt(rs.getInt("LIKECNT"));
 					cmtList.add(cVo);
 				}
 			} catch (SQLException e) {
@@ -579,6 +583,87 @@ public class TBoardDao {
 		return board;
 	}
 	
+	//댓글 좋아요 업데이트
+	public int cmtLikeUpdate(int tbcNum, int memNum) {
+		int likeCnt = 0;
+		String sql = " { CALL PKG_TRIPREQ.PROC_CMTLIKEUPDATE( ? , ? , ? ) }";
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			cstmt  = conn.prepareCall(sql);
+			cstmt.setInt(1, memNum);
+			cstmt.setInt(2, tbcNum);
+			cstmt.registerOutParameter(3, Types.NUMERIC);
+			cstmt.execute();
+			likeCnt = cstmt.getInt(3);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return likeCnt;
+	}
+	
+	public int cmtLikeDelete(int tbcNum, int memNum) {
+		int likeCnt = 0;
+		String sql = " { CALL PKG_TRIPREQ.PROC_CMTLIKEDELETE( ? , ? , ? ) }";
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			cstmt  = conn.prepareCall(sql);
+			cstmt.setInt(1, memNum);
+			cstmt.setInt(2, tbcNum);
+			cstmt.registerOutParameter(3, Types.NUMERIC);
+			cstmt.execute();
+			likeCnt = cstmt.getInt(3);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return likeCnt;
+	}
+	
+	//댓글 삭제
+	public List<CommentVo> deleteCmt(int tbcNum, int currentPage, int dpp) {
+		ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
+		
+		String sql = "{ CALL PKG_TRIPREQ.PROC_DELETECMT( ? , ?, ? , ? ) }";
+		
+		try {
+			db    = new DBConn();
+			conn  = db.getConnection();
+			cstmt = conn.prepareCall(sql);
+			cstmt.setInt(1, tbcNum);
+			cstmt.setInt(2, currentPage-1);
+			cstmt.setInt(3, dpp);
+			cstmt.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+			
+			cstmt.execute();
+			OracleCallableStatement ocstmt = (OracleCallableStatement) cstmt;
+			rs = ocstmt.getCursor(4);
+			while( rs.next() ){
+				CommentVo cVo = new CommentVo();
+				cVo.setCmtNum(rs.getInt("TBC_NUM"));
+				cVo.setCmtCont(rs.getString("TBC_CONT"));  
+				cVo.setCmtWriter(rs.getString("MEM_NICK"));
+				cVo.setCmtdate(rs.getString("TBC_DATE")); 
+				cVo.setLikeCnt(rs.getInt("LIKECNT"));
+				cmtList.add(cVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cmtList;
+	}
+	
+	
 	//DB CLOSE
 	public void close() {
 		try {
@@ -590,6 +675,9 @@ public class TBoardDao {
 			e.printStackTrace();
 		}
 	}
+
+
+
 
 
 
