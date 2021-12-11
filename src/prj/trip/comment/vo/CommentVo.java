@@ -7,17 +7,18 @@ public class CommentVo {
 	private String cmtWriter; //댓글작성자
 	private String cmtdate;   //댓글날짜
 	private int    boardNum;    //게시판번호
+	private int    likeCnt;    //댓글  추천수
 	// Constructor
 	public CommentVo() {}
-	public CommentVo(int cmtNum, String cmtCont, String cmtWriter, String cmtdate, int boardNum) {
-		super();
+	public CommentVo(int cmtNum, String cmtCont, String cmtWriter, String cmtdate, int boardNum, int likeCnt) {
 		this.cmtNum = cmtNum;
 		this.cmtCont = cmtCont;
 		this.cmtWriter = cmtWriter;
 		this.cmtdate = cmtdate;
 		this.boardNum = boardNum;
+		this.likeCnt = likeCnt;
 	}
-	// Getter/ Setter
+	// Getter / Setter
 	public int getCmtNum() {
 		return cmtNum;
 	}
@@ -48,11 +49,17 @@ public class CommentVo {
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
 	// toString
 	@Override
 	public String toString() {
 		return "CommentVo [cmtNum=" + cmtNum + ", cmtCont=" + cmtCont + ", cmtWriter=" + cmtWriter + ", cmtdate="
-				+ cmtdate + ", boardNum=" + boardNum + "]";
+				+ cmtdate + ", boardNum=" + boardNum + ", likeCnt=" + likeCnt + "]";
 	}
 	
 }
