@@ -54,12 +54,12 @@ public class TBoardWriteAction implements Action {
 	    	bcont3 = multiRequest.getParameter("bcont3");
 	    	bcont4 = multiRequest.getParameter("bcont4");
 	    	bcontbox = bcont1;
-	    	if( bcont2!=null||!bcont2.trim().equals(""))
-	    		bcontbox+="%111%"+bcont2;
-	    	if( bcont3!=null||!bcont3.trim().equals(""))
-	    		bcontbox+="%111%"+bcont3;
-	    	if( bcont4!=null||!bcont4.trim().equals(""))
-	    		bcontbox+="%111%"+bcont4;
+	    	
+	    	bcontbox+="%111%"+bcont2;
+	    	
+	    	bcontbox+="%111%"+bcont3;
+	    	
+	    	bcontbox+="%111%"+bcont4;
 	    	
 	    	Enumeration files = multiRequest.getFileNames();
 	    	
