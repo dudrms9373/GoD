@@ -130,7 +130,8 @@
 </head>
 <body>
 	<%@include file ="/view/common/header.jsp" %>
-	<form action="/tboard?cmd=TBOARDWRITEACTION" method="POST" enctype="multipart/form-data">
+	<form action="/tboard?cmd=TBOARDUPDATEACTION" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="tbNum" value="${ tboardVo.tbNum }"/>
 	<table class="tboard">
 	<caption>여행지 추천 수정</caption>
 	<tr>
