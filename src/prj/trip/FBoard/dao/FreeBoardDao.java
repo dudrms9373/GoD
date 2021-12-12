@@ -478,6 +478,24 @@ public void CntUpdate(String fbnum) {
 	   }
 }
 
+public void FBUpdate(String title,String cont,String fbnum) {
+	DBConn db = new DBConn();
+	conn = db.getConnection();
+	String sql = "UPDATE FREE_BOARD SET FB_TITLE = ? ,FB_CONT = ? WHERE FB_NUM = ? ";
+	
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, title);
+		pstmt.setString(2, cont);
+		pstmt.setString(3, fbnum);
+		
+		pstmt.executeUpdate();
+		conn.commit();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
+
 public int InsertFBboard(String title, String cont, int memnum) {
 	ResultSet rs = null;
 	String sql ="INSERT INTO free_board ( fb_num, fb_title, fb_cont, fb_cnt, mem_num)"
