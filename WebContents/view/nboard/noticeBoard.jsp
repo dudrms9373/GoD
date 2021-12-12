@@ -103,11 +103,15 @@ function paging(totalData, dataPerPage, pageCount, currentPage){
 
       		  var cnt=1;
       		  
+      		  var level = <%=request.getAttribute("level")%>
+	
       		tag += '<caption>공지사항</caption>';
+      	if(level >= 900){
 			tag += '<tr>';
 			tag += '<td colspan="4" style="border: 0"></td>';
 			tag += '<th><a href="/nboard?cmd=nboardWrite">글 쓰기</a></th>';	
 			tag +=	'</tr>';
+      		  }
 			
 			tag += '<tr>';
 			tag += '<th>번호</th>';
@@ -166,36 +170,36 @@ $(function() {
 	</div>
 
 	<table class="nboard" id="board">
-			<tr>
+		<tr>
 			<caption>공지사항</caption>
-			</tr>
-			<%
-			int level = (int) request.getAttribute("level");
-			if(level >= 900){
-			%>
-			
-			<tr>
+		</tr>
+		<%
+		int level = (int) request.getAttribute("level");
+		if (level >= 900) {
+		%>
+		<tr>
 			<td colspan="4" style="border: 0"></td>
-			<th><a href="/nboard?cmd=nboardWrite">글 쓰기</a></th>	
-			</tr>
-			<%
+			<th><a href="/nboard?cmd=nboardWrite">글 쓰기</a></th>
+		</tr>
+		<%
 		}
-			%>
-			
-			<tr>
+		%>
+
+		<tr>
 			<th>번호</th>
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
 			<th>조회수</th>
-			</tr>
-			
+		</tr>
+
 		<c:forEach var="nboard" items="${nboardList}">
-			
+
 			<tr>
 				<td>${nboard.nb_num}</td>
-				<td><a href="/nboard?cmd=nboardView&nb_num=${nboard.nb_num}&nb_nick=${nboard.mem_nick}">
-					${nboard.nb_title}</a></td>
+				<td><a
+					href="/nboard?cmd=nboardView&nb_num=${nboard.nb_num}&nb_nick=${nboard.mem_nick}">
+						${nboard.nb_title}</a></td>
 				<td>${nboard.mem_nick}</td>
 				<td>${nboard.nb_date}</td>
 				<td>${nboard.nb_cnt}</td>
@@ -203,8 +207,8 @@ $(function() {
 		</c:forEach>
 	</table>
 
-	<div id="paging" style="margin:0 auto; text-align:center; width:10%; height:30px;"></div>
-	
-	<div id="search"></div>
+	<div id="paging"
+		style="margin: 0 auto; text-align: center; width: 10%; height: 30px;"></div>
+
 </body>
 </html>
