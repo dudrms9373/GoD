@@ -532,5 +532,88 @@ public class MemberDao {
 		return count; // 총 레코드 수 리턴
 	}
 
+	public String getIdSearch(String name, String year, String month, String day, String gender) {
+
+		String id = "";
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		ResultSet rs = null;
+		String sql =" SELECT MEM_ID FROM MEMBER WHERE  MEM_BIRTH = ? AND (MEM_NAME = ? AND MEM_GENDER = ? ) ";
+		String birth = year +"년 "+month+"월 "+day+"일";
+		String gen="";
+		if(gender.equals("m")) {
+			gen = "남";
+		}else if(gender.equals("f")) {
+			gen = "여";
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, birth);
+			pstmt.setString(2, name);
+			pstmt.setString(3, gen);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				id = rs.getString("MEM_ID");
+				return id;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		return "아이디 없음";
+		
+	}
+	public String getPwSearch(String name, String year, String month, String day, String gender,String idd) {
+		
+		String pw = "";
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		ResultSet rs = null;
+		String sql =" SELECT MEM_PWD FROM MEMBER WHERE  (MEM_BIRTH = ? AND MEM_ID = ? ) "
+				+ " AND (MEM_NAME = ? AND MEM_GENDER = ? ) ";
+		String birth = year +"년 "+month+"월 "+day+"일";
+		String gen="";
+		if(gender.equals("m")) {
+			gen = "남";
+		}else if(gender.equals("f")) {
+			gen = "여";
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, birth);
+			pstmt.setString(2, idd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, gen);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				pw = rs.getString("MEM_PWD");
+				return pw;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		return "아이디 없음";
+		
+	}
+	
 
 }
