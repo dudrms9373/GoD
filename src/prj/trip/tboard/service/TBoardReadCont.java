@@ -20,6 +20,10 @@ public class TBoardReadCont implements Action {
 		HttpSession session = request.getSession();
 		
 		String    loginId   = (String) session.getAttribute("LoginId");
+		//관리자 권한 확인
+		int uLevel = getMemLevel(loginId);
+		request.setAttribute("uLevel",uLevel);
+		//관리자여부를  확인하지 못하게 하기 위해 구분할만한 표시는 주지않는다.
 		String    sboardNum = request.getParameter("boardNum");
 		int       boardNum  = Integer.parseInt(sboardNum);
 		System.out.println(sboardNum);
