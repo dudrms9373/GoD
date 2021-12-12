@@ -46,7 +46,9 @@ public class TBoardDao {
 				int    boardNum    = rs.getInt("TB_NUM");
 				String title       = rs.getString("TB_TITLE");
 				String allcont     = rs.getString("TB_CONT"); // %111%로 SPLIT 필요
-				String[] contbox   = allcont.split("%111%");
+				String allcont2    = allcont.replace("\r\n","<br>");
+				String allcontF    = allcont2.replace(" ","&nbsp;");
+				String[] contbox   = allcontF.split("%111%");
 				int    readCnt     = rs.getInt("TB_CNT");
 				String date        = rs.getString("TB_DATE");
 				String addr        = rs.getString("TB_ADDR");
