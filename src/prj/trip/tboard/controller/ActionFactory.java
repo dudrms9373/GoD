@@ -43,9 +43,16 @@ public class ActionFactory {
 		case "TBOARDSEARCHACTION": //게시판 검색
 			action = new TBoardSearchAction();
 			break;
-		case "SEARCHPAGINGACTION": //게시판 검색
+		case "SEARCHPAGINGACTION": //게시판 검색 페이징
 			action = new SearchPagingAction();
 			break;
+		case "TBOARDLISTSORT": //게시판 정렬
+			action = new TBoardListSortForm();
+			break;
+		case "BOARDSORTPAGINGACTION": //게시판 정렬 페이징
+			action = new TBoardSortPagingAction();
+			break;
+		
 		
 		//게시물	
 		
@@ -69,7 +76,7 @@ public class ActionFactory {
 		case "COMMENTWRITEACTION": //댓글 작성
 			action = new CommentWriteAction();
 			break;
-		case "TBCMTPAGINGACTION": //댓글 작성
+		case "TBCMTPAGINGACTION": //댓글 페이징
 			action = new CommentPagingAction();
 			break;
 		case "CMTLIKEUPDATEACTION": //댓글 좋아요
