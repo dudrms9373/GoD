@@ -26,6 +26,9 @@ public class TBoardListForm implements Action {
 		int currentPage = 1; // 첫페이지를 보여줌
 		int dpp         = 10; // 기본 페이지당 자료수는 10
 		
+		int odNum = 3; // sortNumber
+		request.setAttribute("odNum",odNum);
+		
 		TBoardDao dao = new TBoardDao();
 		int totalData   = dao.getDataCount();
 		int searchNum   = 0;
