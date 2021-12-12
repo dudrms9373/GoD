@@ -617,6 +617,30 @@ public class TBoardDao {
 		return cmtList;
 	}
 	
+	// 게시물 입장 시 로그인한 아이디로 좋아요가 되어있는 지 확인
+	public int searchLikeRecord(int memNum){
+		int record = 0; //0는 기록없음 1은 기록존재
+		String sql = " SELECT TBL_NUM";
+		sql		  += " FROM TB_LIKE";
+		sql		  += " WHERE MEM_NUM = ?";
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			pstmt  = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNum);
+			rs     = pstmt.executeQuery();
+			if( rs.next() ){
+				record = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return record;
+	}
+	
+	
 	//DB CLOSE
 	public void close() {
 		try {
