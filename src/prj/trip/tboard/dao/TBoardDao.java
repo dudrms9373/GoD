@@ -640,6 +640,66 @@ public class TBoardDao {
 		return record;
 	}
 	
+	//게시판 정렬
+	public List<TBoardVo> getPagingSortData(int currentPage, int dpp, int odNum) {
+		ArrayList<TBoardVo> boardList = new ArrayList<>();
+		String sql =  "SELECT *  ";
+		sql       +=  " FROM (SELECT TB.TB_NUM, TB_TITLE, TB_CNT, TB_DATE, TB_ADDR,";
+		sql		  +=  " TB_IMG1, MEM_NICK, COUNT(L.TB_NUM),";
+		if(odNum==1){ //추천순
+			sql	      +=  " ROW_NUMBER() OVER(ORDER BY COUNT(L.TB_NUM) DESC NULLS LAST) RN";           
+		}
+		if(odNum==2){ //조회순
+			sql	      +=  " ROW_NUMBER() OVER(ORDER BY TB_CNT DESC NULLS LAST) RN";           
+		}
+		sql       +=  " FROM TRIP_BOARD TB JOIN MEMBER M ON TB.MEM_NUM = M.MEM_NUM";
+		sql       +=  " LEFT JOIN TB_LIKE L ON TB.TB_NUM = L.TB_NUM";
+		sql		  +=  " GROUP BY TB.TB_NUM, TB_TITLE, TB_CNT, TB_DATE, TB_ADDR, TB_IMG1,  MEM_NICK) T";
+		sql	      +=  "	WHERE RN BETWEEN 1 + (10)*(?+?) AND 10 + (10)*(?+?)";
+		
+		try {
+			db     = new DBConn();
+			conn   = db.getConnection();
+			pstmt  = conn.prepareStatement(sql);
+			pstmt.setInt(1, currentPage-1); //첫번째 ?= 세번째 ? :누른 버튼의 번호-1
+			pstmt.setInt(2, dpp); //두번째 ?=네번째? :보여줄 자료 수(기본 10개씩 보여주나 -5,+10 으로 조절 가능) 
+			pstmt.setInt(3, currentPage-1);
+			pstmt.setInt(4, dpp); 
+			rs     = pstmt.executeQuery();
+			// 작성자 추천수, 메인 이미지
+			while( rs.next() ){
+				int    tb_num   = rs.getInt(1);    //테이블 번호 
+				String tb_title = rs.getString(2); //테이블 제목
+				int    tb_cnt   = rs.getInt(3);    // 조회수
+				String tb_date  = rs.getString(4); // 작성일
+				String tb_addr  = rs.getString(5); // 관광지 주소
+				String mainImg  = rs.getString(6); // 메인이미지
+				String nickname = rs.getString(7); // 작성자
+				int    likeCnt  = rs.getInt(8);    // 추천수
+				int    number   = rs.getInt(9);	   // 검색순대로 번호 붙이기 
+				
+				TBoardVo tVo = new TBoardVo();
+				tVo.setTbNum(tb_num);
+				tVo.setTitle(tb_title);
+				tVo.setReadCnt(tb_cnt);
+				tVo.setwDate(tb_date);
+				tVo.setAddr(tb_addr);
+				tVo.setImg1(mainImg);
+				tVo.setNickName(nickname);
+				tVo.setLikeCnt(likeCnt);
+				tVo.setNumber(number);
+				boardList.add(tVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return boardList;
+	}
+
+	
 	
 	//DB CLOSE
 	public void close() {
