@@ -316,7 +316,55 @@ public class NBoardDao {
 		return boardList;
 
 	}
+	
+	//main으로 보낼 데이터 조회
+		public List<NBoardVo> getMainData() {
+			ArrayList<NBoardVo> boardList = new ArrayList<>();
 
+			try {
+				DBConn db = new DBConn();
+				conn = db.getConnection();
+				String sql = "SELECT * ";
+				sql += " FROM (SELECT NB_NUM, NB_TITLE, NB_CNT, NB_DATE, MEM_NICK,";
+				sql += " ROW_NUMBER() OVER(ORDER BY NB.NB_NUM DESC NULLS LAST) RN ";
+				sql += " FROM NOTICE_BOARD NB JOIN MEMBER M ON NB.MEM_NUM = M.MEM_NUM";
+				sql += " GROUP BY NB.NB_NUM, NB_TITLE, NB_CNT, NB_DATE, MEM_NICK) T";
+				sql += " WHERE RN BETWEEN 1 AND 5";
+
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				// 작성자 추천수, 메인 이미지
+				while (rs.next()) {
+					int nb_num = rs.getInt(1); // 테이블 번호
+					String nb_title = rs.getString(2); // 테이블 제목
+					int nb_cnt = rs.getInt(3); // 조회수
+					String nb_date = rs.getString(4); // 작성일
+					String nick = rs.getString(5); // 작성자
+
+					NBoardVo nVo = new NBoardVo();
+					nVo.setNb_num(nb_num);
+					nVo.setNb_title(nb_title);
+					nVo.setNb_cnt(nb_cnt);
+					nVo.setNb_date(nb_date);
+					nVo.setMem_nick(nick);
+					boardList.add(nVo);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+					if (rs != null)
+						rs.close();
+				} catch (SQLException e) {}
+
+			}
+			return boardList;
+
+		}
 	
 	//신고 내용 삽입
 	public void report(String cont, int bmem_num, int lmem_num) {
