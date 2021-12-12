@@ -309,10 +309,10 @@ public class MemberDao {
 			conn = db.getConnection();
 			 String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT "
 					+ " ,(select COUNT(*) FBCNUM from FB_COMMENT WHERE FB_NUM = AA.FB_NUM )FBC "
-			 		+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M "
+			 		+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by A.FB_NUM desc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M "
 			 		+ " WHERE RNUM >= ? "
 			 		+ " AND M.MEM_NUM = AA.MEM_NUM "
-			 		+ " order by FB_NUM asc "; 
+			 		+ " order by FB_NUM desc "; 
 					
 			pstmt = conn.prepareStatement(sql);
 			
@@ -332,6 +332,163 @@ public class MemberDao {
 				int fbc = rs.getInt("FBC");	
 				
 				FreeBoardVo fbvo = new FreeBoardVo(num, title, nick, date, likecnt, cnt, likecnt, fbc);
+				
+				FreeBoardList.add(fbvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		
+		return FreeBoardList;
+		
+	}
+	
+	//자유게시판 조회수 정렬 불러오기(오름차순)
+	public List<FreeBoardVo> getFBListSortCntup(int startNum, int endNum){
+		
+		ResultSet rs = null;
+		List<FreeBoardVo> FreeBoardList = new ArrayList<FreeBoardVo>();
+		
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT "
+					+ " ,(select COUNT(*) FBCNUM from FB_COMMENT WHERE FB_NUM = AA.FB_NUM )FBC "
+					+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by FB_CNT asc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M "
+					+ " WHERE RNUM >= ? "
+					+ " AND M.MEM_NUM = AA.MEM_NUM "
+					+ " order by FB_CNT asc "; 
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) {
+				String num = rs.getString(1);	
+				String title = rs.getString(2);	
+				String nick = rs.getString(3);	
+				String date = rs.getString(4);	
+				String cnt = rs.getString(5);	
+				String likecnt = rs.getString("LIKECNT");	
+				int fbc = rs.getInt("FBC");	
+				
+				FreeBoardVo fbvo = new FreeBoardVo(num, title,nick, date, cnt, likecnt, fbc);
+				
+				FreeBoardList.add(fbvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		
+		return FreeBoardList;
+		
+	}
+	//자유게시판 조회수 정렬 불러오기(내림차순)
+	public List<FreeBoardVo> getFBListSortCntdown(int startNum, int endNum){
+		
+		ResultSet rs = null;
+		List<FreeBoardVo> FreeBoardList = new ArrayList<FreeBoardVo>();
+		
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT "
+					+ " ,(select COUNT(*) FBCNUM from FB_COMMENT WHERE FB_NUM = AA.FB_NUM )FBC "
+					+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT * from FREE_BOARD A  order by FB_CNT desc ) Z WHERE ROWNUM <= ? ) AA , MEMBER M "
+					+ " WHERE RNUM >= ? "
+					+ " AND M.MEM_NUM = AA.MEM_NUM "
+					+ " order by FB_CNT desc "; 
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) {
+				String num = rs.getString(1);	
+				String title = rs.getString(2);	
+				String nick = rs.getString(3);	
+				String date = rs.getString(4);	
+				String cnt = rs.getString(5);	
+				String likecnt = rs.getString("LIKECNT");	
+				int fbc = rs.getInt("FBC");	
+				
+				FreeBoardVo fbvo = new FreeBoardVo(num, title,nick, date, cnt, likecnt, fbc);
+				
+				FreeBoardList.add(fbvo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		
+		return FreeBoardList;
+		
+	}
+	
+	//자유게시판 추천수 정렬 불러오기
+	public List<FreeBoardVo> getFBListSortLike(int startNum, int endNum){
+		
+		ResultSet rs = null;
+		List<FreeBoardVo> FreeBoardList = new ArrayList<FreeBoardVo>();
+		
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql =" SELECT AA.FB_NUM, AA.FB_TITLE, M.MEM_NICK , AA.FB_DATE, AA.FB_CNT , NVL((SELECT COUNT(*) OVER   FROM FB_LIKE f WHERE f.FB_NUM= AA.FB_NUM ),0)AS LIKECNT,"
+					+ " (select COUNT(*) FBCNUM from FB_COMMENT WHERE FB_NUM = AA.FB_NUM )FBC  "
+					+ " FROM ( SELECT ROWNUM AS RNUM, Z.* FROM ( SELECT A.FB_NUM, A.FB_TITLE, A.FB_DATE, A.FB_CNT, A.MEM_NUM, "
+					+ " NVL((SELECT  COUNT(*)  FROM FB_LIKE L WHERE A.FB_NUM = L.FB_NUM GROUP BY A.FB_NUM),0 )AS LIKECNT "
+					+ " FROM FREE_BOARD A ) Z WHERE ROWNUM <= ? ) AA , MEMBER M  "
+					+ " WHERE RNUM >= ? "
+					+ " AND M.MEM_NUM = AA.MEM_NUM  "
+					+ " order by LIKECNT desc "; 
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
+			
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) {
+				String num = rs.getString(1);	
+				String title = rs.getString(2);	
+				String nick = rs.getString(3);	
+				String date = rs.getString(4);	
+				String cnt = rs.getString(5);	
+				String likecnt = rs.getString("LIKECNT");	
+				int fbc = rs.getInt("FBC");	
+				
+				FreeBoardVo fbvo = new FreeBoardVo(num, title,nick, date, cnt, likecnt, fbc);
 				
 				FreeBoardList.add(fbvo);
 			}
