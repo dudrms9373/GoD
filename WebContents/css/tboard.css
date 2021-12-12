@@ -78,9 +78,15 @@ td input  { font-size:20px; width:80%; height:30px;
 .cmtlist h2 { margin:0 auto;}
 .cmt     { margin-left:18%; width:60%; height:40px; overflow: hidden;
 		   resize:none; }
-#cmtlike, #cmtupdate, #cmtdelete, #reportc, #cmtlikeCancel { float:right; border: 1px solid black; border-collapse: collapse;
+#cmtdelete, #reportc{ float:right; border: 1px solid black; border-collapse: collapse;
 											width:80px;}
-#reportc { margin-right:23%; }
+#reportc { margin:20px 23% 5px 0;}
+#cmtdelete { display:none; }
+.cmtNick {  margin:12px auto 0 18%; display:inline-block; font-size:20px;}
+.cmtDate {  margin:12px auto 0; display:inline-block; color:gray;}
+
+
+
 
 
 /* 게시물 버튼*/
@@ -89,13 +95,12 @@ td input  { font-size:20px; width:80%; height:30px;
 .boardbtn   { text-align:center;}
 .boardbtn a { float:right;  width:100px; height:30px; border:1px solid black; border-collapse: collapse;}
 
-/* 게시물 내 댓글*/
+/* 게시물 내 댓글 페이징*/
 #cmtPaging { display:inline-block; width:500px; background-color:gray;
 		  margin-left:24%; margin-top:10px; text-align:center; }
 #cmtPaging a{ float:left; padding:10px; border:1px solid black; background-color:white; }
 #cmtPaging:nth-of-type(1){padding-left:135px;}
-#cmtlikeCancel { display:none; }
-#cmtdelete, #cmtupdate { display:none; }
+
 
 /* 게시물 수정*/
 #mimage,#image1,#image2,#image3 { display:none;}
