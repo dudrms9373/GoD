@@ -175,7 +175,7 @@
         		$('.comment #cmtCnt').html('&nbsp;&nbsp;&nbsp;&nbsp;댓글('+json.total+')');
 				$('.cmtlist').html(tag);
 				$('.cmtCont').val(' ');
-				
+				displayUpdate();
 				
 				
 			},
@@ -183,6 +183,67 @@
 				alert(xhr.status+''+xhr.statusText);
 			}
 		})
+	}
+	function displayUpdate(){
+		//로그인 닉네임과 작성자 닉네임이 동일 시 좋아요,신고 제거 + 수정,삭제 등장
+		if(${ tboardVo.nickName }==${LoginNick}){
+			$('#like').css('display','none');
+			$('#reportb').css('display','none');
+			$('#boardUpdate').css('display','flex');
+			$('#boardDelete').css('display','flex');
+			
+		}
+		//로그인 아이디의 좋아요 기록이 존재하면 좋아요 취소가 활성화
+		if(${record}==1){
+			$('#like').css('display','none');
+			$('#likeCancel').css('display','flex');
+		}
+		//조건 충족 시 모든 삭제 활성화
+		if( ${uLevel}>=900){
+			$('#boardDelete').css('display','flex');
+			$('#cmtdelete').css('display','flex');
+		}
+		//댓글 작성자 = 로그인아이디 일 때 댓글신고 비활성화, 댓글삭제 활성화(1~10)
+		if($('#cmtNick1').text()==${LoginNick} ){
+			$('.cmtDel1').css('display','flex');
+			$('.reportc1').css('display','none');
+		}
+		if($('#cmtNick2').text()==${LoginNick} ){
+			$('.cmtDel2').css('display','flex');
+			$('.reportc2').css('display','none');
+		}
+		if($('#cmtNick3').text()==${LoginNick} ){
+			$('.cmtDel3').css('display','flex');
+			$('.reportc3').css('display','none');
+		}
+		if($('#cmtNick4').text()==${LoginNick} ){
+			$('.cmtDel4').css('display','flex');
+			$('.reportc4').css('display','none');
+		}
+		if($('#cmtNick5').text()==${LoginNick} ){
+			$('.cmtDel5').css('display','flex');
+			$('.reportc5').css('display','none');
+		}
+		if($('#cmtNick6').text()==${LoginNick} ){
+			$('.cmtDel6').css('display','flex');
+			$('.reportc6').css('display','none');
+		}
+		if($('#cmtNick7').text()==${LoginNick} ){
+			$('.cmtDel7').css('display','flex');
+			$('.reportc7').css('display','none');
+		}
+		if($('#cmtNick8').text()==${LoginNick} ){
+			$('.cmtDel8').css('display','flex');
+			$('.reportc8').css('display','none');
+		}
+		if($('#cmtNick9').text()==${LoginNick} ){
+			$('.cmtDel9').css('display','flex');
+			$('.reportc9').css('display','none');
+		}
+		if($('#cmtNick10').text()==${LoginNick} ){
+			$('.cmtDel10').css('display','flex');
+			$('.reportc10').css('display','none');
+		}
 	}
 	
 	// $(function)-------------------------------
@@ -205,9 +266,12 @@
 	setTimeout(function() {resize2($(".bcont")[1]); },1000);
 	setTimeout(function() {resize2($(".bcont")[2]); },1000);
 	
+	//권한에 따른 설정 변경
+	displayUpdate();
 	
 	
-	
+		
+		
 	// 좋아요 클릭(게시물)
 	$('#like').on('click',function(){
 		console.log('like');
@@ -246,21 +310,72 @@
 		
 		
 		
+		//어디에 신고가 들어가도 이곳의 값이 바뀌면 신고완료를 의미
+		$('#reportComp').on('change',function(){
+			alert('신고되었습니다');
+		})
 		
 		
 		//게시물 신고
 		$('#reportb').on('click',function(){
-			window.open('/view/common/index.jsp',200,200);
+			let loc = '/view/common/report.jsp?reportedId='+${ tboardVo.nickName };
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+			
 			//신고자(LoginId)와 피신고자의 아이디를 인자로 보내야 함.
-			//신고용 페이지를 제작해야 함
-		})//신고 버튼 끝
-		
-		//댓글 신고
-		$('#reportc').on('click',function(){
-			window.open('/view/common/index.jsp',200,200);
-			//신고자(LoginId)와 피신고자의 아이디를 인자로 보내야 함.
-			//신고용 페이지를 제작해야 함
-		})//신고 버튼 끝
+			
+		})//게시물 신고 버튼 끝
+		//댓글 신고(1~10)(안되면....전부  onclick으로 바꾸고 function설정하는 수밖에)
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick1'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick2'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick3'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick4'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick5'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick6'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick7'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick8'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick9'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//끝
+		$('.reportc').on('click',function(){			
+			let loc = '/view/common/report.jsp?reportedId='+${'#cmtNick10'}.text();
+			loc    += '&reportId='+${LoginNick};
+			window.open(loc,200,200);
+		})//1~10까지의 신고 이벤트
 		
 		//댓글 작성
 		$('#cmtSubmit').on('click',function(){
@@ -299,7 +414,7 @@
 	        		$('.comment #cmtCnt').html('&nbsp;&nbsp;&nbsp;&nbsp;댓글('+json.total+')');
 					$('.cmtlist').html(tag);
 					$('.cmtCont').val(' ');
-					
+					displayUpdate();
 					
 					
 				},
@@ -362,11 +477,13 @@
 </head>
 <body>
 	<%@include file ="/view/common/header.jsp" %>
+	<input type="hidden" id="reportComp"/>
 	<table class="tboard">
 	<caption>여행지 추천 게시판</caption>
 	<tr>
 	<td id="mainimage" rowspan="4"><img src="/uploadFiles/${ tboardVo.img1 }"></img></td>
-	<td id="input">제목<br><input type="text" value="${ tboardVo.title }" disabled/></td>
+	<td id="input"><p>NO:${ tboardVo.tbNum }</p>
+	제목<br><input type="text" value="${ tboardVo.title }" disabled/></td>
 	</tr>
 	<tr>
 	<td id="input">작성자<br><input type="text" value="${ tboardVo.nickName }" disabled/></td>
@@ -422,7 +539,13 @@
 	<textarea class="cmt" disabled>${ cmt.cmtCont } </textarea></td>
 	</tr>
 	</c:forEach>
-	
+	<%-- <tr>
+	<input type="hidden" name="cmtname${cmt.cmtNum }" value="${cmt.cmtNum }"/>
+	<td><p id="cmtNick" class="cmtNick">코딩하는작성자</p>&nbsp;<p id="cmtDate" class="cmtDate">(2021.09.20 13:00)</p>
+	<a id="cmtdelete" href="#">삭제</a><br>
+	<a id="reportc" href="#">신고</a>
+	<textarea class="cmt" disabled >${ cmt.cont } </textarea></td>
+	</tr> --%>
 	
 	</table>
 	<div id="cmtPaging"></div>
