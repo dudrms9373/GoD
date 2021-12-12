@@ -105,7 +105,7 @@
       			  console.log(cmtVo.cmtNum);
       			  tag+='<tr>';
       			        tag+='<input type="hidden" id="cmtNum'+cnt+'" value="'+cmtVo.cmtNum+'"/>';
-						tag+='<td><p>'+cmtVo.cmtNick+'</p><p>'+cmtVo.cmtDate+'</p>';
+      			      tag+='<td><p id="cmtNick'+cnt+'" class="cmtNick">'+cmtVo.cmtNick+'</p><p class="cmtDate">'+cmtVo.cmtDate+'</p>';
 						tag+= '<a class="reportc'+cnt+'" id="reportc" href="#">신고</a>';
 						tag+= '<a class="cmtDel'+cnt+'" id="cmtdelete" href="#">삭제</a><br>';
 						tag+= '<textarea class="cmt" id="cmtbox'+cnt+'" disabled>'+ cmtVo.cmtCont+'</textarea></td>';
@@ -163,7 +163,7 @@
         			  console.log(cmtVo.cmtCont);
         			  tag+='<tr>';
         			    tag+='<input type="hidden" id="cmtNum'+cnt+'" value="'+cmtVo.cmtNum+'"/>';
-						tag+='<td><p>'+cmtVo.cmtNick+'</p><p>'+cmtVo.cmtDate+'</p>';
+        			    tag+='<td><p id="cmtNick'+cnt+'" class="cmtNick">'+cmtVo.cmtNick+'</p><p class="cmtDate">'+cmtVo.cmtDate+'</p>';
 						tag+= '<a class="reportc'+cnt+'" id="reportc" href="#">신고</a>';
 						tag+= '<a class="cmtDel'+cnt+'" id="cmtdelete" href="#">삭제</a><br>';
 						tag+= '<textarea class="cmt" id="cmtbox'+cnt+'" disabled>'+ cmtVo.cmtCont+'</textarea></td>';
@@ -204,7 +204,10 @@
 	setTimeout(function() {resize2($(".bcont")[0]); },1000);
 	setTimeout(function() {resize2($(".bcont")[1]); },1000);
 	setTimeout(function() {resize2($(".bcont")[2]); },1000);
-		
+	
+	
+	
+	
 	// 좋아요 클릭(게시물)
 	$('#like').on('click',function(){
 		console.log('like');
@@ -284,7 +287,7 @@
 	        			  console.log(cmtVo.cmtCont);
 	        			  tag+='<tr>';
 							tag+='<input type="hidden" id="cmtNum'+cnt+'" value="'+cmtVo.cmtNum+'"/>';
-							tag+='<td><p>'+cmtVo.cmtNick+'</p><p>'+cmtVo.cmtDate+'</p>';
+							tag+='<td><p id="cmtNick'+cnt+'" class="cmtNick">'+cmtVo.cmtNick+'</p><p class="cmtDate">'+cmtVo.cmtDate+'</p>';
 							tag+= '<a class="reportc'+cnt+'" id="reportc" href="#">신고</a>';
 							tag+= '<a class="cmtDel'+cnt+'" id="cmtdelete" href="#">삭제</a><br>';
 							tag+= '<textarea class="cmt" id="cmtbox'+cnt+'" disabled>'+ cmtVo.cmtCont+'</textarea></td>';
@@ -413,19 +416,13 @@
 	<c:set var="i" value="${ i+1 }"/>
 	<tr>
 	<input type="hidden" id="cmtNum${ i }" value="${cmt.cmtNum }"/>
-	<td><p>${ cmt.cmtWriter }<p><p>${ cmt.cmtdate }</p>
+	<td><p id="cmtNick${ i }" class="cmtNick">${ cmt.cmtWriter }<p><p class="cmtDate">${ cmt.cmtdate }</p>
 	<a class="reportc${ i }" id="reportc" href="#">신고</a>
 	<a class="cmtDel${ i }" id="cmtdelete" href="#">삭제</a><br>
 	<textarea class="cmt" disabled>${ cmt.cmtCont } </textarea></td>
 	</tr>
 	</c:forEach>
-	<tr>
-	<input type="hidden" name="cmtname${cmt.cmtNum }" value="${cmt.cmtNum }"/>
-	<td><p>코딩하는작성자</p><p>2021.09.20 13:00</p>
-	<a id="reportc" href="#">신고</a>
-	<a id="cmtdelete" href="#">삭제</a><br>
-	<textarea class="cmt" disabled >${ cmt.cont } </textarea></td>
-	<tr>
+	
 	
 	</table>
 	<div id="cmtPaging"></div>
