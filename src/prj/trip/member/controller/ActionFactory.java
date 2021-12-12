@@ -3,9 +3,11 @@ package prj.trip.member.controller;
 import prj.trip.member.service.Action;
 
 import prj.trip.member.impl.IdCheck;
+import prj.trip.member.impl.IdSearch;
 import prj.trip.member.impl.InsertUser;
 import prj.trip.member.impl.Login;
 import prj.trip.member.impl.LoginOut;
+import prj.trip.member.impl.PwSearch;
 import prj.trip.member.impl.getMemInfo;
 
 public class ActionFactory {
@@ -28,6 +30,12 @@ public class ActionFactory {
 			break;
 		case "getMemInfo":
 			action = new getMemInfo();
+			break;
+		case "IdSearch":
+			action = new IdSearch();
+			break;
+		case "PwSearch":
+			action = new PwSearch();
 			break;
 				
 		default: break;
