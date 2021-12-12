@@ -17,17 +17,17 @@ public class FBLikeCnt implements Action{
 	public void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("LoginId");
+		String fbnum = request.getParameter("fbnum");
 		if(id == null) {
 			response.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter writer = response.getWriter(); 
 			writer.println("<script>alert('로그인이 필요합니다.'); history.back(); </script>"); 
 			writer.close();
 		}else {
-			String fbnum = request.getParameter("fbnum");
+			System.out.println(fbnum);
 			FreeBoardDao fbdao = new FreeBoardDao();
 			String mnum = fbdao.getMemNumm(id);
 			fbdao.InsertFBLike(fbnum, mnum);
-			
 			String path = "fboard?cmd=FBoardClick&fbnum=" + fbnum;
 			request.getRequestDispatcher(path).forward(request, response);
 			
