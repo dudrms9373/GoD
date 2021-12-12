@@ -43,7 +43,7 @@
      
   </table>
     </form>
-
+<div style="text-align: center;">
 <% 
     String msg = request.getParameter("msg");
 	if( msg!=null && msg.equals("0") ){
@@ -53,6 +53,6 @@
 	}
 
 %>
-    
+ </div>    
 </body>
 </html>
