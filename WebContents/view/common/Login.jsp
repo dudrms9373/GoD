@@ -5,6 +5,7 @@
 <head>
 <link rel="stylesheet" href="../../css/common.css"/>
 <style>
+.login_bottom {text-decoration: none; color: #a68f8e;}
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -38,7 +39,11 @@
  	<td colspan="3" style="color: #a68f8e; padding: 20px 0px; ">----------- 계정 만들기 -----------</a></td>
  </tr>
  <tr>
- 	<td colspan="3" class="bottomText">계정 만들기 <a href="Create.jsp">회원가입</a></td>
+ 	<td class="bottomText"> <a class="login_bottom" href="Create.jsp">회원가입</a></td>
+ 	<td class="bottomText"> <a class="login_bottom" href="ID_Search.jsp">아이디 찾기</a> </td>
+ 	<td class="bottomText"> <a class="login_bottom" href="PW_Search.jsp">비밀번호 찾기</a> </td>
+ </tr>
+ <tr>
  </tr>
      
   </table>
@@ -53,6 +58,6 @@
 	}
 
 %>
- </div>    
+</div>   
 </body>
 </html>
