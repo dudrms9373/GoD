@@ -5,6 +5,7 @@ import prj.trip.FBoard.impl.FBCDelete;
 import prj.trip.FBoard.impl.FBCInsert;
 import prj.trip.FBoard.impl.FBCUpdate;
 import prj.trip.FBoard.impl.FBLikeCnt;
+import prj.trip.FBoard.impl.FBUpdate;
 import prj.trip.FBoard.impl.FBoardClick;
 import prj.trip.FBoard.impl.FBoardSearch;
 import prj.trip.FBoard.impl.FBoardWrite;
@@ -44,6 +45,9 @@ public class ActionFactory {
 			break;
 		case "FBCUpdate":
 			action = new FBCUpdate();
+			break;
+		case "FBUpdate":
+			action = new FBUpdate();
 			break;
 			
 			
