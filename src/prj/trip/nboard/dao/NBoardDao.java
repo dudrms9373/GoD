@@ -316,4 +316,36 @@ public class NBoardDao {
 		return boardList;
 
 	}
+
+	
+	//신고 내용 삽입
+	public void report(String cont, int bmem_num, int lmem_num) {
+
+		try {
+			DBConn db = new DBConn();
+			conn = db.getConnection();
+			String sql = " INSERT INTO REPORT VALUES ";
+				   sql += " ((SELECT NVL(MAX(REPORT_NUM),0)+1 FROM REPORT),?,SYSDATE,?,?)";
+
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cont);
+			pstmt.setInt(2, lmem_num);
+			pstmt.setInt(3, bmem_num);
+			pstmt.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+
+			} catch (SQLException e) {
+			}
+		}
+		
+	}
 }
