@@ -12,7 +12,7 @@
 <script>
 function report(){
 
-	var pop = window.open('/nboard?cmd=nboardReport', 'window팝업', 'width=400, height=500, scrollbar=yes');
+	var pop = window.open('/nboard?cmd=nboardReportForm&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}&nb_title=${nboardView.nb_title}', 'window팝업', 'width=500, height=500, scrollbar=yes');
 
 }
 </script>
@@ -65,8 +65,12 @@ function report(){
 		}
 		%>
 	</table>
+	
+	<% if (loginnick!=null) {%>
 
 	<a href="#none" target="_blank" onclick="report()">신고</a>
+	
+	<%} %>
 
 </body>
 </html>
