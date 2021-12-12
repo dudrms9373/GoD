@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+body {margin:0; padding:0;}
 /* --------- header.jsp --------- */
 .headerUl ul {display : flex; width:100%;  margin:0; list-style:none; float:left; text-align:center; }
 .headerUl li{
@@ -114,3 +114,69 @@ border:0 solid black; font-size: 18px; padding-bottom: 7;
 .logintable td { padding: 6px; }
 .bottomText {padding-top: 15px;}
 .home { text-align: center;}
+
+/* main.jsp 화면 구성 */
+#tripreq   { }
+#maintbBox { margin-top:200px;  margin-left:150px; 
+			 display:inline-block; width:700px; height: 575px; }
+#maintbBox h2 { display:inline-block; margin:0 0 10px 5px; width:200px; margin-right:0;}
+#maintbBox a { margin-right:20%; color:blue; text-decoration:underline; float:right;
+			   margin-top:10px; }	
+#tboardBox{  display:inline-block; width:565px; height:115px;}
+#tbimgbox { float:left; 
+			display:inline-block; width:165px; height:110px;}
+#tbimgbox a{ clear:left; width:160px; height:110px; margin:0 auto;  }
+a img{  clear:left; width:100%; height:100%;  }
+#mlistcont {  float:right; border-top:1px solid gray;
+		     border-bottom:1px solid gray; border-collapse: collapse;
+			 display: inline-block; width:400px; height:110px;}
+#mlistcont p { margin:0 auto;}
+#mlistcont p:NTH-OF-TYPE(1) { height:40px; font-weight: bold; font-size: 20px;}
+.mBox { display:block; margin:0 auto;}
+/* 공지사항  칸 */
+#mainnBox {   margin-left:20px;  position:relative; top:-460px; 
+			 display:inline-block; width:400px; height: 300px; }
+#mainnBox h2 { display:inline-block; margin:0 0 10px 5px; width:200px; margin-right:0;}
+#mainnBox a { margin-right:1%; color:blue; text-decoration:underline; float:right;
+			   margin-top:10px; }	
+#nboardBox{  display:inline-block; width:400px; height:25px;}
+#nlistcont {  float:right; border-top:1px solid gray;
+		     border-bottom:1px solid gray; border-collapse: collapse;
+			 display: inline-block; width:400px; height:25px;}
+#nlistcont p { display:inline-block; clear:both; margin:0 auto; line-height:10px;}
+#nlistcont a { float:left; margin:0 auto;}
+#nlistcont p:NTH-OF-TYPE(1) {  font-weight: bold; font-size: 20px;}
+#nlistcont p:NTH-OF-TYPE(2) {  margin-left:5px;}
+/* 자유게시판 칸*/
+#mainfBox {  margin-top:20px; position:relative; top:-100px; right:410px;
+			 display:inline-block; width:400px; height: 300px; }
+#mainfBox h2 { display:inline-block; margin:0 0 10px 5px; width:200px; margin-right:0;}
+#mainfBox a { margin-right:1%; color:blue; text-decoration:underline; float:right;
+			   margin-top:10px; }	
+#fboardBox{  display:inline-block; width:400px; height:50px;}
+#flistcont {  float:right; border-top:1px solid gray;
+		     border-bottom:1px solid gray; border-collapse: collapse;
+			 display: inline-block; width:400px; height:50px;}
+#flistcont p { display:inline-block; clear:both; margin:0 auto; line-height:10px;}
+#flistcont a { float:left; margin:0 auto;}
+#flistcont p:NTH-OF-TYPE(1) {  font-weight: bold; font-size: 20px;}
+#flistcont p:NTH-OF-TYPE(2) {  margin-left:5px;}
+#flistcont p:NTH-OF-TYPE(3) { display:block; float:right; margin-right:10px; margin-top:5px;}
+
+
+/* footer */
+
+.footer { clear:both; width:100%; background-color: gray; }
+.copyright { padding:50px; text-align: center; height:100px; font-size:20px;
+			 background-color: gray; }
+.copyright p{ margin:0 auto 0;}
+.copyright p:nth-of-type(1){ margin-top:0px auto 0; font-weight: bold;
+							 font-size:30px;}
+
+
+
+
+
+
+
+
