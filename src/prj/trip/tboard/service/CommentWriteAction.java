@@ -48,7 +48,6 @@ public class CommentWriteAction implements Action {
 			cmtVo.put("cmtNick", commentVo.getCmtWriter());
 			cmtVo.put("cmtDate", commentVo.getCmtdate());
 			cmtVo.put("cmtCont", commentVo.getCmtCont());
-			cmtVo.put("likeCnt", commentVo.getLikeCnt());
 			jarr.add(cmtVo);
 		}
 		jsoncmt.put("cmtList", jarr);
