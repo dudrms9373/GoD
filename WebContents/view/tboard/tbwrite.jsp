@@ -211,7 +211,8 @@
 	<td id="mainimage" rowspan="4"><input type="file" id="mimage" name="mainimage" accept="image/*" />
 		<button id="putmimage" >메인이미지 첨부</button></td>
 	
-	<td id="input">제목<br><input type="text" name="title" placeholder="제목 입력"/></td>
+	<td id="input"><p>NO:000(예시)</p>
+		제목<br><input type="text" name="title" placeholder="제목 입력"/></td>
 	</tr>
 	<tr>
 	<td id="input">작성자<br><input type="text" value="${ LoginId }" readonly/></td>
