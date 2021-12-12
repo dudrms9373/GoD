@@ -27,7 +27,7 @@
 	<button id="b_search">검색</button>
 </div>
 	
-<%@include file = "main.jsp" %>
+
 <%@include file = "footer.jsp" %>
 
 </body>
