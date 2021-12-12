@@ -35,8 +35,8 @@ function enter() {
 </div>
 	
 	<!-- 제목 -->
-	<div class="mainTitle"><a href="/view/common/index.jsp">제목 </a><small style=" display :block;    font-size:0.6rem;
-  line-height:1em;">화이팅</small></div>
+	<div class="mainTitle"><a href="/view/common/index.jsp">GoD </a><small style=" display :block;    font-size:0.6rem;
+  line-height:1em;"></small></div>
 	
 	<!-- 메뉴 -->
 	<div class="headerUl">
