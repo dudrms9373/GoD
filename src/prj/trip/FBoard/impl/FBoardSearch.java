@@ -68,8 +68,9 @@ public class FBoardSearch implements Action {
 				
 				request.setAttribute("main", main2);
 				request.setAttribute("Keyword", Keyword2);
+				request.setAttribute("searchcount", dao.getFBtitleSearchCount(Keyword2));
 				
-				String path = "/view/fboard/FreeBoard.jsp";
+				String path = "/view/fboard/FreeBoard.jsp?Keyword="+Keyword2;
 				request.getRequestDispatcher(path).forward(request, response);
 			}else {
 				System.out.println("두번째 키워드 null일때제목!@!!@!@!@!@!@@!");
@@ -80,8 +81,9 @@ public class FBoardSearch implements Action {
 				
 				request.setAttribute("main", main);
 				request.setAttribute("Keyword", Keyword);
+				request.setAttribute("searchcount", dao.getFBtitleSearchCount(Keyword));
 				
-				String path = "/view/fboard/FreeBoard.jsp";
+				String path = "/view/fboard/FreeBoard.jsp?Keyword="+Keyword;
 				request.getRequestDispatcher(path).forward(request, response);
 			}
 
@@ -95,8 +97,9 @@ public class FBoardSearch implements Action {
 				
 				request.setAttribute("main", main2);
 				request.setAttribute("Keyword", Keyword2);
+				request.setAttribute("searchcount", dao.getFBtitleSearchCount(Keyword2));
 				
-				String path = "/view/fboard/FreeBoard.jsp";
+				String path = "/view/fboard/FreeBoard.jsp?Keyword="+Keyword2;
 				request.getRequestDispatcher(path).forward(request, response);
 				
 			}else {
@@ -108,15 +111,16 @@ public class FBoardSearch implements Action {
 				
 				request.setAttribute("main", main);
 				request.setAttribute("Keyword", Keyword);
+				request.setAttribute("searchcount", dao.getFBtitleSearchCount(Keyword));
 				
-				String path = "/view/fboard/FreeBoard.jsp";
+				String path = "/view/fboard/FreeBoard.jsp?Keyword="+Keyword;
 				request.getRequestDispatcher(path).forward(request, response);
 				
 			}
 			
 		
 		}
-
+		
 
 	}
 }
