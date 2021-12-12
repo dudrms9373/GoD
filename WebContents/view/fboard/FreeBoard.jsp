@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -18,9 +21,7 @@ section {
 	width: 400px;
 }
 
-.list_writer {
-	width: 100px;
-}
+.list_writer { width: 100px; }
 
 .list_time {
 	width: 120px;
@@ -88,8 +89,8 @@ tr:hover:not(.table_th) .list_title {
 .fb_title_a {color: black; text-decoration: none;}
 .fb_title_a:visited {color: #8B8B8B;}
 </style>
-</head>
 <link rel="stylesheet" href="../css/common.css" />
+</head>
 <script>
 	function searchLogincheck() {
 		if (
@@ -103,6 +104,13 @@ tr:hover:not(.table_th) .list_title {
 	window.onload = function() {
 
 	}
+	function sort() {
+		var page = $('#pagesize').val();
+		var sort = $('#sort').val();
+		
+		location.href="/fboard?cmd=FreeBoard&id=${ LoginId }&pagenum=1&sort=" + sort + "&pagesize="+page;
+	}
+	
 </script>
 <body>
 	<%@ include file="../common/header.jsp"%>
@@ -111,12 +119,28 @@ tr:hover:not(.table_th) .list_title {
 	</div>
 
 	<section>
+			${ param.sort }
+			${ param.pagesize }
 
-		<div
-			style="width: 65%; min-height: 1200px; margin-left: auto; margin-right: auto;">
-			<div style="padding-top: 60px;">
-				<table
-					style="width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto;">
+		<div style="width: 65%; min-height: 1200px; margin-left: auto; margin-right: auto;">
+		
+			<div style="padding-top: 40px;">
+			
+			<div class="abc" style="padding-bottom: 20px; margin-left: 44px;">
+			
+			<select style="height: 30px; font-size: 16px;" id ="pagesize" onchange="sort()">
+				<option <c:if test="${ param.pagesize eq '10개' }"> selected </c:if>>10개</option>
+				<option <c:if test="${ param.pagesize eq '30개' }"> selected </c:if>>30개</option>
+				<option <c:if test="${ param.pagesize eq '50개' }"> selected </c:if>>50개</option>
+			</select>
+			<select style="height: 30px; font-size: 16px;" id ="sort" onchange="sort()">
+				<option <c:if test="${ param.sort eq '조회순' }"> selected </c:if> >조회순</option>
+				<option <c:if test="${ param.sort eq '추천순' }"> selected </c:if> >추천순  </option>
+			</select>
+		
+			</div>
+			
+				<table style="width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto;">
 					<tr class="table_th">
 						<th class="list_no">No</th>
 						<th class="list_title">제목</th>
@@ -130,7 +154,7 @@ tr:hover:not(.table_th) .list_title {
 						<tr class="table_tr">
 							<td class="list_no">${ fb.num }</td>
 							<td class="list_title">
-							<a class="fb_title_a" href="fboard?cmd=FBoardClick&fbnum=${ fb.num }">${ fb.title }
+							<a class="fb_title_a" href="fboard?cmd=FBoardClick&fbnum=${ fb.num }&nick=${ fb.nick }">${ fb.title }
 								<span class="riple"> 
 									<c:choose>
 										<c:when test="${fb.fbc eq '0'}">  </c:when>
@@ -160,11 +184,14 @@ tr:hover:not(.table_th) .list_title {
 						<jsp:param name="finalPageNo" value="${pvo.finalPageNo}" />
 						<jsp:param name="main" value="${main}" />
 						<jsp:param name="Keyword" value="${Keyword}" />
+						<jsp:param name="sort" value="${param.sort}" />
+						<jsp:param name="pagesize" value="${param.pagesize}" />
+						<jsp:param name="pagesize" value="${searchcount}" />
 					</jsp:include>
 				</div>
 
 				<div>
-					<form action="fboard?cmd=FBoardSearch" method="post"
+					<form action="fboard?cmd=FBoardSearch&keyword=1"" method="post"
 						onsubmit="return searchLogincheck()" style="text-align: center;">
 						<table
 							style="border: 1px solid black; width: 700px; margin-left: auto; margin-right: auto;">

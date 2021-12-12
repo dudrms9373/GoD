@@ -17,19 +17,35 @@
 <script>
 var openWin;
 
-function Logincheck() {
-	if( <%=session.getAttribute("LoginId")%> == null ){
-		alert("로그인이 필요합니다");
-		event.preventDefault();
-		return false;
-	}
+
+function move() {
+	
+	location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnuma }';
 }
 
 function openWin(fbcnum, fbnum){
 	var id = "${ LoginId }";
+	var popupWidth = 600;
+	var popupHeight = 300;
+
+	var popupX = (window.screen.width / 2) - (popupWidth / 2);
+	var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100 ;
 	
 	var link = "/view/fboard/FBCUpdate.jsp?id="+ id+"&fbcnum="+fbcnum+"&fbnum="+fbnum ;
-    window.open( link, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );
+    window.open( link, "네이버새창", "width=600, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
+    openWin.document
+}
+function openWinTB(fbnum,title,cont){
+	var id = "${ LoginId }";
+	var popupWidth = 600;
+	var popupHeight = 300;
+
+	var popupX = (window.screen.width / 2) - (popupWidth / 2);
+	var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100 ;
+	
+	var link = "/view/fboard/FBUpdate.jsp?id="+ id+"&fbnum="+fbnum+"&title="+title+"&cont="+cont ;
+    window.open( link, "네이버새창", "width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
+    
     openWin.document
 }
 
@@ -43,23 +59,33 @@ function openWin(fbcnum, fbnum){
 	<img alt="" src="/img/polynesia2.jpg" width="1919px" height="263px">
 </div>
 
-<table>		
+<table style="margin-top: 30px;">		
 	<tr>
 		<td>작성자</td>
-		<td colspan="2"><input type="text"  name="loginid" value="${ nick }" readonly="readonly"></td>
+		<td ><input type="text"  name="loginid" value="${ nick }" readonly="readonly"></td>
+			<td style="padding-left: 50px;">
+			
+			<c:if test="${ sessionScope.LoginNick eq requestScope.nick}">
+			<button>게시글삭제</button>
+			</c:if>
+			</td>
 	</tr>
 		<tr>
 			<td>제목</td>
-			<td colspan="2"><input type="text" name="writeTitle" value="${ title }" readonly="readonly" id="title" />
-			</td>
+			<td ><input type="text" name="writeTitle" value="${ title }" readonly="readonly" id="title" /></td>
 		</tr>
 		<tr>
 			<td colspan="3"><textarea rows="12" cols="50" name="writeContent"  readonly="readonly">${ cont }</textarea></td>
 		</tr>
 		<tr>
-			<td align="center"><input type="submit" value="수정" class="button"></td>
+			<td align="center"><input type="submit" value="수정" class="button" onclick="openWinTB( '${param.fbnum}','${ title }','${ cont }')"></td>
 			<td ><input type="button" value="게시판으로 이동" onclick="location.href='fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1'"></td>
-			<td><input type="button" value="추천하기" onclick="location.href='fboard?cmd=FBLikeCnt&fbnum=${ fbnuma }'">추천수 : ${ like } </td>
+			<td>
+			<c:if test="${ sessionScope.LoginNick ne requestScope.nick }">
+			<input type="button" value="추천하기" onclick="move();">
+			</c:if>
+			추천수 : ${ like } </td>
+			
 		</tr>
 	</table>
 	

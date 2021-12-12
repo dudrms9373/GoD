@@ -55,7 +55,7 @@
 </style>
 <link rel="stylesheet" href="css/common.css" />
 
-<% if(session.getAttribute("LoginId") == null ) { %>
+<% if(request.getParameter("sort") == null || request.getParameter("pagesize") == null) { %>
 <div class="page">
   <div class="page_nation">
     <a href="fboard?cmd=FreeBoard&pagenum=${param.firstPageNo}" class="first" style="display: inline;"></a>
@@ -70,6 +70,25 @@
     </span>
     <a href="fboard?cmd=FreeBoard&pagenum=${param.nextPageNo}" class="next" style="display: inline;"></a>
     <a href="fboard?cmd=FreeBoard&pagenum=${param.finalPageNo}" class="last" style="display: inline;"></a>
+  </div>  
+  <div style="display: inline-block; float:right; "> <button onclick="location.href='fboard?cmd=FBoardWriter'" style="width:60; height: 30px; margin-right: 45px;">글쓰기</button></div>
+</div>
+
+<% }else if(session.getAttribute("LoginId") == null || request.getParameter("keyword") == null) { %>
+<div class="page">
+  <div class="page_nation">
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.firstPageNo}&sort=${ param.sort }&pagesize=${ param.pagesize }" class="first" style="display: inline;"></a>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.prevPageNo}&sort=${ param.sort }&pagesize=${ param.pagesize }" class="prev" style="display: inline;"></a>
+    <span>
+        <c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
+            <c:choose>
+                <c:when test="${i eq param.pageNo}"><a href="fboard?cmd=FreeBoard&pagenum=${ i }&sort=${ param.sort }&pagesize=${ param.pagesize }" class="choice" style="display: inline;">${i}</a></c:when>
+                <c:otherwise><a href="fboard?cmd=FreeBoard&pagenum=${ i }&sort=${ param.sort }&pagesize=${ param.pagesize }" class="choice" style="display: inline;">${i}</a></c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </span>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.nextPageNo}&sort=${ param.sort }&pagesize=${ param.pagesize }" class="next" style="display: inline;"></a>
+    <a href="fboard?cmd=FreeBoard&pagenum=${param.finalPageNo}&sort=${ param.sort }&pagesize=${ param.pagesize }" class="last" style="display: inline;"></a>
   </div>  
   <div style="display: inline-block; float:right; "> <button onclick="location.href='fboard?cmd=FBoardWriter'" style="width:60; height: 30px; margin-right: 45px;">글쓰기</button></div>
 </div>
@@ -93,5 +112,8 @@
 </div>
 <% } %>
 
-<div>${ param.main } ${param.Keyword }</div>
-
+<c:if test="${ searchcount ne null}">
+<div>
+검색${ param.main } :  ${param.Keyword } | 검색결과 : ${ searchcount } 개
+</div>
+</c:if>
