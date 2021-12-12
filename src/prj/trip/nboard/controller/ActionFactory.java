@@ -9,6 +9,7 @@ import prj.trip.nboard.impl.nboardDelete;
 import prj.trip.nboard.impl.nboardList;
 import prj.trip.nboard.impl.nboardPaging;
 import prj.trip.nboard.impl.nboardReport;
+import prj.trip.nboard.impl.nboardReportForm;
 import prj.trip.nboard.impl.nboardUpdate;
 import prj.trip.nboard.impl.nboardUpdateForm;
 
@@ -43,6 +44,9 @@ public class ActionFactory {
 			action = new nboardPaging();
 			break;
 			
+		case "nboardReportForm":
+			action = new nboardReportForm();
+			break;
 		case "nboardReport":
 			action = new nboardReport();
 			break;
