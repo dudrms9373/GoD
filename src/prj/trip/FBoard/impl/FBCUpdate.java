@@ -37,9 +37,7 @@ public class FBCUpdate implements Action{
 		out.print(str);
 		out.close();
 		
-		               
-		String path = "fboard?cmd=FBoardClick&fbnum=" + fbnum;
-		request.getRequestDispatcher(path).forward(request, response);
+		   
 		
 	}
 
