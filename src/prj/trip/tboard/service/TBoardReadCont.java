@@ -30,6 +30,10 @@ public class TBoardReadCont implements Action {
 		// 게시물 불러오기
 		TBoardDao dao       =  new TBoardDao();
 		TBoardVo  tboardVo  = dao.getTBoard(boardNum);
+		// 게시물 좋아요 기록 
+		int memNum = getMemNum(loginId);
+		int record = searchLikeRecord(int memNum);
+		request.setAttribute("record",record);
 		
 		int currentPage = 1; //시작 페이지 설정
 		int dpp         = 10; // 장당 보여줄 페이지 설정(10장씩)
