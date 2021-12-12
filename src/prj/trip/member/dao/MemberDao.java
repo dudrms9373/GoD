@@ -54,6 +54,7 @@ public class MemberDao {
 		return   level;
 	}
 	public void InsertUser(MemberVo vo) {
+		int userlevel = (int) Math.floor(Math.random() * 900); //유저레벨 설정
 		String gender = "";
 		if (vo.getMem_gender().equals("f")) {
 			gender = "여";
@@ -65,18 +66,19 @@ public class MemberDao {
 			DBConn db = new DBConn();
 			conn = db.getConnection();
 
-			String sql = "INSERT INTO MEMBER  VALUES ( (SELECT NVL( MAX(MEM_num),0 )+1 FROM MEMBER) ,0,?,?,?,?,?,?,?,?,?) ";
+			String sql = "INSERT INTO MEMBER  VALUES ( (SELECT NVL( MAX(MEM_num),0 )+1 FROM MEMBER) ,?,?,?,?,?,?,?,?,?,?) ";
 			pstmt = conn.prepareStatement(sql);
-
+			
 			pstmt.setString(1, vo.getMem_name());
-			pstmt.setString(2, vo.getMem_id());
-			pstmt.setString(3, vo.getMem_pwd());
-			pstmt.setString(4, gender);
-			pstmt.setString(5, vo.getMem_addr());
-			pstmt.setString(6, vo.getMem_tel());
-			pstmt.setString(7, vo.getMem_birth());
-			pstmt.setString(8, vo.getMem_nick());
-			pstmt.setString(9, vo.getMem_email());
+			pstmt.setInt(2, userlevel);
+			pstmt.setString(3, vo.getMem_id());
+			pstmt.setString(4, vo.getMem_pwd());
+			pstmt.setString(5, gender);
+			pstmt.setString(6, vo.getMem_addr());
+			pstmt.setString(7, vo.getMem_tel());
+			pstmt.setString(8, vo.getMem_birth());
+			pstmt.setString(9, vo.getMem_nick());
+			pstmt.setString(10, vo.getMem_email());
 
 			pstmt.executeUpdate();
 
