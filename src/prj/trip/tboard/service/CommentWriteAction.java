@@ -25,6 +25,9 @@ public class CommentWriteAction implements Action {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		String loginId  = (String) session.getAttribute("LoginId");
+		if(loginId==null){
+			return;
+		}
 		String boardNum = request.getParameter("boardNum"); 
 		String comment  = request.getParameter("comment");
 		int    tbNum    = Integer.parseInt(boardNum);
