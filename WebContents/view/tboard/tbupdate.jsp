@@ -139,7 +139,8 @@
 	<td id="mainimage" rowspan="4">
 	<input type="file" id="mimage" name="mainimage" accept="image/*" />
 	<img id="mimg"  src="/uploadFiles/${ tboardVo.img1 }"></img></td>
-	<td id="input">제목<br><input type="text" name="title" placeholder="제목 입력" value="${ tboardVo.title }"/></td>
+	<td id="input"><p>NO:${ tboardVo.tbNum }</p>
+		제목<br><input type="text" name="title" placeholder="제목 입력" value="${ tboardVo.title }"/></td>
 	</tr>
 	<tr>
 	<td id="input">작성자<br><input type="text" value="${ LoginId }" disabled/></td>
