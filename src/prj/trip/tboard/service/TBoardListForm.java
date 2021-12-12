@@ -19,6 +19,10 @@ public class TBoardListForm implements Action {
 		
 		request.setCharacterEncoding("UTF-8");
 		String loginId  = (String) session.getAttribute("LoginId"); //세션과의 연결
+		//관리자 권한 확인
+		int uLevel = getMemLevel(loginId);
+		request.setAttribute("uLevel",uLevel);
+		//관리자여부를  확인하지 못하게 하기 위해 구분할만한 표시는 주지않는다.
 		int currentPage = 1; // 첫페이지를 보여줌
 		int dpp         = 10; // 기본 페이지당 자료수는 10
 		
