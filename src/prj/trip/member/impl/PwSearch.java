@@ -31,6 +31,7 @@ public class PwSearch implements Action {
 		String pw = dao.getPwSearch(name,year,month,day,gender,idd);
 		System.out.println("찾은 비밀번호"+pw);
 		
+		request.setAttribute("searchid", idd);
 		request.setAttribute("searchpw", pw);
 		
 		String path = "/view/common/PW_Search.jsp?pw=" + pw;
