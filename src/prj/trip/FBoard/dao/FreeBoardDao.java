@@ -623,6 +623,31 @@ public void InsertFBLike(String fbnum,String memnum) {
 	
 }
 
+public int InFBLike(String fbnum,String memnum) {
+	ResultSet rs = null;
+	String sql =" SELECT FBL_NUM, FBL_DATE, MEM_NUM, FB_NUM FROM FB_LIKE WHERE MEM_NUM = ? AND FB_NUM = ? ";
+	int a = 0;
+	DBConn db = new DBConn();
+	conn =  db.getConnection();
+	try {
+		pstmt = conn.prepareStatement(sql);
+		
+		pstmt.setString(1, memnum);
+		pstmt.setString(2, fbnum);
+		
+		rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			a = 1;
+			
+			System.out.println("추천수 제한");
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return a;
+}
+
 public int getTotalTB(){
 	ResultSet rs = null;
 	int count = 0;
