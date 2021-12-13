@@ -110,14 +110,14 @@
  					cnt=cnt+1;
  					}
  					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
- 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
- 					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
- 					tag+= '제목:'+tboard.title+'<br>';
- 					tag+= '작성자:'+ tboard.nickname +'<br>';
- 					tag+= '조회수:'+ tboard.readCnt  +'<br>';
- 					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
- 					tag+= '작성일:'+ tboard.wDate    +'</div>';
- 					tag+='</div>';
+					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
+					tag+= '<div id="listcont"><p>번호:'+ tboard.number +'</p>';
+					tag+= '<p><a id="url" href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">'+tboard.title+'</a></p>';
+					tag+= '<p>작성자:'+ tboard.nickname +'</p>';
+					tag+= '<p>조회수:'+ tboard.readCnt  +'</p>';
+					tag+= '<p>추천수:'+ tboard.likeCnt  +'</p>' ;
+					tag+= '<p>작성일:'+ tboard.wDate    +'</p></div>';
+					tag+='</div>';
          			  
          		  });
          		
@@ -165,16 +165,15 @@
  						
  					cnt=cnt+1;
  					}
- 					console.log('넘버:'+tboard.number);
  					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
- 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
- 					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
- 					tag+= '제목:'+tboard.title+'<br>';
- 					tag+= '작성자:'+ tboard.nickname +'<br>';
- 					tag+= '조회수:'+ tboard.readCnt  +'<br>';
- 					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
- 					tag+= '작성일:'+ tboard.wDate    +'</div>';
- 					tag+='</div>';
+					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
+					tag+= '<div id="listcont"><p>번호:'+ tboard.number +'</p>';
+					tag+= '<p><a id="url" href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">'+tboard.title+'</a></p>';
+					tag+= '<p>작성자:'+ tboard.nickname +'</p>';
+					tag+= '<p>조회수:'+ tboard.readCnt  +'</p>';
+					tag+= '<p>추천수:'+ tboard.likeCnt  +'</p>' ;
+					tag+= '<p>작성일:'+ tboard.wDate    +'</p></div>';
+					tag+='</div>';
          			  
          		  });
          		
@@ -219,12 +218,12 @@
 					}
 					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
-					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
-					tag+= '제목:'+tboard.title+'<br>';
-					tag+= '작성자:'+ tboard.nickname +'<br>';
-					tag+= '조회수:'+ tboard.readCnt  +'<br>';
-					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
-					tag+= '작성일:'+ tboard.wDate    +'</div>';
+					tag+= '<div id="listcont"><p>번호:'+ tboard.number +'</p>';
+					tag+= '<p><a id="url" href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">'+tboard.title+'</a></p>';
+					tag+= '<p>작성자:'+ tboard.nickname +'</p>';
+					tag+= '<p>조회수:'+ tboard.readCnt  +'</p>';
+					tag+= '<p>추천수:'+ tboard.likeCnt  +'</p>' ;
+					tag+= '<p>작성일:'+ tboard.wDate    +'</p></div>';
 					tag+='</div>';
         			  
         		  });
@@ -348,12 +347,12 @@ function sortAction(){
 					
 					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
-					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
-					tag+= '제목:'+tboard.title+'<br>';
-					tag+= '작성자:'+ tboard.nickname +'<br>';
-					tag+= '조회수:'+ tboard.readCnt  +'<br>';
-					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
-					tag+= '작성일:'+ tboard.wDate    +'</div>';
+					tag+= '<div id="listcont"><p>번호:'+ tboard.number +'</p>';
+					tag+= '<p><a id="url" href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">'+tboard.title+'</a></p>';
+					tag+= '<p>작성자:'+ tboard.nickname +'</p>';
+					tag+= '<p>조회수:'+ tboard.readCnt  +'</p>';
+					tag+= '<p>추천수:'+ tboard.likeCnt  +'</p>' ;
+					tag+= '<p>작성일:'+ tboard.wDate    +'</p></div>';
 					tag+='</div>';
       			  
       		  });
