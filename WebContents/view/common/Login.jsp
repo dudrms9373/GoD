@@ -36,7 +36,7 @@
  	<td colspan="3"><input type="submit" class="btn" value="로그인"></td>
  </tr>
  <tr>
- 	<td colspan="3" style="color: #a68f8e; padding: 20px 0px; ">----------- 계정 만들기 -----------</a></td>
+ 	<td colspan="3" style="color: #a68f8e; padding: 20px 0px; ">----------- 계정 만들기 -----------</td>
  </tr>
  <tr>
  	<td class="bottomText"> <a class="login_bottom" href="Create.jsp">회원가입</a></td>
