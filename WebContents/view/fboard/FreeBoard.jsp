@@ -119,9 +119,6 @@ tr:hover:not(.table_th) .list_title {
 	</div>
 
 	<section>
-			${ param.sort }
-			${ param.pagesize }
-
 		<div style="width: 65%; min-height: 1200px; margin-left: auto; margin-right: auto;">
 		
 			<div style="padding-top: 40px;">
