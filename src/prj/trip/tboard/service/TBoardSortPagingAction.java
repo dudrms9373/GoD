@@ -67,6 +67,7 @@ public class TBoardSortPagingAction implements Action {
 			jsonVo.put("img1", tBoardVo.getImg1());
 			jsonVo.put("readCnt", tBoardVo.getReadCnt());
 			jsonVo.put("likeCnt", tBoardVo.getLikeCnt());
+			jsonVo.put("number", tBoardVo.getNumber());
 			jarr.add(jsonVo);
 		}
 		tjson.put("tboard", jarr);
