@@ -8,7 +8,8 @@
 .login_bottom {text-decoration: none; color: #a68f8e;}
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인 화면</title>
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" sizes="16x16">
 </head>
 <body>
 <%@ include file="header.jsp" %>
