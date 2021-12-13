@@ -35,7 +35,7 @@ function enter() {
 </div>
 	
 	<!-- 제목 -->
-	<div class="mainTitle"><a href="/view/common/index.jsp"><img alt="" src="/img/logo.png" style="width: 120px; height: 52px;"> </a><small style=" display :block;    font-size:0.6rem;
+	<div class="mainTitle"><a href="/view/common/index.jsp"><img alt="" src="/img/logo2.png" style="width: 120px; height: 52px;"> </a><small style=" display :block;    font-size:0.6rem;
   line-height:1em;"></small></div>
 	
 	<!-- 메뉴 -->
