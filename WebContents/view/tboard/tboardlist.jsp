@@ -270,47 +270,10 @@ function sortAction(){
     if(${uLevel}>=900){
     	$('.tboardDelete').css('display','flex');
     }
-    // 로그인 아이디와 같은 게시물의 삭제 권한 발생
-    if('${LoginNick}'==$('#tbwriter1').val()){
-    	$('#tboardReport1').css('display','none');
-    	$('#tboardDelete1').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter2').val()){
-    	$('#tboardReport2').css('display','none');
-    	$('#tboardDelete2').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter3').val()){
-    	$('#tboardReport3').css('display','none');
-    	$('#tboardDelete3').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter4').val()){
-    	$('#tboardReport4').css('display','none');
-    	$('#tboardDelete4').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter5').val()){
-    	$('#tboardReport5').css('display','none');
-    	$('#tboardDelete5').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter6').val()){
-    	$('#tboardReport6').css('display','none');
-    	$('#tboardDelete6').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter7').val()){
-    	$('#tboardReport7').css('display','none');
-    	$('#tboardDelete7').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter8').val()){
-    	$('#tboardReport8').css('display','none');
-    	$('#tboardDelete8').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter9').val()){
-    	$('#tboardReport9').css('display','none');
-    	$('#tboardDelete9').css('display','flex');
-    }
-    if('${LoginNick}'==$('#tbwriter10').val()){
-    	$('#tboardReport10').css('display','none');
-    	$('#tboardDelete10').css('display','flex');
-    } // 아이디 확인 끝
+    
+  
+    
+    // 정렬 표시
     sortAction();
     
     //검색을 했을때
@@ -378,52 +341,52 @@ function sortAction(){
    //신고 버튼을 눌렀을 때 (1~10)
    $('#tboardReport1').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter1').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport2').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter2').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport3').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter3').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport4').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter4').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport5').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter5').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport6').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter6').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport7').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter7').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport8').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter8').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport9').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter9').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })
    $('#tboardReport10').on('click',function(){
 	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter10').val();
-	   loc    += '&reportId='+${LoginNick};
+	   loc    += '&reportId='+${LoginNick}
 	   window.open(loc, 200, 200);
    })//신고 끝
    
