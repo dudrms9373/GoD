@@ -40,7 +40,6 @@
     console.log("first : " + first);
     console.log("next : " + next);
     console.log("prev : " + prev);
-
     var $pingingView = $("#paging");
     
     var html = "";
@@ -133,7 +132,60 @@
         		
         	} // 검색 ajax 끝
         	else{
-        	
+        	if(${odNum}!=3){ // 정렬 페이징
+        		$.ajax({  // 게시판 목록 ajax
+         		   url:'/tboard?cmd=BOARDSORTPAGINGACTION',		
+         		   data:{ currentpage:$id,
+         		   dpp:dataPerPage,
+         		   odNum:${odNum},
+         		   aa: new Date() //304 방지용 dummy data
+         		   },
+         		   datatype:'json'
+         		}).done(function( json ){
+         		let tag='';
+         		  var totalData = json.total;    // 총 데이터 수 ${totalData}
+         		  var dataPerPage = json.dpp;    // 한 페이지에 나타낼 데이터 수 ${dpp}
+         		  
+         		  if(totalData<100){
+         			  var pageCount = Math.ceil(totalData/dataPerPage);  
+         		  } else{
+         		  var pageCount = 10;        // 한 화면에 나타낼 페이지 수
+         			  
+         		  }
+         		  
+         		  
+         		  var cnt=1;
+         		  json.tboard.forEach(function(tboard,index){
+         			 console.dir(tboard.title);
+ 					if(cnt==2){
+ 					tag+='<div id="boardbox2">';
+ 					
+ 					} else{
+ 					tag+='<div id="boardbox">';
+ 						
+ 					cnt=cnt+1;
+ 					}
+ 					console.log('넘버:'+tboard.number);
+ 					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
+ 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
+ 					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
+ 					tag+= '제목:'+tboard.title+'<br>';
+ 					tag+= '작성자:'+ tboard.nickname +'<br>';
+ 					tag+= '조회수:'+ tboard.readCnt  +'<br>';
+ 					tag+= '추천수:'+ tboard.likeCnt  +'<br>' ;
+ 					tag+= '작성일:'+ tboard.wDate    +'</div>';
+ 					tag+='</div>';
+         			  
+         		  });
+         		
+ 				
+ 				$('#tlist').html(tag);
+ 				
+ 			}).fail( function(xhr ){
+ 				alert(xhr.status+''+xhr.statusText);
+ 			 }) //ajax
+        	} 
+        	else{ // 일반 페이징
         	$.ajax({  // 게시판 목록 ajax
         		   url:'/tboard?cmd=BOARDPAGINGACTION',		
         		   data:{ currentpage:$id,
@@ -184,18 +236,85 @@
 				alert(xhr.status+''+xhr.statusText);
 			 }) //ajax
         	}
+        	}
         	} //다음과 이전 버튼이 아닌 경우  
     })  //페이징 클릭시
-        	
-       
+    
+    
     
                                        
 } //페이징 함수 끝
 
+function sortAction(){
+	//추천
+    if(${odNum}==1){
+    	$('#sortbar li:nth-of-type(1)').css('color','red');
+    	$('#sortbar li:nth-of-type(1)').css('font-weight','bold');
+    }
+    //조회
+    if(${odNum}==2){
+    	$('#sortbar li:nth-of-type(2)').css('color','red');
+    	$('#sortbar li:nth-of-type(2)').css('font-weight','bold');
+    }
+    //날짜(기본)
+    if(${odNum}==3){
+    	$('#sortbar li:nth-of-type(3)').css('color','red');
+    	$('#sortbar li:nth-of-type(3)').css('font-weight','bold');
+    }                            	   
+}
+   
+
   $(function() {    
 	  
     paging(totalData, dataPerPage, pageCount, 1 , 0 ,' ');
-   
+    //관리자는 모든 삭제 권한 가짐
+    if(${uLevel}>=900){
+    	$('.tboardDelete').css('display','flex');
+    }
+    // 로그인 아이디와 같은 게시물의 삭제 권한 발생
+    if('${LoginNick}'==$('#tbwriter1').val()){
+    	$('#tboardReport1').css('display','none');
+    	$('#tboardDelete1').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter2').val()){
+    	$('#tboardReport2').css('display','none');
+    	$('#tboardDelete2').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter3').val()){
+    	$('#tboardReport3').css('display','none');
+    	$('#tboardDelete3').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter4').val()){
+    	$('#tboardReport4').css('display','none');
+    	$('#tboardDelete4').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter5').val()){
+    	$('#tboardReport5').css('display','none');
+    	$('#tboardDelete5').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter6').val()){
+    	$('#tboardReport6').css('display','none');
+    	$('#tboardDelete6').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter7').val()){
+    	$('#tboardReport7').css('display','none');
+    	$('#tboardDelete7').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter8').val()){
+    	$('#tboardReport8').css('display','none');
+    	$('#tboardDelete8').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter9').val()){
+    	$('#tboardReport9').css('display','none');
+    	$('#tboardDelete9').css('display','flex');
+    }
+    if('${LoginNick}'==$('#tbwriter10').val()){
+    	$('#tboardReport10').css('display','none');
+    	$('#tboardDelete10').css('display','flex');
+    } // 아이디 확인 끝
+    sortAction();
+    
+    //검색을 했을때
     $('#searchok').on('click',function(){
     	console.log('success');
     	$.ajax({
@@ -226,6 +345,7 @@
 						
 					cnt=cnt+1;
 					}
+					
 					tag+='<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum='+tboard.tbNum+'">';
 					tag+='<img src="/uploadFiles/'+tboard.img1+'"></img></a></div>';
 					tag+= '<div id="listcont">번호:'+ tboard.number +'<br>';
@@ -247,24 +367,87 @@
     	})
  
    $('#keyword').on('keyup',function(e){
-
 	   if(e.keyCode==13){
 		   $('#searchok').click();
 	   }
-
 	});//엔터 키로 검색
     
+   //어디에 신고가 들어가도 이곳의 값이 바뀌면 신고완료를 의미
+	$('#reportComp').on('change',function(){
+		alert('신고되었습니다');
+	})
+   //신고 버튼을 눌렀을 때 (1~10)
+   $('#tboardReport1').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter1').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport2').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter2').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport3').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter3').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport4').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter4').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport5').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter5').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport6').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter6').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport7').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter7').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport8').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter8').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport9').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter9').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })
+   $('#tboardReport10').on('click',function(){
+	   let loc = '/view/common/report.jsp?reportedId='+$('#tbwriter10').val();
+	   loc    += '&reportId='+${LoginNick};
+	   window.open(loc, 200, 200);
+   })//신고 끝
+   
+	
+	
+		
+   
+   
   });
 </script>
 </head>
 <body id="listcontainer">
 	<%@include file = "/view/common/header.jsp" %>
+	<input type="hidden" id="reportComp"/>
 	<h2 id="tboardTitle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;여행지 추천</h2>
 	<div id="searchBox"><input id="keyword" type="text" name="keyword" /><button id="searchok">검색</button></div>
 	<a id="writeButton" href="/tboard?cmd=TBOARDWRITEFORM" >게시물 작성</a>
+	<ul id="sortbar">
+	<li><a id="likesort" onclick="sortAction()"  href="/tboard?cmd=TBOARDLISTSORT&odNum=1">추천순</a></li>
+	<li><a id="cntsort" href="/tboard?cmd=TBOARDLISTSORT&odNum=2">조회순</a></li>
+	<li><a id="datesort" href="/tboard?cmd=TBOARDLISTFORM">날짜순</a></li></ul>
 	<div id="tlist">
-	<a href="/tboard?cmd=TBOARDWRITEFORM?id=${ LoginId }"></a>
 	<c:set var="i" value="1"/>
 	<c:forEach var="boardVo" items="${ boardList }">
 	<c:if test="${i eq '1' }">
@@ -274,34 +457,40 @@
 	<div id="boardbox2">
 	</c:if>
 	<c:set var="i" value="2"/>
+	<c:set var="j" value="${ j+1 }"/>
 	<div id="imagebox"><a href="/tboard?cmd=READBOARDCONT&boardNum=${ boardVo.tbNum }">
 	<img src="/uploadFiles/${ boardVo.img1 }"></img></a></div>
+	<input type="hidden" id="tbwriter${ j }" value="${ boardVo.nickName }"/>
 	<div id="listcont">
-	번호:${ boardVo.number }<br>
-	제목:${ boardVo.title }<br>
-	작성자:${ boardVo.nickName }<br>
-	조회수:${ boardVo.readCnt }<br>
-	추천수:${ boardVo.likeCnt }<br>
-	작성일:${ boardVo.wDate }</div>
+	<a href="TBOARDDELETEACTION?tbNum=${ boardVo.tbNum }" id="tboardDelete${ j }" class="tboardDelete" >삭제</a>
+	<a href="#" class="tboardReport" id="tboardReport${ j }">신고</a>
+	<p>번호:${ boardVo.number }</p>
+	<p><a id="url" href="/tboard?cmd=READBOARDCONT&boardNum=${ boardVo.tbNum }">${ boardVo.title }</a></p>
+	<p>작성자:${ boardVo.nickName }</p>
+	<p>조회수:${ boardVo.readCnt }</p>
+	<p>추천수:${ boardVo.likeCnt }</p>
+	<p>작성일:${ boardVo.wDate }</p>
+	</div>
 	</div>
 	</c:forEach>
 	</div>
-	<!--<div id="tlist">
 	
-	  <div id="boardbox">
+	<%-- <div id="boardbox">
 	<div id="imagebox"><a href="#">
 	<img src="/uploadFiles/Desert.jpg"></img></a></div>
 	<div id="listcont">
-	No:1<br>
-	제목:아름다운 풍경을 찾아서<br>
-	작성자:<br>
-	조회수:<br>
-	추천수:<br>
-	작성일:
+	<a href="TBOARDDELETEACTION?tbNum=${ boardVo.tbNum }" class="tboardDelete">삭제</a>
+	<a href="" class="tboardReport" id="tboardReport">신고</a>
+	<p>No:1</p>
+	<p><a href="/tboard?cmd=READBOARDCONT">아름다운 풍경을 찾아서 떠나는 풍경여행</a></p>
+	<p>작성자:</p>
+	<p>조회수:</p>
+	<p>추천수:</p>
+	<p>작성일:</p>
 	</div>
-	</div>
+	</div> --%>
 	
-	</div>-->
+	
 	
 	<div id="paging"> </div>
 	<%@include file = "/view/common/footer.jsp" %>
