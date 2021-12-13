@@ -615,5 +615,29 @@ public class MemberDao {
 		
 	}
 	
+	public void PWUpdate(String id, String pw) {
+		DBConn db = new DBConn();
+		conn = db.getConnection();
+		String sql =" UPDATE MEMBER SET MEM_PWD = ? WHERE MEM_ID = ? ";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pw);
+			pstmt.setString(2, id);
+			
+			pstmt.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs    != null )  rs.close();
+				if(pstmt != null )  pstmt.close();
+				if(conn  != null )  conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	}
+	
 
 }
