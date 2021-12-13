@@ -28,11 +28,10 @@ public class FBLikeCnt implements Action{
 			FreeBoardDao fbdao = new FreeBoardDao();
 			String mnum = fbdao.getMemNumm(id);
 			int a = fbdao.InFBLike(fbnum, mnum);
-			if(a == 0) {
-				response.setContentType("text/html; charset=UTF-8"); 
-				PrintWriter writer = response.getWriter(); 
-				writer.println("<script>alert('추천수 제한'); </script>"); 
-				writer.close();
+			if(a == 1) {
+				
+				String path = "fboard?cmd=FBoardClick&fbnum=" + fbnum;
+				request.getRequestDispatcher(path).forward(request, response);
 			}else {
 				System.out.println(fbnum);
 				fbdao.InsertFBLike(fbnum, mnum);
