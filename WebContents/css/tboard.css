@@ -6,16 +6,16 @@
 #keyword     { width:70%; margin-right:10px; height:25px;}
 #searchok      { width:22%; height:30px;}
 
-#writeButton { float:right; margin-right: 18%; margin-top:100px; color:blue; text-decoration: underline; font-size:30px;}
+#writeButton { float:right; margin-right: 10%; margin-top:100px; color:blue; text-decoration: underline; font-size:30px;}
 #writeButton:hover { color:cyan; }
 #sortbar   { float:right; }
 #sortbar li {float:left; margin:0 20px 0; font-size:20px; color:gray;}
 #sortbar li:hover { font-weight: bold; color:black;}
 /* #sortbar li:nth-of-type(3){ color:red; font-weight: bold;} */
 #boardbox  { border-top:1px solid gray; border-bottom:1px solid gray; 
-			 text-align:left;  display:inline-block; width:1005px; height:400px; margin-top:5px; margin-left:30%;}
+			 text-align:left;  display:inline-block; width:1005px; height:400px; margin-top:5px; margin-left:25%;}
 #boardbox2  { border-top:1px solid gray; border-bottom:1px solid gray; 
-			 text-align:left;  display:inline-block; width:1005px; height:400px; margin-top:10px; margin-left:30%;}
+			 text-align:left;  display:inline-block; width:1005px; height:400px; margin-top:10px; margin-left:25%;}
 #imagebox {margin:0 auto; display: inline-block;   width:550px; height:400px; }
 #imagebox img{ width:550px; height:400px;}
 
@@ -95,11 +95,11 @@ td input  { font-size:20px; width:80%; height:30px;
 .cmt     { margin-left:18%; width:60%; height:40px; overflow: hidden;
 		   resize:none; }
 #cmtdelete, #reportc{ float:right; border: 1px solid black; border-collapse: collapse;
-											width:80px;}
+						margin-right:22%;				width:80px;}
 #reportc { margin:20px 23% 5px 0;}
 #cmtdelete { display:none; }
-.cmtNick {  margin:12px auto 0 18%; display:inline-block; font-size:20px;}
-.cmtDate {  margin:12px auto 0; display:inline-block; color:gray;}
+.cmtNick { float:left;  margin:20px auto 0 19%; display:inline-block; font-size:20px;}
+.cmtDate {  margin:13px auto 0 5px; display:inline-block; color:gray;}
 
 
 
