@@ -58,7 +58,7 @@ function enter() {
 <% }else{ %>
     <div id="b_div" class="login">
 		<input type="image" id="btn_search" alt="" src="/img/whitem2.png" >
-	<a href="/mboard?cmd=getMemInfo" id="info"><img alt="내정보"  style=" width: 30px;  src="/img/UserIcon.png"> &nbsp <b> ${ sessionScope.LoginNick }님 </b></a> &nbsp
+	<a class="a_home" href="/mboard?cmd=getMemInfo" id="info"><img alt="내정보"  src="/img/UserIcon.png"> &nbsp <b> ${ sessionScope.LoginNick }님 </b></a> &nbsp
 		&nbsp<button onClick="location.href='/mboard?cmd=LoginOut'">로그아웃</button>
 	</div> 
 <% } %>
