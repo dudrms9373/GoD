@@ -31,7 +31,7 @@ function report(){
 		</tr>
 		<tr>
 			<td>작성자</td>
-			<td>${nboardView.mem_nick }</td>
+			<td>${nb_nick}</td>
 		</tr>
 		<tr>
 			<td>조회수</td>
@@ -54,10 +54,10 @@ function report(){
 
 		<tr>
 			<td><a
-				href="/nboard?cmd=nboardUpdateForm&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}&nb_title=${nboardView.nb_title}&nb_cont=${nboardView.nb_cont}">수정</a>
+				href="/nboard?cmd=nboardUpdateForm&mem_nick=${nb_nick}&nb_num=${nboardView.nb_num}&nb_title=${nboardView.nb_title}&nb_cont=${nboardView.nb_cont}">수정</a>
 			</td>
 			<td><a
-				href="/nboard?cmd=nboardDelete&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}">삭제</a>
+				href="/nboard?cmd=nboardDelete&mem_nick=${nb_nick}&nb_num=${nboardView.nb_num}">삭제</a>
 			</td>
 
 		</tr>
