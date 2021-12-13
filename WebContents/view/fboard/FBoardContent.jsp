@@ -32,7 +32,7 @@ function openWin(fbcnum, fbnum){
 	var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100 ;
 	
 	var link = "/view/fboard/FBCUpdate.jsp?id="+ id+"&fbcnum="+fbcnum+"&fbnum="+fbnum ;
-    window.open( link, "네이버새창", "width=600, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
+    window.open( link, " ", "width=600, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
     openWin.document
 }
 function openWinTB(fbnum,title,cont){
@@ -44,7 +44,7 @@ function openWinTB(fbnum,title,cont){
 	var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100 ;
 	
 	var link = "/view/fboard/FBUpdate.jsp?id="+ id+"&fbnum="+fbnum+"&title="+title+"&cont="+cont ;
-    window.open( link, "네이버새창", "width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
+    window.open( link, " ", "width=600, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
     
     openWin.document
 }
