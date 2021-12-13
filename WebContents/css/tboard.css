@@ -31,7 +31,7 @@
 #listcont p:nth-of-type(1) {  margin:115px auto 0;  }
 #listcont p:nth-of-type(2) {  height:80px; text-decoration: underline;  }
 #listcont p:nth-of-type(2):hover {  height:80px; text-decoration: underline; color:blue; }
-
+#url  { float:left;  font-weight:bold;}
 
 /* 게시판 내 페이징  */
 #paging { display:inline-block; width:500px; background-color:cyan;
