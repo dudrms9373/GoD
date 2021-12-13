@@ -8,6 +8,7 @@
 </style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" sizes="16x16">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 function goPopup(){
