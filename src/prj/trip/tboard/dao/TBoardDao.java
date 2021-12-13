@@ -46,9 +46,7 @@ public class TBoardDao {
 				int    boardNum    = rs.getInt("TB_NUM");
 				String title       = rs.getString("TB_TITLE");
 				String allcont     = rs.getString("TB_CONT"); // %111%로 SPLIT 필요
-				String allcont2    = allcont.replace("\r\n","<br>");
-				String allcontF    = allcont2.replace(" ","&nbsp;");
-				String[] contbox   = allcontF.split("%111%");
+				String[] contbox   = allcont.split("%111%");
 				int    readCnt     = rs.getInt("TB_CNT");
 				String date        = rs.getString("TB_DATE");
 				String addr        = rs.getString("TB_ADDR");
@@ -61,6 +59,7 @@ public class TBoardDao {
 				String writer	   = rs.getString("MEM_NICK");
 				int    likeCnt	   = rs.getInt("LIKECNT");
 				int    cmtCnt      = rs.getInt("CMTCNT");
+				System.out.println("추천수:"+likeCnt);
 				System.out.println(img1+" "+img2+" "+img3+" "+img4);
 				if( img3 == null) {
 					img3 = "0";
@@ -114,11 +113,10 @@ public class TBoardDao {
 		ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
 		
 		String sql = "SELECT * ";
-		sql		  += " FROM (SELECT T.TBC_NUM, TBC_CONT, TBC_DATE, MEM_NICK , ";
+		sql		  += " FROM (SELECT TBC_NUM, TBC_CONT, TBC_DATE, MEM_NICK , ";
 		sql		  += " ROW_NUMBER() OVER (ORDER BY TBC_NUM DESC NULLS LAST) RN";
 		sql		  += " FROM   TB_COMMENT C JOIN TRIP_BOARD T ON C.TB_NUM = T.TB_NUM";
-		sql		  += " JOIN MEMBER M ON T.MEM_NUM = M.MEM_NUM";
-		sql		  += " WHERE C.MEM_NUM = M.MEM_NUM ";
+		sql		  += " JOIN MEMBER M ON C.MEM_NUM = M.MEM_NUM";
 		sql		  += " AND C.TB_NUM = ?)T";
 		sql	      += "	WHERE RN BETWEEN 1 + (10)*(?+?) AND 10 + (10)*(?+?)";
 		try {
@@ -506,12 +504,22 @@ public class TBoardDao {
 	//게시물 불러오기
 	public TBoardVo selectTBoard(int inBoardNum) {
 		TBoardVo board = new TBoardVo();
-		String sql = "";
+		String sql = "SELECT DISTINCT T.TB_NUM, TB_TITLE, TB_CONT, TB_CNT, TB_DATE, TB_ADDR, ";
+		sql		  += "  TB_IMG1, TB_IMG2, TB_IMG3, TB_IMG4, TB_VIDEO1, MEM_NICK, ";
+		sql		  += "  (SELECT COUNT(TB_NUM) FROM TB_LIKE WHERE TB_NUM=? ) LIKECNT";
+		sql		  += "  ,(SELECT COUNT(TB_NUM) FROM TB_COMMENT WHERE TB_NUM=?) CMTCNT";
+		sql		  += " FROM TRIP_BOARD T JOIN MEMBER M ON T.MEM_NUM = M.MEM_NUM";
+		sql		  += " LEFT JOIN TB_LIKE L ON T.TB_NUM = L.TB_NUM ";
+		sql		  += " LEFT JOIN TB_COMMENT C ON T.TB_NUM = C.TB_NUM";
+		sql		  += "  WHERE T.TB_NUM = ?";
+ 
 		try {
 			db    = new DBConn();
 			conn  = db.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, inBoardNum);
+			pstmt.setInt(2, inBoardNum);
+			pstmt.setInt(3, inBoardNum);
 			
 			rs    = pstmt.executeQuery();
 			
@@ -584,23 +592,24 @@ public class TBoardDao {
 	
 	
 	//댓글 삭제
-	public List<CommentVo> deleteCmt(int tbcNum, int currentPage, int dpp) {
+	public List<CommentVo> deleteCmt(int tbcNum, int tbNum , int currentPage, int dpp) {
 		ArrayList<CommentVo> cmtList = new ArrayList<CommentVo>();
 		
-		String sql = "{ CALL PKG_TRIPREQ.PROC_DELETECMT( ? , ?, ? , ? ) }";
+		String sql = "{ CALL PKG_TRIPREQ.PROC_DELETECMT( ? , ?, ? , ? , ?) }";
 		
 		try {
 			db    = new DBConn();
 			conn  = db.getConnection();
 			cstmt = conn.prepareCall(sql);
 			cstmt.setInt(1, tbcNum);
-			cstmt.setInt(2, currentPage-1);
-			cstmt.setInt(3, dpp);
-			cstmt.registerOutParameter(4, oracle.jdbc.OracleTypes.CURSOR);
+			cstmt.setInt(2, tbNum);
+			cstmt.setInt(3, currentPage-1);
+			cstmt.setInt(4, dpp);
+			cstmt.registerOutParameter(5, oracle.jdbc.OracleTypes.CURSOR);
 			
 			cstmt.execute();
 			OracleCallableStatement ocstmt = (OracleCallableStatement) cstmt;
-			rs = ocstmt.getCursor(4);
+			rs = ocstmt.getCursor(5);
 			while( rs.next() ){
 				CommentVo cVo = new CommentVo();
 				cVo.setCmtNum(rs.getInt("TBC_NUM"));
@@ -618,16 +627,18 @@ public class TBoardDao {
 	}
 	
 	// 게시물 입장 시 로그인한 아이디로 좋아요가 되어있는 지 확인
-	public int searchLikeRecord(int memNum){
+	public int searchLikeRecord(int memNum, int tbNum){
 		int record = 0; //0는 기록없음 1은 기록존재
 		String sql = " SELECT TBL_NUM";
 		sql		  += " FROM TB_LIKE";
 		sql		  += " WHERE MEM_NUM = ?";
+		sql		  += " AND TB_NUM = ? ";
 		try {
 			db     = new DBConn();
 			conn   = db.getConnection();
 			pstmt  = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNum);
+			pstmt.setInt(2, tbNum);
 			rs     = pstmt.executeQuery();
 			if( rs.next() ){
 				record = 1;
@@ -699,6 +710,56 @@ public class TBoardDao {
 		return boardList;
 	}
 
+	// 인덱스 목록 가져오기
+			public List<TBoardVo> getMainData() {
+				ArrayList<TBoardVo> boardList = new ArrayList<>();
+				String sql =  "SELECT *  ";
+				sql       +=  " FROM (SELECT TB.TB_NUM, TB_TITLE, TB_CNT, TB_DATE, TB_ADDR,";
+				sql		  +=  " TB_IMG1, MEM_NICK, COUNT(L.TB_NUM),";
+				sql	      +=  " ROW_NUMBER() OVER(ORDER BY TB.TB_NUM DESC NULLS LAST) RN";           
+				sql       +=  " FROM TRIP_BOARD TB JOIN MEMBER M ON TB.MEM_NUM = M.MEM_NUM";
+				sql       +=  " LEFT JOIN TB_LIKE L ON TB.TB_NUM = L.TB_NUM";
+				sql		  +=  " GROUP BY TB.TB_NUM, TB_TITLE, TB_CNT, TB_DATE, TB_ADDR, TB_IMG1,  MEM_NICK) T";
+				sql	      +=  "	WHERE RN BETWEEN 1 AND 5";
+				
+				try {
+					db     = new DBConn();
+					conn   = db.getConnection();
+					pstmt  = conn.prepareStatement(sql);
+					rs     = pstmt.executeQuery();
+					// 작성자 추천수, 메인 이미지
+					while( rs.next() ){
+						int    tb_num   = rs.getInt(1);    //테이블 번호 
+						String tb_title = rs.getString(2); //테이블 제목
+						int    tb_cnt   = rs.getInt(3);    // 조회수
+						String tb_date  = rs.getString(4); // 작성일
+						String tb_addr  = rs.getString(5); // 관광지 주소
+						String mainImg  = rs.getString(6); // 메인이미지
+						String nickname = rs.getString(7); // 작성자
+						int    likeCnt  = rs.getInt(8);    // 추천수
+						int    number   = rs.getInt(9);	   // 검색순대로 번호 붙이기 
+						
+						TBoardVo tVo = new TBoardVo();
+						tVo.setTbNum(tb_num);
+						tVo.setTitle(tb_title);
+						tVo.setReadCnt(tb_cnt);
+						tVo.setwDate(tb_date);
+						tVo.setAddr(tb_addr);
+						tVo.setImg1(mainImg);
+						tVo.setNickName(nickname);
+						tVo.setLikeCnt(likeCnt);
+						tVo.setNumber(number);
+						boardList.add(tVo);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close();
+				}
+				
+				return boardList;
+			}
+	
 	
 	
 	//DB CLOSE
