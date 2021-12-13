@@ -191,8 +191,8 @@ public class NBoardDao {
 			cstmt = conn.prepareCall(sql);
 
 			cstmt.setInt(1, nboardNum);
-			cstmt.setString(2, cont);
-			cstmt.setString(3, title);
+			cstmt.setString(2, title);
+			cstmt.setString(3, cont);
 
 			cstmt.execute();
 
