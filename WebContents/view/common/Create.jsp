@@ -224,7 +224,7 @@ window.onload = function() {
 	
 	<tr>
 	<td>이름  </td>
-		<td colspan="2"><input type="text" name="name" id="name" placeholder="이름" required ></td>
+		<td colspan="2"><input type="text" name="name" id="name" placeholder="이름" oninput="this.value = this.value.replace(/[^(ㄱ-힣a-zA-Z)]/gi, '').replace(/(\..*)\./g, '$1');" required ></td>
 	</tr>
 	
 	<tr>
