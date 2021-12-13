@@ -78,6 +78,20 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 		
 	}
 	
+	function valiFormEmail(obj){
+		if(validEmail(obj) == false){
+		alert("올바른 이메일 주소를 입력하세요.");
+		obj.value = '';
+		obj.focus();
+		return false;
+		}
+		}
+
+	
+	function validEmail(obj){
+		var pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		return (obj.value.match(pattern) != null);
+		}
 
       function check() {
 		 
@@ -247,7 +261,7 @@ window.onload = function() {
 	
 	<tr>
 	<td>이메일  </td>
-		<td colspan="2"><input type="text" name="email" placeholder="이메일" required></td>
+		<td colspan="2"><input type="text" name="email" placeholder="이메일" id="email" value="" onchange="valiFormEmail(this)" required></td>
 	</tr>
 	
 	<tr>
