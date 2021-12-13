@@ -27,10 +27,10 @@
  
  
  <tr>
- 	<td colspan="3" class="idForm"> <input type="text" class="id" name="id" placeholder="ID"> </td>
+ 	<td colspan="3" class="idForm"> <input type="text" class="id" name="id" placeholder="ID" required> </td>
  </tr>
  <tr>
- 	<td colspan="3" class="pwdForm"><input type="password" class="pw" name="pwd" placeholder="PW"></td>
+ 	<td colspan="3" class="pwdForm"><input type="password" class="pw" name="pwd" placeholder="PW" required></td>
  </tr>
  <tr>
  	<td colspan="3"><input type="submit" class="btn" value="로그인"></td>

@@ -64,6 +64,18 @@ for (var i = 1; i < c+1; i++) {
 }
   $('#day').html(html);
 }	
+
+function openPw( id ){
+	var popupWidth = 600;
+	var popupHeight = 300;
+
+	var popupX = (window.screen.width / 2) - (popupWidth / 2);
+	var popupY= (window.screen.height / 2) - (popupHeight / 2) - 100 ;
+	
+	var link = "/view/common/PW_Update.jsp?id="+ id ;
+    window.open( link, " ", "width=600, height=300, toolbar=no, menubar=no, scrollbars=no, resizable=yes, left="+popupX+",top="+popupY );
+    openWin.document
+}
 </script>
 </head>
 <body>
@@ -106,7 +118,7 @@ for (var i = 1; i < c+1; i++) {
 	       </select> 월
 	     
 	       
-	<select name="day" id="day">
+	<select name="day" id="day" required>
 	
 	
 	       </select> 일</td>
@@ -121,18 +133,18 @@ for (var i = 1; i < c+1; i++) {
  
      
   </table>
-  <div style="margin-top: 30px; ">
+    </form>
+  <div style="margin-top: 30px; " class="loginForm"  >
   	<c:if test="${ requestScope.searchpw ne null }">
   	찾은 비밀번호 :  ${ requestScope.searchpw } <br>
   	<c:if test="${ requestScope.searchpw ne '아이디 없음' }">
-  	<button style="margin-top: 10px; ">비밀번호수정하기</button>  
+  	<button style="margin-top: 10px; " onclick="openPw('${ requestScope.searchid }')" >비밀번호수정하기</button>  
   	</c:if>
   	<div style="margin-top: 20px; ">
   	<button type="button" onclick="location.href='/view/common/Login.jsp'" >로그인 화면</button>
-  	<button type="button" onclick="location.href='/view/common/ID_Search.jsp'"  >아이디 찾기</button>
+  	<button type="button" onclick="location.href='/view/common/ID_Search.jsp'" >아이디 찾기</button>
   	</div>
   	</c:if>
   </div>
-    </form>
 </body>
 </html>
