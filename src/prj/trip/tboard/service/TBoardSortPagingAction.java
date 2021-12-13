@@ -7,10 +7,12 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import prj.trip.member.dao.MemberDao;
 import prj.trip.tboard.dao.TBoardDao;
 import prj.trip.tboard.vo.TBoardVo;
 
@@ -29,8 +31,17 @@ public class TBoardSortPagingAction implements Action {
 		String sodNum   = request.getParameter("odNum");
 		int    odNum    = Integer.parseInt(sodNum);
 		request.setAttribute("odNum", odNum);
-		//pageCount를 받아서 이용하고 보낼지는 고민 중
+		HttpSession session = request.getSession();
 		
+		String    loginId   = (String) session.getAttribute("LoginId");
+		MemberDao mDao = new MemberDao();
+		//관리자 권한 확인
+		int uLevel = mDao.getMemLevel(loginId);
+		request.setAttribute("uLevel",uLevel);
+		//관리자여부를  확인하지 못하게 하기 위해 구분할만한 표시는 주지않는다.
+		//pageCount를 받아서 이용하고 보낼지는 고민 중
+		int searchNum   = 0;
+		request.setAttribute("searchNum", searchNum);
 		TBoardDao dao = new TBoardDao();
 		int totald = dao.getDataCount(); //총 자료수
 		List<TBoardVo> boardList = dao.getPagingSortData(currentPage,dpp-10,odNum);
@@ -45,6 +56,7 @@ public class TBoardSortPagingAction implements Action {
 		JSONObject tjson = new JSONObject();
 		tjson.put("total", totald);
 		tjson.put("dpp", dpp);
+		tjson.put("searchNum", searchNum);
 		for (TBoardVo tBoardVo : boardList) {
 			JSONObject jsonVo = new JSONObject();
 			jsonVo.put("tbNum", tBoardVo.getTbNum());
