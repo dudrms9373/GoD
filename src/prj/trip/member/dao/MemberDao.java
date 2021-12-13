@@ -69,8 +69,8 @@ public class MemberDao {
 			String sql = "INSERT INTO MEMBER  VALUES ( (SELECT NVL( MAX(MEM_num),0 )+1 FROM MEMBER) ,?,?,?,?,?,?,?,?,?,?) ";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, vo.getMem_name());
-			pstmt.setInt(2, userlevel);
+			pstmt.setInt(1, userlevel);
+			pstmt.setString(2, vo.getMem_name());
 			pstmt.setString(3, vo.getMem_id());
 			pstmt.setString(4, vo.getMem_pwd());
 			pstmt.setString(5, gender);
