@@ -7,7 +7,8 @@
 <style>
 </style>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>G.O.D</title>
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" sizes="16x16">
 </head>
 <script>
 	window.onload = function () {
