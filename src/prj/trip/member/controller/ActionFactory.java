@@ -8,6 +8,7 @@ import prj.trip.member.impl.InsertUser;
 import prj.trip.member.impl.Login;
 import prj.trip.member.impl.LoginOut;
 import prj.trip.member.impl.PwSearch;
+import prj.trip.member.impl.PwUpdate;
 import prj.trip.member.impl.getMemInfo;
 
 public class ActionFactory {
@@ -36,6 +37,9 @@ public class ActionFactory {
 			break;
 		case "PwSearch":
 			action = new PwSearch();
+			break;
+		case "PwUpdate":
+			action = new PwUpdate();
 			break;
 				
 		default: break;
