@@ -122,7 +122,7 @@ for (var i = 1; i < c+1; i++) {
   	찾은 아이디 :  ${ requestScope.searchid } 
   	<div style="margin-top: 30px; ">
   	<button type="button" onclick="location.href='/view/common/Login.jsp'" >로그인 화면</button>
-  	<button type="button"   >비밀번호찾기</button>
+  	<button type="button" onclick="location.href='/view/common/PW_Search.jsp'"  >비밀번호찾기</button>
   	</div>
   	</c:if>
   </div>
