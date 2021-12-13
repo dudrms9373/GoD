@@ -371,7 +371,7 @@
 		//게시물 신고
 		$('#reportb').on('click',function(){
 			let loc = '/view/common/report.jsp?reportedId='+${ tboardVo.nickName };
-			loc    += '&reportId='+${LoginNick};
+			loc    += '&reportId='+${LoginNick}
 			window.open(loc,200,200);
 			
 			//신고자(LoginId)와 피신고자의 아이디를 인자로 보내야 함.
@@ -380,52 +380,52 @@
 		//댓글 신고(1~10)(안되면....전부  onclick으로 바꾸고 function설정하는 수밖에)
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick1').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick2').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick3').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick4').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick5').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick6').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick7').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick8').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick9').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//끝
 		$('.reportc').on('click',function(){			
 			let loc = '/view/common/report.jsp?reportedId='+$('#cmtNick10').text();
-			loc    += '&reportId='+'${LoginNick}';
+			loc    += '&reportId='+'${LoginNick}'
 			window.open(loc,200,200);
 		})//1~10까지의 신고 이벤트
 		
