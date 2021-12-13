@@ -198,7 +198,7 @@ window.onload = function() {
 </div>
 
 <h2 class ="jointitle">회원가입</h2>
-<div id="id_check_text"></div>
+<div  style="text-align: center;"  id="id_check_text"></div>
 
 <form name="reg_input" action="/mboard?cmd=insert" method="post" class="CreateForm" onsubmit="return check()" >
 	<table class="jointable">
