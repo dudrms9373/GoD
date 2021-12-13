@@ -7,7 +7,8 @@
 
 <script>
 function enter() {
-    alert("엔터 입력 감지");
+    var search = $('#input_search').val();
+    location.href="fboard?cmd=FBoardSearch&keyword=1&searchKeyword=" + search+"&searchCondition=Title";
 }
 	window.onload = function () {
 		$('#info').click( function() {
