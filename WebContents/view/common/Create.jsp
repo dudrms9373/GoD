@@ -295,8 +295,8 @@ window.onload = function() {
 		<option>019</option>
 </select>
 
-	- <input type="text" name="tel2" size="4" required>
-	- <input type="text" name="tel3" size="4" required> </td>
+	- <input type="text" name="tel2" size="4" maxlength='4' oninput="this.value = this.value.replace(/[^(0-9)]/gi, '').replace(/(\..*)\./g, '');"  required>
+	- <input type="text" name="tel3" size="4" maxlength='4' oninput="this.value = this.value.replace(/[^(0-9)]/gi, '').replace(/(\..*)\./g, '');"  required> </td>
 	</tr>
 	
 	<tr>
