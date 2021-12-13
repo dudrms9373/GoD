@@ -20,19 +20,19 @@
 				<caption>공지사항</caption>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="nb_title"
-						value="${nbUpdate.nb_title}" /></td>
+					<td><input type="text" name="nb_title" id="nb_title" value="${nbUpdate.nb_title}"/></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
 					<td>${nbUpdate.mem_nick}</td>
 				</tr>
 				<tr>
-					<td colspan="2" ><textarea name="nb_cont">${nbUpdate.nb_cont}</textarea></td>
+					<td colspan="2" ><textarea name="nb_cont" id="nb_cont">${nbUpdate.nb_cont}</textarea></td>
 				</tr>
 				<tr>
-					<td><a
-						href="/nboard?cmd=nboardUpdateForm&mem_nick=${nboardView.mem_nick}&nb_num=${nboardView.nb_num}&nb_title=${nboardView.nb_title}&nb_cont=${nboardView.nb_cont}">수정</a>
+				
+					<td>
+					<input type="submit" value="수정"/>
 					</td>
 					<td><a href="/nboard?cmd=nboardList">취소</a></td>
 				</tr>
