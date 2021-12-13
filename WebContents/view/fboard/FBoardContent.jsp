@@ -79,7 +79,7 @@ function openWinTB(fbnum,title,cont){
 		</tr>
 		<tr>
 			<td align="center"><input type="submit" value="수정" class="button" onclick="openWinTB( '${param.fbnum}','${ title }','${ cont }')"></td>
-			<td ><input type="button" value="게시판으로 이동" onclick="location.href='fboard?cmd=FreeBoard&id=${ LoginId }?pagenum=1'"></td>
+			<td ><input type="button" value="게시판으로 이동" onclick="location.href='/fboard?cmd=FreeBoard&pagenum=1&sort=&pagesize=10개'"></td>
 			<td>
 			<c:if test="${ sessionScope.LoginNick ne requestScope.nick }">
 			<input type="button" value="추천하기" onclick="move();">
